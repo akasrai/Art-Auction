@@ -1,0 +1,27 @@
+Requirements
+   - composer  
+   - MySQL
+   - PHP 7
+   - Apache 
+
+1) Clone Project
+   Create database
+   setup .env file
+
+2) composer install
+   if error with laravel/framework
+      sudo apt-get install php-mbstring 
+   if error with phpunit/manifestk
+      sudo apt-get install php-xml
+
+3) npm install
+
+4) php artisan migrate
+   if error with could not find driver
+   - sudo apt-get install php-mysql
+
+If error use Illuminate\Support\facades\schema; not found
+
+in AppServiceProvider.php do following
+// use Illuminate\Support\facades\schema;
+use Schema;

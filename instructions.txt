@@ -1,0 +1,38 @@
+Requirements
+   - composer  
+   - MySQL
+   - PHP 7
+   - Apache 
+
+1) Clone Project
+   Create database
+   setup .env file
+
+2) composer install
+   (in Linux) if error with laravel/framework 
+      sudo apt-get install php-mbstring 
+   (in Linux) if error with phpunit/manifestk
+      sudo apt-get install php-xml
+
+3) npm install
+
+4) php artisan migrate:refresh --seed
+   (in Linux) if error with could not find driver
+   - sudo apt-get install php-mysql
+
+   If error: use Illuminate\Support\facades\schema; not found
+   in AppServiceProvider.php do following
+   // use Illuminate\Support\facades\schema;
+   use Schema;
+
+5) php artisan serve
+   You will see following in terminal
+   Laravel development server started: <http://127.0.0.1:8000> 
+   browse http://127.0.0.1:8000 and register end user
+   navigate to http://127.0.0.1:8000/admin and login with:
+      {
+         email    : akash1@gmail.com
+         password : secret 
+      }
+      to access admin panel as Superadmin
+

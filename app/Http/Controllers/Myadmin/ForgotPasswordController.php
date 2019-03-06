@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Myadmin;
 
+use Password;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Password;
 
 class ForgotPasswordController extends Controller
 {
@@ -32,8 +32,8 @@ class ForgotPasswordController extends Controller
     }
 
     //matches in admins table to search the requested email
-    protected function broker(){
-
+    protected function broker()
+    {
         return Password::broker('admins');
     }
     /**

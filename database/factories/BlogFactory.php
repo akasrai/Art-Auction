@@ -2,13 +2,12 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Blog::class, function (Faker $faker) {
-    
+$factory->define(App\Models\Blog::class, function (Faker $faker) {
     return [
         'title'         => $faker->text(50),
         'body'          => $faker->text(250),
         'slug'          => 'slug-'.str_random(10),
-        'auther_id'     => 1,        
+        'auther_id'     => 1,
         'title'         => $faker->text(50),
         'body'          => $faker->text(250),
         'excerpt'       => $faker->text(30),

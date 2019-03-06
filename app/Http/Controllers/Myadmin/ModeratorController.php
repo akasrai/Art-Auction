@@ -15,7 +15,7 @@ class ModeratorController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin'); // for admin authentication
-        $this->middleware('moderator',['except'=>'test']); //for role access and the function mentioned in except do not obey the moderator middleware
+        $this->middleware('moderator', ['except'=>'test']); //for role access and the function mentioned in except do not obey the moderator middleware
     }
 
     /**
@@ -29,8 +29,8 @@ class ModeratorController extends Controller
     }
 
 
-    public function test(){
-
+    public function test()
+    {
         return view('myadmin.test');
     }
     /**

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Myadmin;
 
+use Auth;
+use Password;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-//manual import
-use Illuminate\Http\Request;
-use Password;
-use Auth;
 
 class ResetPasswordController extends Controller
 {
@@ -41,13 +40,13 @@ class ResetPasswordController extends Controller
         $this->middleware('guest:admin');
     }
 
-    protected function guard(){
-        
+    protected function guard()
+    {
         return Auth::guard('admin');
     }
 
-    protected function broker(){
-
+    protected function broker()
+    {
         return Password::broker('admins');
     }
 

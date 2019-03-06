@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Myadmin;
 
 use DB;
-use App\Admin;
-use App\Role;
-use App\Role_admin;
+use App\Models\Role;
+use App\Models\Admin;
+use App\Models\RoleAdmin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,7 +23,8 @@ class SuperadminController extends Controller
         $this->middleware('superadmins'); //for role access
     }
 
-    public function userlist(){
+    public function userlist()
+    {
 
        // $users = Admin::orderBy('created_at','desc')->paginate(10);
        
@@ -32,11 +33,11 @@ class SuperadminController extends Controller
                 ->join('roles', 'roles.id', '=', 'role_admins.role_id')
                 //->where('follows.follower_id', '=', 3)
                 ->select('admins.*', 'roles.name')
-                ->orderBy('admins.created_at','desc')->paginate(10);
-                //->get();
+                ->orderBy('admins.created_at', 'desc')->paginate(10);
+        //->get();
         
         
-        return view('myadmin/userlist')->with('users',$users);
+        return view('myadmin/userlist')->with('users', $users);
     }
 
    
@@ -58,7 +59,7 @@ class SuperadminController extends Controller
      */
     public function singleArticle($id)
     {
-        return view('myadmin/single-article')->with('id',$id);
+        return view('myadmin/single-article')->with('id', $id);
     }
 
 

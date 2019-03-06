@@ -44,29 +44,22 @@ class LoginController extends Controller
     protected function sendLoginResponse(Request $request)
     {
         $request->session()->regenerate();
+        $redirectUrl = "/admin/dashboard";
 
         // checking users type here in loop
-        foreach(Auth::guard('admin')->user()->role as $roles){
-
-            if($roles->name == 'Superadmin'){
-
-                $this->redirectTo = '/admin/superadmin-dashboard';
-                return redirect('/admin/superadmin-dashboard');
-
-            }else if($roles->name == 'Admin'){
-
-                $this->redirectTo = '/admin/admin-dashboard';
-               return redirect('admin/admin-dashboard');
-
-            }else if($roles->name == 'Editor'){
-
-                $this->redirectTo = '/admin/editor-dashboard';
-                return redirect('/admin/editor-dashboard');
-
-            }else if($roles->name == 'Moderator'){
-
-                $this->redirectTo = '/admin/moderator-dashboard';
-                return redirect('/admin/moderator-dashboard');
+        foreach (Auth::guard('admin')->user()->role as $roles) {
+            if ($roles->name == 'Superadmin') {
+                $this->redirectTo = $redirectUrl;
+                return redirect($redirectUrl);
+            } elseif ($roles->name == 'Admin') {
+                $this->redirectTo = $redirectUrl;
+                return redirect($redirectUrl);
+            } elseif ($roles->name == 'Editor') {
+                $this->redirectTo = $redirectUrl;
+                return redirect($redirectUrl);
+            } elseif ($roles->name == 'Moderator') {
+                $this->redirectTo = $redirectUrl;
+                return redirect($redirectUrl);
             }
         }
     }
@@ -94,7 +87,6 @@ class LoginController extends Controller
     // function copied from Illuminate\Foundation\Auth\AuthenticatesUsers to logout admin guard
     public function logout()
     {
-        
         Auth::guard('admin')->logout();
         return redirect('/admin');
     }

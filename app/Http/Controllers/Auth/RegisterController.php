@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use Mail;
 use Session;
+use App\Models\User;
 use App\Mail\verifyEmail;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /* 
+    /*
     |--------------------------------------------------------------------------
     | Register Controller
     |--------------------------------------------------------------------------
@@ -69,16 +69,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-        Session::flash('status','Registered Successfully! now verify your email to activate your account.');
+        Session::flash('status', 'Registered Successfully! now verify your email to activate your account.');
 
         $user = User::create([
             'fname' => $data['fname'],
             'lname' => $data['lname'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'verify_token' => Str::random(40)  //generating default token
-            //
+            'verify_token' => Str::random(40)
         ]);
 
         // sending email link to verify a/c
@@ -88,31 +86,28 @@ class RegisterController extends Controller
         return $user;
     }
 
-    public function veryEmailFirst(){
-
+    public function veryEmailFirst()
+    {
         return view('email.verifyEmailFirst');
     }
 
     // to send email verification
-    public function sendEmail($thisUser){
-
+    public function sendEmail($thisUser)
+    {
         Mail::to($thisUser['email'])->send(new verifyEmail($thisUser));
     }
 
-    public function sendEmailDone($email, $verifyToken){
-
+    public function sendEmailDone($email, $verifyToken)
+    {
         $user = User::where(['email'=>$email,'verify_token' => $verifyToken])->first();
-        if($user){
-            $verified = user::where(['email'=>$email,'verify_token' => $verifyToken])->update(['status' => '1', 'verify_token' => NULL]);
-            if($verified){
-
-                return redirect('/home')->with('status','Your account is verified.');   
+        if ($user) {
+            $verified = user::where(['email'=>$email,'verify_token' => $verifyToken])->update(['status' => '1', 'verify_token' => null]);
+            if ($verified) {
+                return redirect('/home')->with('status', 'Your account is verified.');
             }
-           
-
-        }else{
+        } else {
             //the flash message always go only in redirected path
-            return redirect('/login')->with('status','Token already used.');
+            return redirect('/login')->with('status', 'Token already used.');
         }
     }
 }

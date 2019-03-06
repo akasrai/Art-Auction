@@ -1,73 +1,54 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-// for admin routes
-// Route::prefix('admin')->group(function(){
+Route::post('users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+Route::get('admin/logout', 'Myadmin\LoginController@logout')->name('admin.logout');
 
-// 	// login logout register and dashboard routes
-// 	Route::get('/home','AdminController@index');
+Route::GET('admin', 'Myadmin\LoginController@showLoginForm')->name('admin.login');
+Route::POST('admin', 'Myadmin\LoginController@login');
 
-// 	Route::get('/login', 'Myadmin\LoginController@showLoginForm')->name('admin.login');
-// 	Route::post('/login', 'Myadmin\LoginController@login')->name('admin.login.submit');
-// });
+Route::POST('admin/password/email', 'Myadmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 
-Route::post('users/logout','Auth\LoginController@userLogout')->name('user.logout');
-Route::get('admin/logout','Myadmin\LoginController@logout')->name('admin.logout');
+Route::GET('admin/password/reset', 'Myadmin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 
+Route::POST('admin/password/reset', 'Myadmin\ResetPasswordController@reset');
 
-Route::GET('admin','Myadmin\LoginController@showLoginForm')->name('admin.login');
-Route::POST('admin','Myadmin\LoginController@login');
+Route::GET('admin/password/reset/{token}', 'Myadmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
 
-Route::POST('admin/password/email','Myadmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::GET('admin/register', 'Myadmin\RegisterController@showRegistrationForm')->name('admin.register');
+Route::POST('admin/register', 'Myadmin\RegisterController@register')->name('admin.register.submit');
 
-Route::GET('admin/password/reset','Myadmin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::GET('admin/userlist', 'Myadmin\SuperadminController@userlist')->name('admin.userlist');
+Route::GET('admin/userlist/json', 'Myadmin\SuperadminController@userlistJson');
 
-Route::POST('admin/password/reset','Myadmin\ResetPasswordController@reset');
-
-Route::GET('admin/password/reset/{token}','Myadmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
-
-Route::GET('admin/register','Myadmin\RegisterController@showRegistrationForm')->name('admin.register');
-Route::POST('admin/register','Myadmin\RegisterController@register')->name('admin.register.submit');
-
-Route::GET('admin/userlist','Myadmin\SuperadminController@userlist')->name('admin.userlist');
-Route::GET('admin/userlist/json','Myadmin\SuperadminController@userlistJson');
-
-
-
-//superadmin admin editor moderator routes
-Route::GET('admin/superadmin-dashboard','Myadmin\SuperadminController@index');
-Route::GET('admin/admin-dashboard','Myadmin\AdminController@index');
-Route::GET('admin/editor-dashboard','Myadmin\EditorController@index');
-Route::GET('admin/moderator-dashboard','Myadmin\ModeratorController@index');
-
-Route::GET('admin/test','Myadmin\ModeratorController@test');
+//Test route
+Route::GET('admin/test', 'Myadmin\ModeratorController@test');
 
 //user verification
-Route::get('verify-email-first','Auth\RegisterController@veryEmailFirst')->name('verifyEmailFirst');
+Route::get('verify-email-first', 'Auth\RegisterController@veryEmailFirst')->name('verifyEmailFirst');
 
-Route::get('verify/{email}/{verifyToken}','Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
+Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
 
 //for article
-Route::get('admin/article/{id}','Myadmin\SuperadminController@singleArticle');
+Route::get('admin/article/{id}', 'Myadmin\SuperadminController@singleArticle');
 
 //blog controller
+Route::resource('/admin/blog', 'Myadmin\BlogController');
 
-Route::resource('/admin/blog','Myadmin\BlogController');
+//superadmin admin editor moderator routes
+ Route::prefix('admin')->group(function () {
+     Route::GET('/dashboard', 'Myadmin\DashboardController@index');
+     Route::GET('/category/create', 'Myadmin\CategoryController@index');
+     Route::POST('/category/create', 'Myadmin\CategoryController@create')->name('admin.category.submit');
+     Route::GET('/product/create', 'Myadmin\ProductController@index');
+     Route::GET('/products', 'Myadmin\ProductController@create');
+ });
+
+ //Setting locale
+ Route::get('welcome/{locale}', function ($locale) {
+     App::setLocale($locale);
+ });

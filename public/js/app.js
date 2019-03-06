@@ -43277,7 +43277,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\Articles.vue"
+Component.options.__file = "resources/assets/js/components/Articles.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -43286,9 +43286,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4398db98", Component.options)
+    hotAPI.createRecord("data-v-59e03618", Component.options)
   } else {
-    hotAPI.reload("data-v-4398db98", Component.options)
+    hotAPI.reload("data-v-59e03618", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -43660,7 +43660,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4398db98", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-59e03618", module.exports)
   }
 }
 
@@ -43683,7 +43683,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6319b834"
+var __vue_scopeId__ = "data-v-04f472b4"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -43694,7 +43694,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\slugWidget.vue"
+Component.options.__file = "resources/assets/js/components/slugWidget.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -43703,9 +43703,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6319b834", Component.options)
+    hotAPI.createRecord("data-v-04f472b4", Component.options)
   } else {
-    hotAPI.reload("data-v-6319b834", Component.options)
+    hotAPI.reload("data-v-04f472b4", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -43726,13 +43726,13 @@ var content = __webpack_require__(46);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(48)("2f60d024", content, false, {});
+var update = __webpack_require__(48)("c6608f6a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6319b834\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./slugWidget.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6319b834\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./slugWidget.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-04f472b4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./slugWidget.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-04f472b4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./slugWidget.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -43750,7 +43750,7 @@ exports = module.exports = __webpack_require__(47)(false);
 
 
 // module
-exports.push([module.i, "\n.slug-widget[data-v-6319b834]{\n    display:-webkit-box;\n    display:-ms-flexbox;\n    display:flex;\n    -webkit-box-pack:start;\n        -ms-flex-pack:start;\n            justify-content:flex-start;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n.wrapper[data-v-6319b834]{\n    margin-left: 8px;\n}\n.slug[data-v-6319b834]{\n    background-color: #fdfd96;\n    padding: 3px 5px;\n}\n.url-wrapper[data-v-6319b834]{\n    height:30px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n", ""]);
+exports.push([module.i, "\n/* .slug-widget {\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n\n.wrapper {\n  margin-left: 8px;\n}\n\n.slug {\n  background-color: #fdfd96;\n  padding: 3px 5px;\n}\n.url-wrapper {\n  height: 30px;\n  display: flex;\n  align-items: center;\n} */\n", ""]);
 
 // exports
 
@@ -44147,9 +44147,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
   props: {
     url: {
       type: String,
@@ -44166,39 +44183,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      slug: this.setSlug(this.title),
+      slug: this.setSlug(this.title, this.$root.controller),
       isEditing: false,
-      customSlug: '',
+      customSlug: "",
       wasEdited: false,
-      api_token: this.$root.api_token
+      api_token: this.$root.api_token,
+      controller: this.$root.controller
     };
   },
   methods: {
     editSlug: function editSlug() {
       this.customSlug = this.slug;
-      this.$emit('edit', this.slug);
+      this.$emit("edit", this.slug);
       this.isEditing = true;
     },
     saveSlug: function saveSlug() {
       if (this.customSlug !== this.slug) this.wasEdited = true;
-      this.setSlug(this.customSlug);
-      this.$emit('save', this.slug);
+      this.setSlug(this.customSlug, this.controller);
+      this.$emit("save", this.slug);
       this.isEditing = false;
     },
     resetEditing: function resetEditing() {
-      this.setSlug(this.title);
-      this.$emit('reset', this.slug);
+      this.setSlug(this.title, this.controller);
+      this.$emit("reset", this.slug);
       this.wasEdited = false;
       this.isEditing = false;
     },
-    setSlug: function setSlug(newVal) {
-      var count = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    setSlug: function setSlug(newVal, controller) {
+      var count = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
-      var slug = Slug(newVal + (count > 0 ? '-' + count : ''));
+      var slug = Slug(newVal + (count > 0 ? "-" + count : ""));
       var vm = this;
 
       if (this.api_token && slug) {
-        axios.get('/api/posts/unique', {
+        axios.get("/api/" + controller + "/unique", {
           params: {
             api_token: vm.api_token,
             slug: slug
@@ -44206,9 +44224,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }).then(function (response) {
           if (response.data) {
             vm.slug = slug;
-            vm.$emit('slug-changed', slug);
+            vm.$emit("slug-changed", slug);
           } else {
-            vm.setSlug(newVal, count + 1);
+            vm.setSlug(newVal, this.controller, count + 1);
           }
         }).catch(function (error) {
           console.log(error);
@@ -44218,7 +44236,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   watch: {
     title: _.debounce(function () {
-      if (this.wasEdited == false) this.setSlug(this.title);
+      if (this.wasEdited == false) this.setSlug(this.title, this.controller);
       // run ajax to see if slug is unique
       // if not unique, customize the slug to make it unique
     }, 500)
@@ -44258,7 +44276,7 @@ var render = function() {
         },
         [_vm._v(_vm._s(_vm.slug))]
       ),
-      _vm._v(" \n        "),
+      _vm._v(" \n    "),
       _c("input", {
         directives: [
           {
@@ -44372,7 +44390,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6319b834", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-04f472b4", module.exports)
   }
 }
 
@@ -44402,7 +44420,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\SingleArticle.vue"
+Component.options.__file = "resources/assets/js/components/SingleArticle.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -44411,9 +44429,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4ae05aa7", Component.options)
+    hotAPI.createRecord("data-v-3489bfe7", Component.options)
   } else {
-    hotAPI.reload("data-v-4ae05aa7", Component.options)
+    hotAPI.reload("data-v-3489bfe7", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -44561,7 +44579,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4ae05aa7", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-3489bfe7", module.exports)
   }
 }
 

@@ -17,14 +17,15 @@ Route::middleware('auth:api')->get('/admin', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->group(function() {
-	Route::get('/posts/unique','Myadmin\BlogController@apiCheckUnique')->name('api.posts.unique');
+Route::middleware('auth:api')->group(function () {
+    Route::get('/posts/unique', 'Myadmin\BlogController@apiCheckUnique')->name('api.posts.unique');
+    Route::get('/product/unique', 'Myadmin\ProductController@checkUniqueSlug')->name('api.products.unique');
 });
 
 
 //Articles rest api link
-Route::get('admin/articles','Myadmin\ArticleController@index');
-Route::get('admin/article/{id}','Myadmin\ArticleController@show');
-Route::post('admin/article','Myadmin\ArticleController@store');
-Route::put('admin/article','Myadmin\ArticleController@store');
-Route::delete('admin/article/{id}','Myadmin\ArticleController@destroy');
+Route::get('admin/articles', 'Myadmin\ArticleController@index');
+Route::get('admin/article/{id}', 'Myadmin\ArticleController@show');
+Route::post('admin/article', 'Myadmin\ArticleController@store');
+Route::put('admin/article', 'Myadmin\ArticleController@store');
+Route::delete('admin/article/{id}', 'Myadmin\ArticleController@destroy');

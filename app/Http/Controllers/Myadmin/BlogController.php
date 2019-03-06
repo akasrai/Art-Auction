@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Myadmin;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Blog;
 use Auth;
 use Session;
+use App\Models\Blog;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {
@@ -20,10 +20,8 @@ class BlogController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admin',['except' => ['apiCheckUnique']]); // for admin authentication
-        // $this->middleware('auth:admin'); //for role access
-        $this->middleware('superadmins'); //for role access
-
+        $this->middleware('auth:admin', ['except' => ['apiCheckUnique']]);
+        $this->middleware('superadmins');
     }
 
     /**
@@ -43,7 +41,6 @@ class BlogController extends Controller
      */
     public function create()
     {
-        
         return view('myadmin/blog/create');
     }
 
@@ -103,8 +100,8 @@ class BlogController extends Controller
         //
     }
 
-    public function apiCheckUnique(Request $request){
-
-        return json_encode(!Blog::where('slug', '=',$request->slug)->exists());
+    public function apiCheckUnique(Request $request)
+    {
+        return json_encode(!Blog::where('slug', '=', $request->slug)->exists());
     }
 }

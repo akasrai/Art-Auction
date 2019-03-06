@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,10 +10,10 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
-    public function role(){
-
-        return $this->belongsToMany('App\Role','role_admins');  
-    } 
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\Role', 'role_admins');
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -36,5 +36,25 @@ class Admin extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPasswordNotification($token));
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->role()->where('name', 'Superadmin')->exists();
+    }
+
+    public function isAdmin()
+    {
+        return $this->role()->where('name', 'Admin')->exists();
+    }
+
+    public function isEditor()
+    {
+        return $this->role()->where('name', 'Editor')->exists();
+    }
+
+    public function isModerator()
+    {
+        return $this->role()->where('name', 'Moderator')->exists();
     }
 }

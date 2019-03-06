@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,14 +14,18 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body style="background: gray">
-     <div id="app">
-      
-        <div class="container" >
+    <div id="app">
+
+        <div class="container">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3" >
+                <div class="col-md-6 col-md-offset-3">
                     <div class="panel panel-default" style="margin-top: 100px; background: lightgray;">
-                        <div class="panel-heading" ><h3 style="font-family:impact; color:black; padding:0; text-align:center;"><span style="color:darkred;">Holi</span>day Planner Login</h3></div>
+                        <div class="panel-heading">
+                            <h3 style="font-family:impact; color:black; padding:0; text-align:center;"><span style="color:darkred;">Zorig</span>
+                                Auction Login</h3>
+                        </div>
 
                         <div class="panel-body">
                             <form class="form-horizontal" method="POST" action="{{ route('admin.login') }}">
@@ -30,26 +35,28 @@
                                     <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
+                                            required autofocus>
 
                                         @if ($errors->has('email'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
                                         @endif
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                     <label for="password" class="col-md-4 control-label">Password</label>
 
                                     <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control" name="password" required>
+                                        <input id="password" type="password" class="form-control" name="password"
+                                            required>
 
                                         @if ($errors->has('password'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
                                         @endif
                                     </div>
                                 </div>
@@ -58,7 +65,8 @@
                                     <div class="col-md-6 col-md-offset-4">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                                <input type="checkbox" name="remember"
+                                                    {{ old('remember') ? 'checked' : '' }}> Remember Me
                                             </label>
                                         </div>
                                     </div>
@@ -81,10 +89,11 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
+
 </html>

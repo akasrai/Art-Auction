@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/frontpage-custom.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -83,6 +84,17 @@
         </nav>
 
         @yield('content')
+        <footer class="footer">
+            <div class="container">
+                <div class="pull-left">
+                    &copy; Zorig Auction 2019
+                </div>
+                <div class="pull-right">
+                    Site by <a href="#">Zorig Auction</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </footer>
     </div>
 
     <!-- Scripts -->

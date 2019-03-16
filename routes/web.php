@@ -45,7 +45,7 @@ Route::resource('/admin/blog', 'Myadmin\BlogController');
      Route::GET('/category/create', 'Myadmin\CategoryController@index');
      Route::POST('/category/create', 'Myadmin\CategoryController@create')->name('admin.category.submit');
      Route::GET('/product/create', 'Myadmin\ProductController@index');
-     Route::GET('/products', 'Myadmin\ProductController@create');
+     Route::POST('/product/create', 'Myadmin\ProductController@create')->name('admin.product.submit');
  });
 
  //Setting locale

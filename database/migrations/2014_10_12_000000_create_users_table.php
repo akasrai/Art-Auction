@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('lname');
             $table->string('gender')->nullable();
             $table->string('email')->unique();
+            $table->string('time_zone')->nullable();
             $table->string('verify_token')->nullable();
             $table->boolean('status')->default('0');
             $table->date('dob')->nullable();

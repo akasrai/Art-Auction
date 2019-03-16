@@ -47,7 +47,7 @@ $(document).ready(function() {
 
    function editSlug() {
       let existingSlug = $("#slug")
-         .text()
+         .val()
          .trim();
       $("#slug-edit-field").val(existingSlug);
    }
@@ -60,7 +60,7 @@ $(document).ready(function() {
 
    function resetSlug() {
       wasEdited = false;
-      $("#slug").text("");
+      $("#slug").val("");
    }
 
    function setSlugIfSlugUnique(slug, controller, count) {
@@ -75,7 +75,8 @@ $(document).ready(function() {
             .then(function(response) {
                if (response.data) {
                   $("#slug").show();
-                  $("#slug").text(slug);
+                  $("#slug").val(slug);
+                  $("#slug").css("width", $("#slug").val().length + 2 + "ch");
                } else {
                   let title = wasEdited
                      ? $("#slug-edit-field").val()

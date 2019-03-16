@@ -1,0 +1,320 @@
+@font-face {
+   font-family: "century-gothic";
+   src: url("../fonts/century-gothic/Century\ Gothic.ttf") format("truetype"); /* Safari, Android, iOS */
+}
+
+body {
+   background: #f5f5f5;
+}
+
+.product-wrapper {
+   width: 100%;
+   margin-bottom: 20px;
+}
+
+.product-header {
+   font-family: "century-gothic";
+}
+
+.product-header h1 {
+   font-weight: bolder;
+   font-size: 18px;
+   border-bottom: 2px solid #636b6f;
+   padding-bottom: 5px;
+}
+
+.product {
+   padding: 0px;
+   cursor: pointer;
+}
+
+.bid-product-button {
+   padding: 10px;
+   visibility: hidden;
+}
+
+.bid-product-button a {
+   width: 100%;
+   float: left;
+   border-radius: 2px;
+}
+
+.product:hover {
+   background: white;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.185);
+}
+
+.product:hover div img {
+   opacity: 0.9;
+}
+
+.product:hover div {
+   visibility: visible;
+}
+.product-image {
+   padding: 10px;
+   position: relative;
+}
+
+.product-image img {
+   width: 100%;
+}
+
+.product-title {
+   padding: 0 10px;
+}
+
+.product-title h2 {
+   font-family: "century-gothic";
+   font-size: 14px;
+   font-weight: bold;
+   margin: 0;
+}
+
+.product-title h3 {
+   font-family: "century-gothic";
+   font-size: 16px;
+   font-weight: bold;
+   color: red;
+   margin: 8px 0px;
+}
+
+.product-title p {
+   font-family: "century-gothic";
+   font-size: 12px;
+   font-weight: bold;
+   margin: 0;
+}
+
+.featured-product {
+   background: white;
+   padding: 0px;
+   border: 1px solid #e6e3f0;
+   box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.068);
+}
+
+.featured-product-image {
+   overflow-y: hidden;
+   height: 400px;
+}
+
+.featured-product-image img {
+   margin-top: -30px;
+   width: 100%;
+}
+
+.featured-product-title {
+   width: 100%;
+   text-align: center;
+}
+
+.featured-product-title h2 {
+   font-family: "century-gothic";
+   font-weight: bolder;
+   font-size: 40px;
+   margin: auto;
+}
+
+.featured-product-title p {
+   font-family: "century-gothic";
+   font-weight: bolder;
+   font-size: 16px;
+   margin: auto;
+}
+
+.featured-product-details {
+   margin: 0 auto;
+   padding: 15px;
+   position: relative;
+}
+
+.no-padding {
+   padding: 0;
+}
+
+.no-padding-right {
+   padding-right: 0;
+}
+
+.expires-in {
+   margin-top: 50px;
+}
+
+/* count down timing*/
+.auction-countdown-wrapper {
+   margin: 0 auto;
+   display: flex;
+}
+
+.auction-coutdown {
+   margin: 0px auto 20px auto;
+   display: inline-flex;
+}
+
+.auction-coutdown ul {
+   padding: 0;
+   margin: 0 auto;
+   display: inline-flex;
+}
+
+.auction-coutdown ul li {
+   font-size: 1.2rem;
+   list-style-type: none;
+   display: inline-table;
+   text-transform: uppercase;
+   text-align: center;
+   margin: 2px;
+   border-radius: 3px;
+   padding: 0;
+   background: rgb(172, 197, 238);
+   color: white;
+}
+
+.auction-coutdown ul li span {
+   display: block;
+   font-size: 4.5rem;
+   text-align: center;
+   padding: 0em 13px;
+   width: 80px;
+   background: rgb(188, 211, 247);
+   border-top-left-radius: 3px;
+   border-top-right-radius: 3px;
+   color: #636b6f;
+}
+
+.auction-time-expired {
+   display: flex;
+}
+
+/*Live indicator*/
+.live-auction-indicator {
+   width: fit-content;
+   font-size: 11px;
+   float: right;
+   position: absolute;
+   top: 0;
+   right: 0;
+}
+
+.live-auction-indicator span {
+   margin-left: 5px;
+   color: white;
+   background: rgba(207, 5, 5, 0.548);
+   padding: 5px 8px;
+   font-weight: bolder;
+}
+
+.live-auction-grid {
+   left: 8px;
+   top: 15px;
+}
+
+.featured-product-button-wrapper {
+   display: inline-flex;
+   margin: 20px auto;
+}
+
+.featured-product-button {
+   /* float: right; */
+   margin: auto;
+}
+
+.featured-product-button a {
+   border-radius: 1px;
+   border: none;
+   padding: 5px 10px;
+   font-weight: bold;
+}
+
+/* footer design */
+.footer {
+   background: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+/*Search bar*/
+.search-bar {
+   margin-bottom: 20px;
+}
+
+.custom-form-element {
+   border: none;
+   outline: none;
+   box-shadow: none;
+}
+
+.custom-form-element:focus {
+   outline: none;
+   box-shadow: none;
+}
+
+.btn-search {
+   background: rgb(136, 178, 245);
+   font-weight: bolder;
+   color: white;
+   border: none;
+   outline: none;
+   box-shadow: none;
+}
+
+/* The container must be positioned relative: */
+.custom-select {
+   position: relative;
+}
+
+select.custom-form-element {
+   display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+   background-color: DodgerBlue;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+   position: absolute;
+   content: "";
+   top: 14px;
+   right: 10px;
+   width: 0;
+   height: 0;
+   border: 6px solid transparent;
+   border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+   border-color: transparent transparent #fff transparent;
+   top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,
+.select-selected {
+   color: #ffffff;
+   padding: 8px 16px;
+   border: 1px solid transparent;
+   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+   cursor: pointer;
+}
+
+/* Style items (options): */
+.select-items {
+   position: absolute;
+   background-color: DodgerBlue;
+   top: 100%;
+   left: 0;
+   right: 0;
+   z-index: 99;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+   display: none;
+}
+
+.select-items div:hover,
+.same-as-selected {
+   background-color: rgba(0, 0, 0, 0.1);
+}

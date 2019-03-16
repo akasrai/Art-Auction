@@ -1,14 +1,14 @@
 @extends('myadmin.layouts.app')
 
 @section('content')
-<div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-md-5 col-sm-12 col-xs-12">
    <div class="x_panel tile">
       <div class="x_title">
          <h2>@lang('titles.addCategory')</h2>
          <div class="clearfix"></div>
       </div>
       <div class="x_content">
-         <div class="col-md-5 col-sm-12 col-xs-12">
+         <div class="col-md-12 col-sm-12 col-xs-12">
             <form id="create-category" class="form-horizontal form-label-left" method="POST" action="{{ route('admin.category.submit') }}">
                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                <div class="form-group">
@@ -60,13 +60,24 @@
                </div>
             </form>
          </div>
-         <div class="col-md-7 col-sm-12 col-xs-12">
+      </div>
+   </div>
+</div>
+<div class="col-md-7 col-sm-12 col-xs-12">
+   <div class="x_panel tile">
+      <div class="x_title">
+         <h2>@lang('titles.addCategory')</h2>
+         <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+         <div class="col-md-12 col-sm-12 col-xs-12">
             <table class="table table-striped">
                <thead>
                   <tr>
                      <th>#</th>
                      <th>Name</th>
-                     <th>Description</th>
+                     <!-- <th>Description</th> -->
                      <th>Parent</th>
                      <th>Slug</th>
                      <th style="text-align:center;" width="80">Count</th>
@@ -80,7 +91,7 @@
                   <tr>
                      <th scope="row">{{$count}}</th>
                      <td>{{$category->name}}</td>
-                     <td>{{$category->description}}</td>
+                     <!-- <td>{{$category->description}}</td> -->
                      <td>@foreach($categories as $parentCategory)
                         @if($parentCategory->id == $category->parent_id)
                         {{$parentCategory->name}}

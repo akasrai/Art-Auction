@@ -1,14 +1,14 @@
 @extends('myadmin.layouts.app')
 
 @section('content')
-
-    <h1>Welcome Super Admin</h1>
-    	@if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel tile">
+        <h1>Welcome Super Admin</h1>
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
         @endif
-
-        <articles></articles>
-          
+    </div>
+</div>
 @endsection

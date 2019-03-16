@@ -30,6 +30,19 @@ class ProductController extends Controller
         return view('myadmin/product/create')->with('categories', $categories);
     }
 
+    public function create(Request $request)
+    {
+        $product = $this->productService->save($request->all());
+        $categories = Category::all();
+        if ($product) {
+            Session::flash('success', 'New product added successfully.');
+            return view('myadmin/product/create')->with('categories', $categories);
+        } else {
+            Session::flash('error', 'Some error occured while adding new product.');
+            return view('myadmin/product/create')->with('categories', $categories);
+        }
+    }
+
     public function checkUniqueSlug(Request $request)
     {
         return $this->productService->isSlugUnique($request->slug);

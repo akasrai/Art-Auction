@@ -17,6 +17,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
 
     <title>{{ config('app.name', 'Thanka Auction') }}</title>
 
@@ -28,7 +29,7 @@
             <div id="app">
                 @include('myadmin.inc.navbar')
                 <!-- page content -->
-                <div class="right_col" role="main">
+                <div class="right_col clearfix" role="main">
 
                     @include('myadmin.inc.messages')
 
@@ -49,16 +50,15 @@
     </div>
 
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/bootstrap-progressbar.min.js') }}"></script>
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/custom.min.js') }}"></script>
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/slug-widget.js') }}"></script>
-    <!--<script language="JavaScript" type="text/javascript" src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-        <script>
-            CKEDITOR.replace( 'article-ckeditor' );
-        </script>-->
-
+    <script language="JavaScript" type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.js') }}">
+    </script>
+    <script language="JavaScript" type="text/javascript" src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         //admin users edit plate
         function showEditDelete(id, name) {

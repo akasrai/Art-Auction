@@ -167,6 +167,7 @@ a.custom-btn:hover {
 .slug {
    background-color: #9be3ff5e;
    padding: 1px 5px 1px 5px;
+   border: none;
 }
 .url-wrapper {
    height: 30px;
@@ -178,8 +179,10 @@ a.custom-btn:hover {
 .blog_info {
    font-size: 14px;
 }
-
-.btn_modified {
+.product-publish-info {
+   font-size: 12px;
+}
+.btn-modified {
    padding: 7px;
    padding-top: 5px;
    padding-bottom: 5px;
@@ -202,11 +205,155 @@ a.custom-btn:hover {
    border: 1px solid #d4d4d4ed;
 }
 
-.slug_edit {
+.slug-edit {
    font-size: 11px;
    padding: 3px;
    padding-top: 3px;
    padding-bottom: 2px;
    border-radius: 3px;
    border: 1px solid lightgray;
+}
+
+.picture-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+   justify-items: center;
+   grid-gap: 5px;
+   grid-row-gap: 5px;
+   margin-bottom: 10px;
+   padding: 10px;
+   background: #e0dfdf;
+   border-radius: 3px;
+}
+
+.grid-box img {
+   width: 100%;
+}
+
+.no-padding-right {
+   padding-right: 0;
+}
+
+.no-padding-left {
+   padding-left: 0;
+}
+
+.publish-date-wrapper {
+   display: inline;
+   position: relative;
+}
+
+#publish-date {
+   height: 15px;
+   padding: 0;
+   margin: 0;
+   border: none;
+   color: rgb(45, 45, 245);
+}
+
+#publish-date:hover {
+   cursor: pointer;
+}
+/* 
+#publish-date::-webkit-calendar-picker-indicator {
+   color: rgba(0, 0, 0, 0);
+   opacity: 1;
+   display: block;
+   background: transparent;
+   width: 100%;
+   height: 100%;
+   border-width: thin;
+}
+
+#publish-date::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   display: none;
+}
+
+#publish-date::-webkit-clear-button {
+   display: none; 
+   -webkit-appearance: none; 
+} */
+
+#publish-date-display {
+   top: -1px;
+   left: 0;
+   position: absolute;
+   color: rgb(45, 45, 245);
+   pointer-events: none;
+}
+
+#publish-date-display:hover {
+   text-decoration: underline;
+   color: rgb(45, 45, 245);
+   cursor: pointer;
+}
+
+.input-group-addon {
+   border-radius: 0px;
+}
+
+/* custom radio button switch*/
+.switch-field {
+   font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
+   padding: 0px;
+   overflow: hidden;
+}
+
+.switch-title {
+   margin-bottom: 6px;
+}
+
+.switch-field input {
+   position: absolute !important;
+   clip: rect(0, 0, 0, 0);
+   height: 1px;
+   width: 1px;
+   border: 0;
+   overflow: hidden;
+}
+
+.switch-field label {
+   float: left;
+}
+
+.switch-field label {
+   display: inline-block;
+   width: 50%;
+   background-color: #e4e4e4;
+   color: rgba(0, 0, 0, 0.685);
+   font-size: 14px;
+   font-weight: bold;
+   text-align: center;
+   text-shadow: none;
+   padding: 6px 14px;
+   border: 1px solid rgba(0, 0, 0, 0.2);
+   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3),
+      0 1px rgba(255, 255, 255, 0.1);
+   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3),
+      0 1px rgba(255, 255, 255, 0.1);
+   -webkit-transition: all 0.1s ease-in-out;
+   -moz-transition: all 0.1s ease-in-out;
+   -ms-transition: all 0.1s ease-in-out;
+   -o-transition: all 0.1s ease-in-out;
+   transition: all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+   cursor: pointer;
+}
+
+.switch-field input:checked + label {
+   background-color: #3097d1;
+   -webkit-box-shadow: none;
+   box-shadow: none;
+   color: white;
+}
+
+.switch-field label:first-of-type {
+   border-radius: none;
+}
+
+.switch-field label:last-of-type {
+   border-radius: none;
 }

@@ -16,6 +16,6 @@ return [
     'productList' => 'Products',
     'createProduct' => 'Create Product',
     'product' => 'Product',
-    'productList' => 'Our Products',
+    'productList' => 'Products',
     'createProduct' => 'Create Product',
 ];

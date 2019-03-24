@@ -154,7 +154,7 @@
          <div class="panel-heading">@lang('titles.publish')</div>
          <div class="panel-body">
             <button class="btn btn-primary pull-left btn-modified">Publish</button>
-            <button class="btn btn-default pull-right btn-modified">Preview</button>
+            <a class="btn btn-default pull-right btn-modified">Preview</a>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 product-publish-info">
                <br />
                <p>

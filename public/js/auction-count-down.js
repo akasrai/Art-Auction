@@ -1,20 +1,25 @@
+window.auctionFinalDates = [];
+
 const second = 1000,
    minute = second * 60,
    hour = minute * 60,
    day = hour * 24;
 
-let countDown = new Date("Mar 13, 2019 01:30:00").getTime(),
-   interval = setInterval(function() {
+const auctionCountDown = finalDate => {
+   let auctionFinalDate = new Date(finalDate).getTime();
+   window.sliderInterval = setInterval(function() {
       let now = new Date().getTime(),
-         distance = countDown - now;
+         distance = auctionFinalDate - now;
 
       if (distance < 0) {
-         clearInterval(interval);
+         clearInterval(window.sliderInterval);
          $("#auction-live").hide();
          $("#auction-expired").removeClass("hide");
          $("#auction-expired").html(
             "<i class='fa fa-clock-o' aria-hidden='true'></i> Auction time has ended."
          );
+
+         $(".featured-product-button-wrapper").empty();
       } else {
          $("#days").text(function(i, n) {
             return ((n = +Math.floor(distance / day)) < 10 ? "0" : "") + n;
@@ -41,3 +46,4 @@ let countDown = new Date("Mar 13, 2019 01:30:00").getTime(),
             });
       }
    }, second);
+};

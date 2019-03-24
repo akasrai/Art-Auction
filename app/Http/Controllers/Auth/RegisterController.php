@@ -7,23 +7,13 @@ use Session;
 use App\Models\User;
 use App\Mail\verifyEmail;
 use Illuminate\Support\Str;
+use App\Services\CategoryService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
     /**
@@ -38,9 +28,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(CategoryService $categoryService)
     {
         $this->middleware('guest');
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -51,8 +42,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        // dump($data);
-        // die();
         return Validator::make($data, [
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
@@ -65,7 +54,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -109,5 +98,11 @@ class RegisterController extends Controller
             //the flash message always go only in redirected path
             return redirect('/login')->with('status', 'Token already used.');
         }
+    }
+
+    public function showRegistrationForm()
+    {
+        $categories = $this->categoryService->getAllCategories();
+        return view('auth.register')->with('categories', $categories);
     }
 }

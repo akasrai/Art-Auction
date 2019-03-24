@@ -1,162 +1,121 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <div class="col-md-12 col sm-12 search-bar">
-        <form class="search-form">
-            <div class="col-md-8 col-sm-12 no-padding input-group">
-                <div class="col-md-4 col-sm-12 no-padding">
-                    <input type="text" class="form-control custom-form-element" placeholder="Anything">
-                </div>
-
-                <div class="col-md-3 col-sm-12 no-padding custom-select">
-                    <select name="" id="" class="form-control custom-form-element">
-                        <option value="">CATEGORY</option>
-                        <option value="">Option 1</option>
-                    </select>
-                </div>
-
-                <div class="col-md-3 col-sm-12 no-padding custom-select">
-                    <select name="" id="" class="form-control custom-form-element">
-                        <option value="">PRICE RANGE</option>
-                        <option value="">Option 1</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2 col-sm-12 no-padding">
-                    <button class="form-control btn-search">SEARCH</button>
-                </div>
-            </div>
-        </form>
-    </div>
     <div class="col-md-12 product-wrapper clearfix">
-        <div class="col-md-12 featured-product  clearfix">
-            <div class="col-md-6 featured-product-image no-padding">
-                <img src="{{ asset('images/g.jpg') }}" alt="Profile Image" />
+        <span class="next-slider-button" onclick="nextProduct()">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </span>
+        <span class="prev-slider-button" onclick="prevProduct()">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </span>
+        <div class="featured-product-wrapper">
+            @if($featuredProducts)
+            @foreach($featuredProducts as $featuredProduct)
+            @if($featuredProduct->options->is_on_auction)
+            <script>
+                window.auctionFinalDates.push("{{$featuredProduct->options->auction_final_date}}");
+            </script>
+            <div class="col-md-12 featured-product  clearfix">
+                <div class="col-md-6 featured-product-image no-padding">
+                    @foreach($featuredProduct->images as $productImage)
+                    <img src="<?php echo url('storage/'.$productImage->image_url)?>"
+                        alt="image">
+                    @endforeach
+                </div>
+                <div class="col-md-6 featured-product-details no-padding-rights clearfix">
+                    <div class="col-md-12 no-padding clearfix">
+                        <div class="live-auction-indicator">
+                            <span id="category"><i class="fa fa-bookmark" aria-hidden="true"></i>
+                                {{$featuredProduct->categories[0]->name}} </span>
+                            <span id="auction-live"><i class="fa fa-circle" aria-hidden="true"></i>
+                                @lang('messages.live')</span>
+                            <span id="auction-expired" class="hide"></span>
+                        </div>
+                    </div>
+                    <div class="featured-product-title expires-in clearfix">
+                        <p>
+                            This auction ends in
+                        </p>
+                    </div>
+                    <div class="col-md-12 no-padding auction-countdown-wrapper">
+                        <div class="col-md-9 auction-coutdown">
+                            <ul>
+                                <li><span id="days">00</span>days</li>
+                                <li><span id="hours">00</span>Hours</li>
+                                <li><span id="minutes">00</span>Minutes</li>
+                                <li><span id="seconds">00</span>Seconds</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="featured-product-title">
+                        <h2>
+                            {{$featuredProduct->name}}
+                        </h2>
+                        <p>
+                            Ends in:
+                            <span id="auction-final-date"></span>
+                        </p>
+                        <p>Estimated cost: ${{$featuredProduct->options->estimated_price}}</p>
+
+                    </div>
+                    <div class="col-md-12 featured-product-button-wrapper">
+                        <div class="featured-product-button">
+                            <a class="btn btn-info"
+                                href="<?php echo url('product/'.$featuredProduct->slug);?>">@lang('messages.bid')</a>
+                            <a class="btn btn-danger"
+                                href="<?php echo url('product/'.$featuredProduct->slug);?>">@lang('messages.view')</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6 featured-product-details no-padding-rights clearfix">
-                <div class="col-md-12 no-padding clearfix">
-                    <div class="live-auction-indicator">
-                        <span id="category"><i class="fa fa-bookmark" aria-hidden="true"></i> FEATURED </span>
-                        <span id="auction-live"><i class="fa fa-circle" aria-hidden="true"></i> @lang('messages.live')</span>
-                        <span id="auction-expired" class="hide"></span>
-                    </div>
-                </div>
-                <div class="featured-product-title expires-in clearfix">
-                    <p>
-                        This auction ends in
-                    </p>
-                </div>
-                <div class="col-md-12 no-padding auction-countdown-wrapper">
-                    <div class="col-md-9 auction-coutdown">
-                        <!-- <div class="expires-in">
-                            <span>Expires in</span>
-                        </div> -->
-                        <ul>
-                            <li><span id="days">00</span>days</li>
-                            <li><span id="hours">00</span>Hours</li>
-                            <li><span id="minutes">00</span>Minutes</li>
-                            <li><span id="seconds">00</span>Seconds</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="featured-product-title">
-                    <h2>
-                        Mantra Mandala
-                    </h2>
-                    <p>Auction final date: December 06, 2018</p>
-                    <p>Estimated cost: $500 - $2000</p>
-                </div>
-                <div class="col-md-12 featured-product-button-wrapper">
-                    <div class="featured-product-button">
-                        <a class="btn btn-info" href="javascript:void(0)">@lang('messages.bid')</a>
-                        <a class="btn btn-danger" href="javascript:void(0)">@lang('messages.view')</a>
-                    </div>
-                </div>
-            </div>
+            @endif
+            @endforeach
+            @endif
+
         </div>
+
     </diV>
 
     <div class="product-wrapper clearfix">
         <div class="col-md-12 product-header">
             <h1>Live Auction Now <small>Bid your favorite art before the time ends.</small></h1>
         </div>
+
+
         <div class="live-products">
-            <div class="col-md-3 col-sm-12 ">
+
+            @if($productsOnAuction)
+            @foreach ($productsOnAuction as $productOnAuction)
+            <div class="col-md-2 col-sm-12 ">
                 <div class="col-md-12 product">
                     <div class="product-image">
                         <div class="live-auction-indicator live-auction-grid">
                             <span><i class="fa fa-circle" aria-hidden="true"></i> @lang('messages.live')</span>
                         </div>
-                        <img src="{{ asset('images/e.jpg') }}" alt="Profile Image" />
+                        <img src="<?php echo url('storage/'.$productOnAuction->images[0]->image_url)?>"
+                            alt="product image">
                     </div>
                     <div class="product-title">
-                        <h2>Mantra Mandala</h2>
-                        <h3>Estimated cost: $500 - $2000</h3>
-                        <p>Exoires in: Mar 20, 2019</p>
+                        <h2>{{$productOnAuction->name}}</h2>
+                        <h3>Estimated cost: ${{$productOnAuction->options->estimated_price}}</h3>
+                        <p>
+                            Expires in:<br /> <span id="{{$productOnAuction->id}}"></span>
+                            <script>
+                                document.getElementById("{{$productOnAuction->id}}").innerHTML =
+                                    moment(new Date("{{$productOnAuction->options->auction_final_date}}")).format(
+                                        "MMM Do YYYY, HH:mm a"
+                                    )
+                            </script>
+                        </p>
                     </div>
                     <div class="col-md-12 bid-product-button">
-                        <a class="btn btn-info" href="javascript:void(0)">@lang('messages.bid')</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-3 col-sm-12">
-                <div class="col-md-12 col-sm-12 product">
-                    <div class="product-image">
-                        <div class="live-auction-indicator live-auction-grid">
-                            <span><i class="fa fa-circle" aria-hidden="true"></i> @lang('messages.live')</span>
-                        </div>
-                        <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                    </div>
-                    <div class="product-title">
-                        <h2>Mantra Mandala</h2>
-                        <h3>Estimated cost: $500 - $2000</h3>
-                        <p>Exoires in: Mar 20, 2019</p>
-                    </div>
-                    <div class="col-md-12 bid-product-button">
-                        <a class="btn btn-info" href="javascript:void(0)">@lang('messages.bid')</a>
+                        <a class="btn btn-info"
+                            href="<?php echo url('product/'.$productOnAuction->slug)?>">@lang('messages.bid')</a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-12">
-                <div class="col-md-12 col-sm-12 product">
-                    <div class="product-image">
-                        <div class="live-auction-indicator live-auction-grid">
-                            <span><i class="fa fa-circle" aria-hidden="true"></i> @lang('messages.live')</span>
-                        </div>
-                        <img src="{{ asset('images/e.jpg') }}" alt="Profile Image" />
-                    </div>
-                    <div class="product-title">
-                        <h2>Mantra Mandala</h2>
-                        <h3>Estimated cost: $500 - $2000</h3>
-                        <p>Exoires in: Mar 20, 2019</p>
-                    </div>
-                    <div class="col-md-12 bid-product-button">
-                        <a class="btn btn-info" href="javascript:void(0)">@lang('messages.bid')</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-12 ">
-                <div class="col-md-12 col-sm-12 product">
-                    <div class="product-image">
-                        <div class="live-auction-indicator live-auction-grid">
-                            <span><i class="fa fa-circle" aria-hidden="true"></i> @lang('messages.live')</span>
-                        </div>
-                        <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                    </div>
-                    <div class="product-title">
-                        <h2>Mantra Mandala</h2>
-                        <h3>Estimated cost: $500 - $2000</h3>
-                        <p>Exoires in: Mar 20, 2019</p>
-                    </div>
-                    <div class="col-md-12 bid-product-button">
-                        <a class="btn btn-info" href="javascript:void(0)">@lang('messages.bid')</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+            @endif
         </div>
     </div>
 
@@ -164,171 +123,41 @@
         <h1>Products on Sell <small>Buy your favorite arts at any time with reasonable price.</small></h1>
     </div>
 
+
     <div class="products-on-sell">
-        <div class="col-md-3 col-sm-12 ">
+        @if(sizeof($productsOnSell) > 0)
+        @foreach($productsOnSell as $productOnSell)
+        <div class="col-md-2 col-sm-12 ">
             <div class="col-md-12 product">
                 <div class="product-image">
-                    <img src="{{ asset('images/e.jpg') }}" alt="Profile Image" />
+                    <img src="<?php echo url('storage/'.$productOnSell->images[0]->image_url)?>"
+                        alt="product image">
                 </div>
                 <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-3 col-sm-12">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
+                    <h2>{{ $productOnSell->name}}</h2>
+                    <h3>Price: $
+                        <span id="{{$productOnSell->id}}"></span>
+                        <script>
+                            let originalPrice = parseInt("{{$productOnSell->options->price}}");
+                            let discountPercentage = parseInt("{{$productOnSell->options->discount}}");
+                            let priceAfterDiscount = originalPrice - ((discountPercentage / 100) * originalPrice);
+                            document.getElementById("{{$productOnSell->id}}").innerHTML = priceAfterDiscount;
+                        </script>
+                    </h3>
+                    <p> <s> ${{$productOnSell->options->price}} </s>&nbsp;<span class="discount-percentage">
+                            -{{$productOnSell->options->discount}}%</span>
+                    </p>
                 </div>
                 <div class="col-md-12 bid-product-button">
                     <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-3 col-sm-12">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/e.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12 ">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12 ">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12 ">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12 ">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12 ">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12 ">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12 ">
-            <div class="col-md-12 col-sm-12 product">
-                <div class="product-image">
-                    <img src="{{ asset('images/d.jpg') }}" alt="Profile Image" />
-                </div>
-                <div class="product-title">
-                    <h2>Mantra Mandala</h2>
-                    <h3>Estimated cost: $500 - $2000</h3>
-                    <p>Exoires in: Mar 20, 2019</p>
-                </div>
-                <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
-                </div>
-            </div>
-        </div>
+        @endforeach
+        @endif
     </div>
 </div>
 @endsection
 @section('scripts')
-<script src="{{ asset('js/auction-count-down.js') }}"></script>
-<script src="{{ asset('js/custom-select.js') }}"></script>
+<script src="{{ asset('js/slider.js') }}"></script>
 @endsection

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
-use App\Models\ProductCategory;
+use App\Models\CategoryProduct;
 use App\Services\ProductImageService;
 use App\Services\ProductOptionService;
 use Illuminate\Support\Facades\Validator;
@@ -68,13 +68,12 @@ class ProductService
             dump($e);
         }
         return $product;
-        dump($formData);
     }
 
     private function saveProductCategory(array $categories, $productId)
     {
         foreach ($categories as $category) {
-            ProductCategory::create([
+            CategoryProduct::create([
                 'product_id' => $productId,
                 'category_id' => $category
             ]);
@@ -97,5 +96,49 @@ class ProductService
             'updated_at' => $productData['publish-date']? $productData['publish-date'] : date("Y-m-d H:i:s"),
         ]);
         return $product;
+    }
+
+    public function getAllByCategoryName($category, $limit)
+    {
+        $products = Product::with('categories', 'images', 'options')->whereHas('categories', function ($q) use ($category) {
+            $q->where('slug', $category);
+        })->orderBy('created_at', 'desc')->take($limit)->get();
+
+        return $products;
+    }
+
+    public function getAllByProductOption($productOption, $limit)
+    {
+        $products = Product::with('categories', 'images', 'options')->whereHas('options', function ($q) use ($productOption) {
+            $q->where('is_on_auction', $productOption);
+        })->orderBy('created_at', 'desc')->take($limit)->get();
+
+        return $products;
+    }
+
+    public function getById($id)
+    {
+        return Product::find($id);
+    }
+
+    public function getBySlug($productSlug)
+    {
+        return Product::with(array('auctions' => function ($query) {
+            $query->orderBy('created_at', 'DESC')->take(10);
+        }))->where('slug', '=', $productSlug)->firstOrFail();
+    }
+
+    public function filterByParams(array $params)
+    {
+        $categoryId = $params['category'];
+        $productName = $params['product-name'];
+
+        if ($categoryId) {
+            return Product::with('categories')->whereHas('categories', function ($q) use ($categoryId) {
+                $q->where('categories.id', $categoryId);
+            })->where('name', 'LIKE', '%'.$productName.'%')->orderBy('created_at', 'desc')->take(20)->get();
+        } else {
+            return Product::where('name', 'LIKE', '%'.$productName.'%')->orderBy('created_at', 'desc')->take(20)->get();
+        }
     }
 }

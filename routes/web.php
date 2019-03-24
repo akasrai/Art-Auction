@@ -1,8 +1,15 @@
 <?php
-Route::get('/', function () {
-    return view('welcome');
-});
 Auth::routes();
+
+Route::get('/', 'HomeController@index');
+
+Route::get('/product/{productSlug}', 'HomeController@singleArticle');
+
+Route::post('/bid/product', 'ProductAuctionController@bidProduct');
+
+Route::get('/search', 'SearchProductController@search')->name('product.search');
+
+// get rif of this later
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('users/logout', 'Auth\LoginController@userLogout')->name('user.logout');

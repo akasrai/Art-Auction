@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryService
 {
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -26,5 +31,10 @@ class CategoryService
         ]);
 
         return $category;
+    }
+
+    public function getAllCategories()
+    {
+        return Category::all();
     }
 }

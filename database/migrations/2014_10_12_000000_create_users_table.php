@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('verify_token')->nullable();
             $table->boolean('status')->default('0');
             $table->date('dob')->nullable();
-            $table->string('country')->nulable();
+            $table->string('country')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('phone_no')->nullable();
@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('language')->default('en');
             $table->string('currency')->default('USD');
             $table->string('image')->nullable();
-            $table->dateTime('last_login');
+            $table->timestamp('last_login')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

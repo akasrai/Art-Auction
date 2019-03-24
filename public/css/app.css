@@ -2030,7 +2030,7 @@ pre code {
 
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1270px;
   }
 }
 
@@ -5679,7 +5679,7 @@ tbody.collapse.in {
 
   .navbar-right {
     float: right !important;
-    margin-right: -15px;
+    /* margin-right: -15px; */
   }
 
   .navbar-right ~ .navbar-right {

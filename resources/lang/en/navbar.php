@@ -18,4 +18,6 @@ return [
     'product' => 'Product',
     'productList' => 'Products',
     'createProduct' => 'Create Product',
+    'viewAuctionList' => 'View Auction List',
+    'auction' => 'Auctions'
 ];

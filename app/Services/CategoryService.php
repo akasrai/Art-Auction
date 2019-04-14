@@ -37,4 +37,9 @@ class CategoryService
     {
         return Category::all();
     }
+
+    public function getNameBySlug($slug)
+    {
+        return Category::where('slug', $slug)->get(['name']);
+    }
 }

@@ -12,25 +12,17 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = '/';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    
     public function __construct(CategoryService $categoryService)
     {
         $this->middleware('guest')->except('userLogout');
         $this->categoryService = $categoryService;
     }
 
-    // function copied from Illuminate\Foundation\Auth\AuthenticatesUsers to logout user guard
+    /**
+     * function copied from Illuminate\Foundation\Auth\AuthenticatesUsers to logout user guard
+     */
     public function userLogout()
     {
         Auth::guard('web')->logout();
@@ -45,8 +37,7 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        //return $request->only($this->username(), 'password');
-        return ['email' =>$request->{$this->username()},'password' => $request->password, 'status'=>'0']; // checkig active or blocked users
+        return $request->only($this->username(), 'password');
     }
 
     public function showLoginForm()

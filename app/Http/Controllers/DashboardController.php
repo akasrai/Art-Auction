@@ -2,40 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Services\CategoryService;
 use App\Services\ProductOptionService;
+use App\Services\ProductAuctionService;
 
 class DashboardController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(CategoryService $categoryService, ProductService $productService, ProductOptionService $productOptionService)
-    {
+    public function __construct(
+        ProductService $productService,
+        CategoryService $categoryService,
+        ProductOptionService $productOptionService,
+        ProductAuctionService $productAuctionService
+    ) {
         $this->middleware('auth');
         $this->productService = $productService;
         $this->categoryService = $categoryService;
         $this->productOptionService = $productOptionService;
+        $this->productAuctionService = $productAuctionService;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $categories = $this->categoryService->getAllCategories();
-        $productsOnAuction = $this->productService->getAllByProductOption(1, 6);
-        $featuredProducts = $this->productService->getAllByCategoryName('featured');
+        return view('dashboard.dashboard')
+                ->with('categories', $categories);
+    }
 
-        return view('welcome')
-                ->with('categories', $categories)
-                ->with('featuredProducts', $featuredProducts)
-                ->with('productsOnAuction', $productsOnAuction);
+    public function getMyBiddings()
+    {
+        $userId = Auth::user()->id;
+        $categories = $this->categoryService->getAllCategories();
+        $myBiddingProducts = $this->productAuctionService->getAllByUserId($userId);
+        foreach ($myBiddingProducts as $myBiddingProduct) {
+            $myBiddingProduct->biddings = $this->productAuctionService->getAllByUserIdAndProductId($userId, $myBiddingProduct->product_id);
+            $myBiddingProduct->highestBid = $this->productAuctionService->getCurrentHighestBidByProductId($myBiddingProduct->product_id);
+        }
+
+        return view('dashboard.myBiddings')
+                ->with('myBiddingProducts', $myBiddingProducts)
+                ->with('categories', $categories);
     }
 }

@@ -1,7 +1,8 @@
 <div class="col-md-3 left_col">
    <div class="left_col scroll-view">
       <div class="navbar nav_title" style="border: 0;">
-         <a href="/admin" class="site_title"><i class="fa fa-paw"></i> <span><span style="color:red;">Zorig</span>Auction</span></a>
+         <a href="/admin" class="site_title"><i class="fa fa-paw"></i> <span><span
+                  style="color:red;">Zorig</span>Auction</span></a>
       </div>
 
       <div class="clearfix"></div>
@@ -11,24 +12,36 @@
          <div class="menu_section">
             <ul class="nav side-menu">
                <li><a href="/admin"><i class="fa fa-home"></i> @lang('navbar.dashboard')</span></a></li>
+
                <li><a><i class="fa fa-trello"></i> @lang('navbar.category') <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                      <li><a href="/admin/category/create">@lang('navbar.createCategory')</a></li>
                      <li><a href="/admin/category">@lang('navbar.categoryList')</a></li>
                   </ul>
                </li>
-               <li><a><i class="fa fa-pied-piper-pp"></i> @lang('navbar.product') <span class="fa fa-chevron-down"></span></a>
+
+               <li><a><i class="fa fa-pied-piper-pp"></i> @lang('navbar.product') <span
+                        class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                      <li><a href="/admin/product/create">@lang('navbar.createProduct')</a></li>
                      <li><a href="/admin/products">@lang('navbar.productList')</a></li>
                   </ul>
                </li>
+
+               <li><a><i class="fa fa-bar-chart" aria-hidden="true"></i> @lang('navbar.auction') <span
+                        class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                     <li><a href="/admin/auctions">@lang('navbar.viewAuctionList')</a></li>
+                  </ul>
+               </li>
+               <!-- 
                <li><a><i class="fa fa-edit"></i> @lang('navbar.blogs') <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                      <li><a href="/admin/blog">@lang('navbar.blogList')</a></li>
                      <li><a href="/admin/blog/create">@lang('navbar.createBlog')</a></li>
                   </ul>
-               </li>
+               </li> -->
+
                @if(Auth::user()->isSuperAdmin())
                <li><a><i class="fa fa-user"></i> @lang('navbar.users') <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
@@ -43,7 +56,7 @@
       <!-- /sidebar menu -->
 
       <!-- /menu footer buttons -->
-      <div class="sidebar-footer hidden-small">
+      <!-- <div class="sidebar-footer hidden-small">
          <a data-toggle="tooltip" data-placement="top" title="Settings">
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
          </a>
@@ -56,7 +69,7 @@
          <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{ route('admin.logout') }}">
             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
          </a>
-      </div>
+      </div> -->
       <!-- /menu footer buttons -->
    </div>
 </div>
@@ -92,7 +105,8 @@
                </ul>
             </li>
 
-            <li role="presentation" class="dropdown">
+            <!-- NOTIFICATIONS -->
+            <!-- <li role="presentation" class="dropdown">
                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
                   <span class="badge bg-green">6</span>
@@ -100,7 +114,8 @@
                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                   <li>
                      <a>
-                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}" alt="Profile Image" /></span>
+                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}"
+                              alt="Profile Image" /></span>
                         <span>
                            <span>Akas Rai</span>
                            <span class="time">3 mins ago</span>
@@ -112,7 +127,8 @@
                   </li>
                   <li>
                      <a>
-                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}" alt="Profile Image" /></span>
+                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}"
+                              alt="Profile Image" /></span>
                         <span>
                            <span>Akas Rai</span>
                            <span class="time">3 mins ago</span>
@@ -124,7 +140,8 @@
                   </li>
                   <li>
                      <a>
-                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}" alt="Profile Image" /></span>
+                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}"
+                              alt="Profile Image" /></span>
                         <span>
                            <span>Akas Rai</span>
                            <span class="time">3 mins ago</span>
@@ -136,7 +153,8 @@
                   </li>
                   <li>
                      <a>
-                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}" alt="Profile Image" /></span>
+                        <span class="image"><img src="{{ asset('images/profiles/akas.jpg') }}"
+                              alt="Profile Image" /></span>
                         <span>
                            <span>Akas Rai</span>
                            <span class="time">3 mins ago</span>
@@ -155,7 +173,7 @@
                      </div>
                   </li>
                </ul>
-            </li>
+            </li> -->
          </ul>
       </nav>
    </div>

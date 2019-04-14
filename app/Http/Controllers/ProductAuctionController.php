@@ -21,7 +21,8 @@ class ProductAuctionController extends Controller
                 'id' => $productAuction->id,
                 'status' => 200,
                 'biddingAmount'=> $productAuction->bid_price,
-                'createdAt' =>$productAuction->created_at
+                'createdAt' =>$productAuction->created_at,
+                'comment' => $productAuction->comment
                 ]);
         } else {
             return response()->json(['status' => 500, 'message' => 'Something went wrong.']);

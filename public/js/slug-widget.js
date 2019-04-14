@@ -2,7 +2,8 @@ $(document).ready(function() {
    let controller = "product";
    let wasEdited = false;
 
-   $("#slug").hide();
+   if (!$("#slug").val()) $("#slug").hide();
+
    $("#save-slug").hide();
    $("#reset-slug").hide();
    $("#slug-edit-field").hide();
@@ -76,7 +77,7 @@ $(document).ready(function() {
                if (response.data) {
                   $("#slug").show();
                   $("#slug").val(slug);
-                  $("#slug").css("width", $("#slug").val().length + 2 + "ch");
+                  $("#slug").css("width", $("#slug").val().length + 1.5 + "ch");
                } else {
                   let title = wasEdited
                      ? $("#slug-edit-field").val()

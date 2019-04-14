@@ -70,6 +70,31 @@ class ProductService
         return $product;
     }
 
+    public function update($request)
+    {
+        $formData = $request->all();
+        $this->productValidator($formData)->validate();
+        if ((int)$formData['product-option'] == 0) {
+            $this->sellOptionValidator($formData)->validate();
+        } elseif ((int)$formData['product-option'] == 1) {
+            $this->auctionOptionValidator($formData)->validate();
+        }
+
+        try {
+            $product = $this->updateProduct($formData);
+            if ($product) {
+                if ($request->has('images')) {
+                    $this->productImageService->save($formData['images'], $formData["product-id"]);
+                }
+                $this->updateProductCategory($formData['category'], $formData['product-id']);
+                $this->productOptionService->update($formData);
+            }
+        } catch (Exception $e) {
+            dump($e);
+        }
+        return $product;
+    }
+
     private function saveProductCategory(array $categories, $productId)
     {
         foreach ($categories as $category) {
@@ -80,65 +105,95 @@ class ProductService
         }
     }
 
+    private function updateProductCategory(array $categories, $productId)
+    {
+        CategoryProduct::where('product_id', $productId)->forceDelete();
+        $this->saveProductCategory($categories, $productId);
+    }
+
     private function saveProduct($productData)
     {
-        $product = Product::create([
+        return Product::create([
             'name' => $productData['name'],
             'slug' => $productData['slug'],
-            // 'size' => $productData['size'],
+            'size' => $productData['size'],
             'description' => $productData['description'],
             'quality' => $productData['quality'],
-            'materials_used' => $productData['materials-used'],
             'artist' => $productData['artist'],
             'painted_date' => $productData['painted-date'],
             'style'=> $productData['style'],
             'created_at' => $productData['publish-date']? $productData['publish-date'] : date("Y-m-d H:i:s"),
             'updated_at' => $productData['publish-date']? $productData['publish-date'] : date("Y-m-d H:i:s"),
         ]);
-        return $product;
+    }
+
+    private function updateProduct($productData)
+    {
+        return Product::where('id', $productData['product-id'])
+                ->update([
+                    'name' => $productData['name'],
+                    'slug' => $productData['slug'],
+                    'size' => $productData['size'],
+                    'description' => $productData['description'],
+                    'quality' => $productData['quality'],
+                    'artist' => $productData['artist'],
+                    'painted_date' => $productData['painted-date'],
+                    'style'=> $productData['style'],
+                    'updated_at' => date("Y-m-d H:i:s"),
+                ]);
     }
 
     public function getAllByCategoryName($category, $limit)
     {
-        $products = Product::with('categories', 'images', 'options')->whereHas('categories', function ($q) use ($category) {
+        return Product::with('categories', 'images', 'options')->whereHas('categories', function ($q) use ($category) {
             $q->where('slug', $category);
-        })->orderBy('created_at', 'desc')->take($limit)->get();
-
-        return $products;
+        })->where('status', 1)->orderBy('created_at', 'desc')->paginate($limit);
     }
 
     public function getAllByProductOption($productOption, $limit)
     {
-        $products = Product::with('categories', 'images', 'options')->whereHas('options', function ($q) use ($productOption) {
+        return Product::with('categories', 'images', 'options')->whereHas('options', function ($q) use ($productOption) {
             $q->where('is_on_auction', $productOption);
-        })->orderBy('created_at', 'desc')->take($limit)->get();
-
-        return $products;
+        })->orderBy('created_at', 'desc')->paginate($limit);
     }
 
-    public function getById($id)
+    public function getAvailableProductsByProductOption($productOption, $limit)
     {
-        return Product::find($id);
+        return Product::with('categories', 'images', 'options')->whereHas('options', function ($q) use ($productOption) {
+            $q->where('is_on_auction', $productOption);
+        })->where('status', 1)->where('created_at', '<=', date("Y-m-d H:i:s"))->orderBy('created_at', 'desc')->paginate($limit);
     }
 
     public function getBySlug($productSlug)
     {
-        return Product::with(array('auctions' => function ($query) {
-            $query->orderBy('created_at', 'DESC')->take(10);
-        }))->where('slug', '=', $productSlug)->firstOrFail();
+        // return Product::with(array('auctions' => function ($query) {
+        //     $query->orderBy('created_at', 'DESC')->paginate(1);
+        // }))->where('slug', '=', $productSlug)->firstOrFail();
+
+        $product = Product::where('slug', '=', $productSlug)->firstOrFail();
+        return $product->setRelation('auctions', $product->auctions()->orderBy('created_at', 'DESC')->paginate(10));
     }
 
-    public function filterByParams(array $params)
+    public function filterByParams(array $params, $limit)
     {
         $categoryId = $params['category'];
         $productName = $params['product-name'];
 
         if ($categoryId) {
-            return Product::with('categories')->whereHas('categories', function ($q) use ($categoryId) {
-                $q->where('categories.id', $categoryId);
-            })->where('name', 'LIKE', '%'.$productName.'%')->orderBy('created_at', 'desc')->take(20)->get();
+            return Product::with('categories')
+                ->whereHas('categories', function ($q) use ($categoryId) {
+                    $q->where('categories.id', $categoryId);
+                })->where('name', 'LIKE', '%'.$productName.'%')
+                ->orderBy('created_at', 'desc')
+                ->paginate($limit);
         } else {
-            return Product::where('name', 'LIKE', '%'.$productName.'%')->orderBy('created_at', 'desc')->take(20)->get();
+            return Product::where('name', 'LIKE', '%'.$productName.'%')->orderBy('created_at', 'desc')->paginate($limit);
         }
+    }
+
+    public function updateStatus($productSlug)
+    {
+        return Product::where('slug', $productSlug)
+            ->update(['status' => 0, 'updated_at'=> date("Y-m-d H:i:s")]);
     }
 }

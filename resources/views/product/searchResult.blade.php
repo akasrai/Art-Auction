@@ -35,6 +35,9 @@
                   href="<?php echo url('product/'.$searchResult->slug)?>">@lang('messages.bid')</a>
 
             </div>
+            <div class="option-watermark">
+               ON AUCTION
+            </div>
             @else
             <div class="product-title">
                <h2>{{ $searchResult->name}}</h2>
@@ -54,14 +57,22 @@
             <div class="col-md-12 bid-product-button">
                <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
             </div>
+            <div class="option-watermark">
+               ON SELL
+            </div>
             @endif
          </div>
 
       </div>
    </div>
    @endforeach
+   <div class="col-md-12 pagination-wrapper">
+      {{ $searchResults->appends(request()->query())->links()}}
+   </div>
    @else
-   <span>No result</span>
+   <div class="col-md-12">
+      <span>No result</span>
+   </div>
    @endif
 </div>
 @endsection

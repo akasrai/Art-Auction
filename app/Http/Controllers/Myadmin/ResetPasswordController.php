@@ -50,7 +50,6 @@ class ResetPasswordController extends Controller
         return Password::broker('admins');
     }
 
-    // copied from vendor\laravel\framework\src\Illuminate\Foundation\Auth\ResetsPasswords to make admin password reset view
     public function showResetForm(Request $request, $token = null)
     {
         return view('myadmin.passwords.reset')->with(

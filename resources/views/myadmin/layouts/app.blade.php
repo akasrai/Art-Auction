@@ -18,6 +18,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
 
     <title>{{ config('app.name', 'Thanka Auction') }}</title>
 
@@ -50,7 +51,6 @@
     </div>
 
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-    <script language="JavaScript" type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
     <script language="JavaScript" type="text/javascript" src="{{ asset('js/bootstrap-progressbar.min.js') }}"></script>

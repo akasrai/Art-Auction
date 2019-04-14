@@ -41,21 +41,21 @@ class DashboardController extends Controller
 
     private function renderSuperAdminDashboard()
     {
-        return view('myadmin/superadmin_dashboard');
+        return view('myadmin/dashboard/superadmin_dashboard');
     }
 
     private function renderAdminDashboard()
     {
-        return view('myadmin/admin_dashboard');
+        return view('myadmin/dashboard/admin_dashboard');
     }
 
     private function renderEditorDashboard()
     {
-        return view('myadmin/editor_dashboard');
+        return view('myadmin/dashboard/editor_dashboard');
     }
 
     private function renderModeratorDashboard()
     {
-        return view('myadmin/moderator_dashboard');
+        return view('myadmin/dashboard/moderator_dashboard');
     }
 }

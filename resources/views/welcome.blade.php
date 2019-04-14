@@ -1,6 +1,16 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+
+    @if (session('status'))
+    <div class="col-md-12">
+        <div class="col-md-12 alert alert-success">
+            <i class="glyphicon glyphicon-ok-sign"></i>
+            {{ session('status') }}
+        </div>
+    </div>
+    @endif
+
     <div class="col-md-12 product-wrapper clearfix">
         <span class="next-slider-button" onclick="nextProduct()">
             <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -138,9 +148,9 @@
                     <h3>Price: $
                         <span id="{{$productOnSell->id}}"></span>
                         <script>
-                            let originalPrice = parseInt("{{$productOnSell->options->price}}");
-                            let discountPercentage = parseInt("{{$productOnSell->options->discount}}");
-                            let priceAfterDiscount = originalPrice - ((discountPercentage / 100) * originalPrice);
+                            originalPrice = parseInt("{{$productOnSell->options->price}}");
+                            discountPercentage = parseInt("{{$productOnSell->options->discount}}");
+                            priceAfterDiscount = originalPrice - ((discountPercentage / 100) * originalPrice);
                             document.getElementById("{{$productOnSell->id}}").innerHTML = priceAfterDiscount;
                         </script>
                     </h3>

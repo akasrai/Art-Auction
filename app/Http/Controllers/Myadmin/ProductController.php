@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Myadmin;
 
 use Session;
-use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Services\CategoryService;
@@ -28,8 +28,11 @@ class ProductController extends Controller
 
     public function index()
     {
+        $product = new Product;
         $categories = $this->categoryService->getAllCategories();
-        return view('myadmin/product/create')->with('categories', $categories);
+        return view('myadmin/product/create')
+                ->with('categories', $categories)
+                ->with('product', $product);
     }
 
     public function create(Request $request)
@@ -42,6 +45,28 @@ class ProductController extends Controller
         } else {
             Session::flash('error', 'Some error occured while adding new product.');
             return view('myadmin/product/create')->with('categories', $categories);
+        }
+    }
+
+
+    public function edit($productSlug)
+    {
+        $categories = $this->categoryService->getAllCategories();
+        $product = $this->productService->getBySlug($productSlug);
+       
+        return view('myadmin/product/create')
+                ->with('product', $product)
+                ->with('categories', $categories);
+    }
+
+    public function update(Request $request)
+    {
+        $product = $this->productService->update($request);
+
+        if ($request->all()['product-option']==1) {
+            return redirect('/admin/auctions/'.$request->all()['slug']);
+        } else {
+            return redirect('/admin/auctions');
         }
     }
 

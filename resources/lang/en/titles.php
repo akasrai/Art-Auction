@@ -9,5 +9,9 @@ return [
     'newAdmin' => 'New Admin',
     'addProduct' => 'Add New Product',
     'publish' => 'Publish',
-    'category' => 'Category'
+    'category' => 'Category',
+    'auctionList' => 'Product List in Auction',
+    'productDetails' => 'Product Details',
+    'auctionDetails' => 'Auction Details',
+    'biddersList' => 'Auction Bidders List'
 ];

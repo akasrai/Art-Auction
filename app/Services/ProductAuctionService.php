@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Mail;
+use App\Mail\auctionWinner;
 use App\Models\ProductAuction;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,8 +25,42 @@ class ProductAuctionService
             'product_id' => $biddingData['productId'],
             'user_id' => $biddingData['userId'],
             'bid_price' => $biddingData['biddingAmount'],
+            'comment' => $biddingData['comment']
          ]);
 
         return $productAuction;
+    }
+
+
+    public function countBidsByProductId($productId)
+    {
+        return ProductAuction::where('product_id', $productId)->count();
+    }
+
+    public function emailWinner($productId)
+    {
+        $winner = ProductAuction::where('product_id', $productId)->orderBy('bid_price', 'desc')->first();
+        Mail::to($winner->user['email'])->send(new auctionWinner($winner));
+        return $winner->product->slug;
+    }
+
+    public function getAllByUserId($userId)
+    {
+        return ProductAuction::where('user_id', $userId)->distinct()->get(['product_id']);
+    }
+
+    public function getAllByUserIdAndProductId($userId, $productId)
+    {
+        return ProductAuction::where('user_id', $userId)->where('product_id', $productId)->orderBy('created_at', 'DESC')->paginate(10);
+    }
+
+    public function getCurrentHighestBidByProductId($productId)
+    {
+        return ProductAuction::where('product_id', $productId)->max('bid_price');
+    }
+
+    public function test()
+    {
+        dump("Hello");
     }
 }

@@ -1,6 +1,5 @@
  <div class="col-md-12 col-sm-12 col-xs-12 search-bar">
     <form class="search-form" method="get" action="{{route('product.search')}}">
-       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
        <div class="col-md-12 col-sm-12 col-xs-12 no-padding input-group">
           <div class="col-md-3 col-sm-12 col-xs-12 no-padding custom-select">
              <select name="category" id="category" class="form-control custom-form-element">

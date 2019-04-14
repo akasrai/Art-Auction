@@ -2,58 +2,62 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-
-Route::get('/product/{productSlug}', 'HomeController@singleArticle');
-
-Route::post('/bid/product', 'ProductAuctionController@bidProduct');
+Route::get('/home', 'HomeController@index');
 
 Route::get('/search', 'SearchProductController@search')->name('product.search');
 
-// get rif of this later
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/product/{productSlug}', 'ProductController@getBySlug');
+Route::get('/category/{category}', 'ProductController@getByCategory');
+
+Route::get('/dashboard', 'DashboardController@index');
+Route::get('/biddings', 'DashboardController@getMyBiddings');
+
+Route::get('/profile', 'UserController@index');
+Route::post('/upload-profile-image', 'UserController@uploadProfileImage');
+Route::get('/resend-email-verification-link', 'UserController@resendEmailVerificationLink');
+
+Route::post('/bid/product', 'ProductAuctionController@bidProduct');
+
 
 Route::post('users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-Route::get('admin/logout', 'Myadmin\LoginController@logout')->name('admin.logout');
 
-Route::GET('admin', 'Myadmin\LoginController@showLoginForm')->name('admin.login');
-Route::POST('admin', 'Myadmin\LoginController@login');
+Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@verifyEmail')->name('verifyEmail');
 
-Route::POST('admin/password/email', 'Myadmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::prefix('admin')->group(function () {
+    Route::get('/logout', 'Myadmin\LoginController@logout')->name('admin.logout');
 
-Route::GET('admin/password/reset', 'Myadmin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::GET('/', 'Myadmin\LoginController@showLoginForm')->name('admin.login');
+    Route::POST('/', 'Myadmin\LoginController@login');
 
-Route::POST('admin/password/reset', 'Myadmin\ResetPasswordController@reset');
+    Route::GET('/password/reset', 'Myadmin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::POST('/password/email', 'Myadmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 
-Route::GET('admin/password/reset/{token}', 'Myadmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+    Route::GET('/password/reset/{token}', 'Myadmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+    Route::POST('/password/reset', 'Myadmin\ResetPasswordController@reset');
 
-Route::GET('admin/register', 'Myadmin\RegisterController@showRegistrationForm')->name('admin.register');
-Route::POST('admin/register', 'Myadmin\RegisterController@register')->name('admin.register.submit');
+    Route::GET('/register', 'Myadmin\RegisterController@showRegistrationForm')->name('admin.register');
+    Route::POST('/register', 'Myadmin\RegisterController@register')->name('admin.register.submit');
 
-Route::GET('admin/userlist', 'Myadmin\SuperadminController@userlist')->name('admin.userlist');
-Route::GET('admin/userlist/json', 'Myadmin\SuperadminController@userlistJson');
+    Route::GET('/userlist', 'Myadmin\SuperadminController@userlist')->name('admin.userlist');
+    Route::GET('/userlist/json', 'Myadmin\SuperadminController@userlistJson');
 
-//Test route
-Route::GET('admin/test', 'Myadmin\ModeratorController@test');
+    Route::get('/article/{id}', 'Myadmin\SuperadminController@singleArticle');
+    Route::GET('/dashboard', 'Myadmin\DashboardController@index');
 
-//user verification
-Route::get('verify-email-first', 'Auth\RegisterController@veryEmailFirst')->name('verifyEmailFirst');
+    Route::GET('/category/create', 'Myadmin\CategoryController@index');
+    Route::POST('/category/create', 'Myadmin\CategoryController@create')->name('admin.category.submit');
 
-Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
+    Route::GET('/product/create', 'Myadmin\ProductController@index');
+    Route::POST('/product/create', 'Myadmin\ProductController@create')->name('admin.product.submit');
+    Route::GET('/product/edit/{slug}', 'Myadmin\ProductController@edit');
+    Route::POST('/product/update', 'Myadmin\ProductController@update')->name('admin.product.update');
 
-//for article
-Route::get('admin/article/{id}', 'Myadmin\SuperadminController@singleArticle');
+    Route::GET('/auctions', 'Myadmin\ProductAuctionController@auctionList');
+    Route::GET('/auctions/{slug}', 'Myadmin\ProductAuctionController@getProductBySlug');
 
-//blog controller
-Route::resource('/admin/blog', 'Myadmin\BlogController');
-
-//superadmin admin editor moderator routes
- Route::prefix('admin')->group(function () {
-     Route::GET('/dashboard', 'Myadmin\DashboardController@index');
-     Route::GET('/category/create', 'Myadmin\CategoryController@index');
-     Route::POST('/category/create', 'Myadmin\CategoryController@create')->name('admin.category.submit');
-     Route::GET('/product/create', 'Myadmin\ProductController@index');
-     Route::POST('/product/create', 'Myadmin\ProductController@create')->name('admin.product.submit');
- });
+    Route::GET('/end-auctions/{slug}', 'Myadmin\ProductAuctionController@endAuction');
+    Route::GET('/email-winner/{id}', 'Myadmin\ProductAuctionController@emailWinner');
+});
 
  //Setting locale
  Route::get('welcome/{locale}', function ($locale) {

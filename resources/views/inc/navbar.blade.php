@@ -32,8 +32,13 @@
                  <li class="dropdown" id="user-logout-option">
                      <div class="dropdown-toggle user-info-section" data-toggle="dropdown" role="button"
                          aria-expanded="false" aria-haspopup="true">
-                         <div class="user-image">
+                         <div class="navbar-user-image">
+                             @if(Auth::user()->image)
+                             <img src="<?php echo url('storage/'.Auth::user()->image)?>"
+                                 id="profile-picture" alt="profile image" />
+                             @else
                              <i class="glyphicon glyphicon-user"></i>
+                             @endif
                          </div>
                          <div class="user-login-name">
                              <span>{{ Auth::user()->fname }} <span class="caret"></span> </span>
@@ -46,11 +51,13 @@
                                  style="display: none;">
                                  {{ csrf_field() }}
                              </form>
+                             <br />
+                             <a href="/dashboard" onclick="redirectTo()">Dashboard</a>
                          </div>
                      </div>
                  </li>
                  @endguest
-                 <a href="javascript:void(0)" id="cart">
+                 <a href=" javascript:void(0)" id="cart">
                      <li>
                          <i class="fa fa-shopping-cart" style="margin-top:9px"></i>
                          <span class="badge">38</span>
@@ -69,7 +76,7 @@
  <div class="col-md-12 nav-menu-bar">
      <div class="col-md-12 container padding-left-right">
          <div class="col-md-12 clearfix">
-             <div class="col-md-12">
+             <div class="col-md-12 no-padding shop-by-category-wrapper">
                  <div class="col-md-2 col-sm-12 col-xs-12 shop-by-category">
                      <i class="fa fa-chevron-down"></i>&nbsp;
                      SHOP BY CATEGORY
@@ -77,12 +84,14 @@
                          <ul class="category-list">
                              @if(count($categories)>0)
                              @foreach($categories as $category)
-                             @if($category->name!='Uncategorized')
-                             <li>
-                                 <a href="#">{{$category->name}}
+                             @if($category->name!='Uncategorized' && $category->name!='Featured')
+                             <a
+                                 href="<?php echo url('category/'.$category->slug);?>">
+                                 <li>
+                                     {{$category->name}}
                                      <i class="fa fa-angle-right pull-right" aria-hidden="true"></i>
-                                 </a>
-                             </li>
+                                 </li>
+                             </a>
                              @endif
                              @endforeach
                              @endif
@@ -99,3 +108,8 @@
          </div>
      </div>
  </div>
+ <script>
+     function redirectTo() {
+         window.location.href = "{{url('/dashboard')}}";
+     }
+ </script>

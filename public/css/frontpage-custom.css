@@ -7,6 +7,15 @@ body {
    background: #f5f5f5;
 }
 
+.row {
+   margin-left: 0;
+   margin-right: 0;
+}
+
+.custom-alert-wrapper {
+   width: 100%;
+}
+
 .product-wrapper {
    width: 100%;
    margin-bottom: 20px;
@@ -45,12 +54,27 @@ body {
 }
 
 .product:hover div img {
-   opacity: 0.9;
+   opacity: 0.8;
 }
 
 .product:hover div {
    visibility: visible;
 }
+
+/* Watermark for Product option */
+.option-watermark {
+   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+   width: 100%;
+   position: absolute;
+   top: 20%;
+   font-size: 20px;
+   font-weight: bolder;
+   text-align: center;
+   color: white;
+   visibility: hidden;
+   text-shadow: 0px 0px 30px black;
+}
+
 .product-image {
    padding: 0px;
    position: relative;
@@ -135,9 +159,12 @@ body {
 
 .featured-product-title p {
    font-family: "century-gothic";
-   font-weight: bolder;
    font-size: 16px;
    margin: auto;
+}
+
+.featured-product-title p span {
+   font-weight: bolder;
 }
 
 .featured-product-details {
@@ -494,6 +521,12 @@ input.search-input:focus {
 }
 
 /* main menu as category*/
+@media screen and (min-width: 991px) {
+   .shop-by-category-wrapper {
+      padding: 0 60px;
+   }
+}
+
 .shop-by-category {
    padding: 8px;
    font-weight: bolder;
@@ -517,7 +550,7 @@ input.search-input:focus {
    background: white;
    position: absolute;
    left: 0;
-   top: 39px;
+   top: 38px;
    z-index: 666;
    display: none;
    opacity: 0;
@@ -572,7 +605,7 @@ input.search-input:focus {
 .cart-icon-sum-wrapper ul li i {
    text-decoration: none;
    color: white;
-   font-size: 40px;
+   font-size: 38px;
 }
 
 .cart-icon-sum-wrapper ul li i:hover {
@@ -724,7 +757,7 @@ input.search-input:focus {
    color: rgb(230, 230, 230);
 }
 
-.user-image {
+.navbar-user-image {
    background: #71b0d4;
    width: 40px;
    height: 40px;
@@ -734,6 +767,11 @@ input.search-input:focus {
    margin-top: 8px;
    overflow: hidden;
    padding-top: 4px;
+   border: 1px solid white;
+}
+
+.navbar-user-image img {
+   width: 100%;
 }
 
 .dropdown-menu {
@@ -894,4 +932,147 @@ input.search-input:focus {
 
 .product-details {
    padding: 20px;
+}
+
+/* User dashboard and info side bar*/
+.dashboard-wrapper {
+   padding: 0 8px;
+}
+
+.menu-items-wrapper {
+   background: white;
+   border: 1px solid rgb(243, 243, 243);
+   padding: 5px 15px;
+}
+
+.menu-items-section {
+   margin: 8px 0;
+}
+
+.menu-items-header {
+   width: 100%;
+   border-bottom: 2px solid rgb(231, 231, 231);
+}
+
+.menu-items-header span {
+   font-size: 16px;
+   font-weight: bolder;
+}
+
+.menu-items {
+   list-style-type: none;
+   margin: 0;
+   padding: 5px;
+}
+
+.dashboard-content {
+   background: white;
+   padding: 15px;
+}
+
+.dashboard-content h3 {
+   margin-block-start: 0;
+   margin-block-end: 0;
+   font-size: 20px;
+   padding: 0 0 5px 0;
+   border-bottom: 2px solid rgb(231, 231, 231);
+   font-weight: bold;
+   margin-bottom: 15px;
+}
+
+.my-bid-product {
+   width: 100%;
+   padding: 10px;
+}
+
+.my-bid-product img {
+   margin-top: 10px;
+   width: 100%;
+}
+
+.my-bid-product img:hover {
+   opacity: 0.8;
+}
+
+.my-bid-product h4,
+h2 {
+   margin-block-start: 0px;
+   margin-block-end: 0;
+}
+
+.my-bid-product p {
+   margin-block-start: 0;
+   margin-block-end: 0;
+}
+
+.my-biddings-wrapper {
+   border-bottom: 2px solid rgb(241, 241, 241);
+}
+
+.user-profile-image {
+   background: #f6f6f7;
+   width: 160px;
+   height: 160px;
+   margin: 10px auto;
+   border-radius: 50%;
+   overflow: hidden;
+   position: relative;
+   cursor: pointer;
+   border: 2px solid #ffffff;
+   box-shadow: 0px 0px 10px #0000006e;
+}
+
+.user-profile-image img {
+   width: 100%;
+}
+
+.user-profile-image:hover .change-profile-image {
+   display: block;
+}
+
+.change-profile-image {
+   background: rgba(0, 0, 0, 0.459);
+   width: 100%;
+   height: 35px;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   text-align: center;
+   color: white;
+   padding: 5px 0px;
+   display: none;
+}
+
+.change-profile-image i {
+   font-size: 16px;
+   margin: 0;
+}
+
+#profile-image-input {
+   position: absolute;
+   top: 0;
+   left: 0;
+   opacity: 0;
+}
+
+#uploading-profile-image {
+   position: absolute;
+   left: 42%;
+   top: 44%;
+   font-size: 30px;
+   color: #2579a9;
+}
+
+.user-info-form {
+   display: flex;
+   justify-content: center;
+}
+
+.account-unverified-msg {
+   margin: 10px 0px;
+}
+
+.verified-account-icon {
+   color: #41a124;
+   font-size: 16px;
 }

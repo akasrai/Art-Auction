@@ -16,5 +16,11 @@ class CategoriesTableSeeder extends Seeder
             'slug' => 'uncategorized',
             'created_at' => date("Y-m-d H:i:s")
         ]);
+
+        DB::table('categories')->insert([
+            'name' => 'Featured',
+            'slug' => 'featured',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
     }
 }

@@ -24,8 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('verify_token')->nullable();
             $table->boolean('status')->default('0');
             $table->date('dob')->nullable();
-            $table->string('country')->nullable();
+            $table->string('address_line')->nullable();
+            $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('phone_no')->nullable();
             $table->boolean('update')->nullable();

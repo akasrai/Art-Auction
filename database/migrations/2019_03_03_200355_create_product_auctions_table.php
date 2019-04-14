@@ -18,6 +18,7 @@ class CreateProductAuctionsTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->float('bid_price');
+            $table->string('comment')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')

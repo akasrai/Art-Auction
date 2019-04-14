@@ -254,26 +254,6 @@ a.custom-btn:hover {
 #publish-date:hover {
    cursor: pointer;
 }
-/* 
-#publish-date::-webkit-calendar-picker-indicator {
-   color: rgba(0, 0, 0, 0);
-   opacity: 1;
-   display: block;
-   background: transparent;
-   width: 100%;
-   height: 100%;
-   border-width: thin;
-}
-
-#publish-date::-webkit-inner-spin-button {
-   -webkit-appearance: none;
-   display: none;
-}
-
-#publish-date::-webkit-clear-button {
-   display: none; 
-   -webkit-appearance: none; 
-} */
 
 #publish-date-display {
    top: -1px;
@@ -356,4 +336,85 @@ a.custom-btn:hover {
 
 .switch-field label:last-of-type {
    border-radius: none;
+}
+
+.category-indicator {
+   background: #d9534f;
+   border-radius: 3px;
+   padding: 3px 10px;
+   color: white;
+   font-size: 12px;
+}
+
+.auction-product-list-image {
+   width: 30px;
+   height: 30px;
+   overflow: hidden;
+}
+
+.auction-product-list-image img {
+   width: 100%;
+}
+
+.product-image {
+   padding: 10px;
+   height: 200px;
+   overflow: hidden;
+}
+
+.product-image img {
+   width: 100%;
+}
+
+.product-category {
+   padding: 10px 0px;
+}
+
+/* Basic color*/
+.color-red {
+   color: red;
+}
+
+.color-blue {
+   color: rgb(4, 71, 255);
+}
+
+/* Auction list design*/
+.action-column {
+   text-align: center;
+}
+
+.action-edit {
+   cursor: pointer;
+   margin-right: 5px;
+}
+
+.action-delete {
+   cursor: pointer;
+}
+
+.action-edit:hover,
+.action-delete:hover {
+   color: red;
+}
+
+/* laravel default paginaction design overide*/
+.pagination-wrapper {
+   float: right;
+}
+
+.pagination li a,
+.pagination li span {
+   border-radius: 0 !important;
+   color: #73879c;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span,
+.pagination > .active > span:hover,
+.pagination > .active > span:focus {
+   background-color: #2a3f54;
+   border-color: #2a3f54;
 }

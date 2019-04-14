@@ -22,27 +22,38 @@
          </div>
 
          @if($productDetails->options->is_on_auction)
-         <div class="col-md-4 colsm-12 col-xs-12 product-info">
+         <div class="col-md-4 colsm-12 col-xs-12 product-info" style="padding:0;">
             <div class="featured-product-title" style="margin:16px; text-align:left;">
                <h2>
                   {{$productDetails->name}}
                </h2>
-               <p>Style: <span class="danger-color">{{$productDetails->style}}</span></p>
-               <p>Quality: <span class="danger-color">{{$productDetails->quality}}</span></p>
-               <p>Size: <span class="danger-color">{{$productDetails->size}}</span></p>
-               <p>Painted on: <span class="danger-color">{{$productDetails->painted_date}}</span></p>
-               <p>Painted by: <span class="danger-color">{{$productDetails->artist}}</span></p>
-               <p>Estimated cost: <span class="danger-color">${{$productDetails->options->estimated_price}}</span></p>
+               <p>Style: <span class="">{{$productDetails->style}}</span></p>
+               <p>Quality: <span class="">{{$productDetails->quality}}</span></p>
+               <p>Size: <span class="">{{$productDetails->size}}</span></p>
+               <p>Painted on: <span class="">{{$productDetails->painted_date}}</span></p>
+               <p>Painted by: <span class="">{{$productDetails->artist}}</span></p>
+               <p>Estimated cost: <span class="">${{$productDetails->options->estimated_price}}</span></p>
                <p>
-                  Ends in:
-                  <span id="auction-final-date" class="danger-color"></span>
+                  <span id="ends-in" style="font-weight:normal;"></span>
+                  <span id="auction-final-date" class=""></span>
+                  @if($productDetails->status == 1)
                   <script>
+                     document.getElementById("ends-in").innerHTML = "Ends in:"
                      document.getElementById("auction-final-date").innerHTML =
                         moment(new Date("{{$productDetails->options->auction_final_date}}")).format(
                            "MMM Do YYYY, HH:mm a"
                         );
                      auctionCountDown("{{$productDetails->options->auction_final_date}}");
                   </script>
+                  @else
+                  <script>
+                     document.getElementById("ends-in").innerHTML = "Ended in:"
+                     document.getElementById("auction-final-date").innerHTML =
+                        moment(new Date("{{$productDetails->updated_at}}")).format(
+                           "MMM Do YYYY, HH:mm a"
+                        );
+                  </script>
+                  @endif
                </p>
             </div>
 
@@ -64,8 +75,10 @@
                      <i class="glyphicon glyphicon-user"></i> @lang('messages.loginToBid')
                   </a>
                   @else
+                  @if($productDetails->status == 1)
                   <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#bidding-details"
                      href="javascript:void(0)">@lang('messages.bid')</a>
+                  @endif
                   @endguest
                </div>
             </div>
@@ -110,10 +123,8 @@
                         {{$productDetails->auctions[0]->user->lname}}</span>
                   </div>
                   <div class="no-padding col-md-12">
-                     <span>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime et a pariatur, animi quis
-                        asperiores, ut alias minima magnam itaque at veniam rerum, illo consectetur facere temporibus!
-                        Ipsa, eius iure.
+                     <span id="bidder-comment">
+                        {{$productDetails->auctions[0]->comment}}
                      </span>
                   </div>
                   @else
@@ -168,73 +179,15 @@
 </div>
 
 @auth
-<script>
-   let curentUser = "{{ Auth::user()->fname}} {{ Auth::user()->lname}}"
-</script>
-<div class="modal fade" id="bidding-details" tabindex="-1" role="dialog" aria-labelledby="smallModal"
-   aria-hidden="true">
-   <div class="modal-dialog modal-md">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">
-               <i class="glyphicon glyphicon-info-sign"></i> Bidding Details
-            </h4>
-         </div>
-
-         <form name="bidding-placement" id="bidding-placement">
-            <div class="modal-body">
-
-               <div class="alert alert-success" id="alert-success">
-                  <i class="glyphicon glyphicon-ok-sign"></i>
-               </div>
-
-               <div class="alert alert-danger" id="alert-error">
-                  <i class="glyphicon glyphicon-remove-sign"></i>
-               </div>
-
-               <h4>Current price:
-                  @if(sizeof($productDetails->auctions)>0)
-                  <span class="current-price">${{$productDetails->auctions[0]->bid_price}}</span>
-                  <script>
-                     let currentPrice = parseInt("{{$productDetails->auctions[0]->bid_price}}");
-                  </script>
-                  @else
-                  <span class="current-price">${{$productDetails->options->estimated_price}}</span>
-                  <script>
-                     let currentPrice = parseInt("{{$productDetails->options->estimated_price}}");
-                  </script>
-                  @endif
-               </h4>
-               <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
-               <input type="hidden" name="product-id" id="product-id" value="{{$productDetails->id}}">
-               <input type="hidden" name="user-id" id="user-id" value="{{ Auth::user()->id }}">
-               <div class="form-group col-md-12 col-sm-12 col-xs-12 no-padding" id="form-group">
-                  <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-                     <input type="number" name="bidding-amount" id="bidding-amount" required="required"
-                        class="form-control col-md-12 col-xs-12" autoComplete="off" placeholder="Enter your price">
-                     <span id="error-msg" class="danger-color"></span>
-                  </div>
-               </div>
-            </div>
-            <br />
-            <br />
-            <div class="modal-footer">
-               <div class="featured-product-button" style="width:100%;">
-                  <a id="submit-bid" href="javascript:void(0)" onclick="submitBid()"
-                     class="btn btn-info col-md-12">@lang('messages.placeBid')</a>
-               </div>
-            </div>
-         </form>
-      </div>
-   </div>
-</div>
+@include('inc.biddingModalBox')
 @endauth
 @endsection
 @section('scripts')
 <script>
    $("#alert-error").hide();
    $("#alert-success").hide();
+   $("#email-sent-success").hide();
+   $("#sending-verification-email-icon").hide();
 
    function changeImage(imageUrl) {
       $("#image-large-view").attr("src", imageUrl);
@@ -260,6 +213,7 @@
             data: {
                _token: getValueOf("_token"),
                userId: getValueOf("user-id"),
+               comment: getValueOf("comment"),
                productId: getValueOf("product-id"),
                biddingAmount: getValueOf("bidding-amount")
             },
@@ -281,6 +235,7 @@
                   "</td></tr>";
 
                   $("#bidders-info").prepend(newRow);
+                  $("#bidder-comment").text(response.comment);
                   $(".current-highest-bidder").text(curentUser);
                   $(".current-price").text("$" + response.biddingAmount);
                } else {

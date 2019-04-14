@@ -27,7 +27,9 @@
 <body>
     <div id="app">
         @include('inc.navbar')
+       
         @yield('content')
+        
         <footer class="footer">
             <div class="container">
                 <div class="pull-left">
@@ -71,6 +73,8 @@
                 $(".shopping-cart").hide();
             }
         });
+
+        let originalPrice, discountPercentage, priceAfterDiscount;
     </script>
     @yield('scripts')
 </body>

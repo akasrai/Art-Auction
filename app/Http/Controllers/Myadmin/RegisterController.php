@@ -140,6 +140,6 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $roles = Role::all();
-        return view('myadmin.register')->with('roles', $roles);
+        return view('myadmin.auth.register')->with('roles', $roles);
     }
 }

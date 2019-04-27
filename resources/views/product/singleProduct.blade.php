@@ -115,7 +115,13 @@
                   @if(sizeof($productDetails->auctions)>0)
                   <div class="no-padding col-md-2">
                      <div class="highest-bidder-image">
+                        @if(!$productDetails->auctions[0]->user->image)
                         <i class="glyphicon glyphicon-user"></i>
+                        @else
+                        <img
+                           src="<?php echo url('storage/'.$productDetails->auctions[0]->user->image);?>"
+                           alt="bidder-image" />
+                        @endif
                      </div>
                   </div>
                   <div class="no-padding col-md-10 highest-bidder-name">

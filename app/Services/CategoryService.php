@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\CategoryProduct;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryService
@@ -15,8 +16,8 @@ class CategoryService
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255'
+            'name' => 'required|regex:/^[a-zA-Z\s]+$/|max:255',
+            'slug' => 'required|regex:/^[a-zA-Z-\s]+$/|max:255'
         ]);
     }
 
@@ -41,5 +42,15 @@ class CategoryService
     public function getNameBySlug($slug)
     {
         return Category::where('slug', $slug)->get(['name']);
+    }
+
+    public function delete($id)
+    {
+        $products = CategoryProduct::where("category_id", $id);
+        if ($products) {
+            CategoryProduct::where("category_id", $id)->update(['category_id'=>1]);
+        }
+
+        return Category::where('id', $id)->delete();
     }
 }

@@ -58,4 +58,21 @@ class UserService
             'images.*.image' => 'image|mimes:jpeg,bmp,png|max:2000'
         ]);
     }
+
+    public function update(array $data)
+    {
+        return User::where('id', $data['user-id'])->update([
+            'fname' => $data['fname'],
+            'mname' => $data['mname'],
+            'lname' => $data['lname'],
+            'phone_no' => $data['phone'],
+            'address_line' => $data['address-line'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'country' => $data['country'],
+            'postal_code' => $data['postal-code'],
+            'language' => $data['language'],
+            'currency' => $data['currency']
+        ]);
+    }
 }

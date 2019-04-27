@@ -77,7 +77,8 @@
                         <a
                            href="<?php echo url('admin/product/edit/'.$auctionProduct->slug)?>">
                            <span class="glyphicon glyphicon-edit action-edit"></span></a>
-                        <span class="glyphicon glyphicon-trash action-delete"></span>
+                        <a id="{{$auctionProduct->slug}}" onclick="confirmDelete(this.id)" href="javascript:void(0)">
+                           <span class="glyphicon glyphicon-trash action-delete"></span></a>
                      </td>
                   </tr>
                   @endforeach
@@ -95,5 +96,21 @@
 @endsection
 @section('scripts')
 <script>
+   let url = "";
+
+   function confirmDelete(slug) {
+      url = "{{url('admin/product/delete')}}/" + slug;
+      confirm("Are you sure you want delete this Auction?", url);
+   }
+
+   function confirm(msg, url) {
+      window.Swal(msg, {
+         buttons: ["cancel", true],
+      }).then(res => {
+         if (res) {
+            window.location.href = url
+         }
+      });
+   }
 </script>
 @endsection

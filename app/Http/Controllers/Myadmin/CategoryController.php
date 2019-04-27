@@ -42,4 +42,16 @@ class CategoryController extends Controller
             return view('myadmin/category/create')->with('categories', $categories);
         }
     }
+
+    public function delete($id)
+    {
+        if ($id !=1) {
+            $category = $this->categoryService->delete($id);
+            Session::flash('error', 'Category be deleted. All products of this category are now uncategorised.');
+            return redirect("admin/category/create");
+        } else {
+            Session::flash('error', 'Uncategorised category cannot be deleted.');
+            return redirect("admin/category/create");
+        }
+    }
 }

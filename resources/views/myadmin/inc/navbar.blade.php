@@ -13,16 +13,16 @@
             <ul class="nav side-menu">
                <li><a href="/admin"><i class="fa fa-home"></i> @lang('navbar.dashboard')</span></a></li>
 
-               <li><a><i class="fa fa-trello"></i> @lang('navbar.category') <span class="fa fa-chevron-down"></span></a>
+               <!-- <li><a><i class="fa fa-trello"></i> @lang('navbar.category') <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                     <li><a href="/admin/category/create">@lang('navbar.createCategory')</a></li>
                      <li><a href="/admin/category">@lang('navbar.categoryList')</a></li>
                   </ul>
-               </li>
+               </li> -->
 
                <li><a><i class="fa fa-pied-piper-pp"></i> @lang('navbar.product') <span
                         class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
+                     <li><a href="/admin/category/create">@lang('navbar.createCategory')</a></li>
                      <li><a href="/admin/product/create">@lang('navbar.createProduct')</a></li>
                      <li><a href="/admin/products">@lang('navbar.productList')</a></li>
                   </ul>
@@ -85,7 +85,7 @@
          <ul class="nav navbar-nav navbar-right">
             <li class="">
                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ asset('images/profiles/akas.jpg') }}" alt="">{{ Auth::user()->fname }}
+                  <img src="{{ asset('images/profiles/dp.png') }}" alt="">{{ Auth::user()->fname }}
                   <span class=" fa fa-angle-down"></span>
                </a>
                <ul class="dropdown-menu dropdown-usermenu pull-right">

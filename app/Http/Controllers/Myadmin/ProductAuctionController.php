@@ -37,7 +37,7 @@ class ProductAuctionController extends Controller
 
     public function endAuction($productSlug)
     {
-        $updateProduct = $this->productService->updateStatus($productSlug);
+        $updateProduct = $this->productService->endAuction($productSlug);
         return redirect('/admin/auctions/'.$productSlug);
     }
 

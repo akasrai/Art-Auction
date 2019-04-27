@@ -41,7 +41,9 @@ class ProductController extends Controller
         $categories =$this->categoryService->getAllCategories();
         if ($product) {
             Session::flash('success', 'New product added successfully.');
-            return view('myadmin/product/create')->with('categories', $categories);
+            return view('myadmin/product/create')
+                ->with('product', $product)
+                ->with('categories', $categories);
         } else {
             Session::flash('error', 'Some error occured while adding new product.');
             return view('myadmin/product/create')->with('categories', $categories);
@@ -67,6 +69,14 @@ class ProductController extends Controller
             return redirect('/admin/auctions/'.$request->all()['slug']);
         } else {
             return redirect('/admin/auctions');
+        }
+    }
+
+    public function delete($productSlug)
+    {
+        $deleteProduct = $this->productService->delete($productSlug);
+        if ($deleteProduct) {
+            return redirect("/admin/auctions");
         }
     }
 

@@ -28,4 +28,16 @@ class HomeController extends Controller
                 ->with('featuredProducts', $featuredProducts)
                 ->with('productsOnAuction', $productsOnAuction);
     }
+
+    public function getFAQ()
+    {
+        $categories = $this->categoryService->getAllCategories();
+        return view('info-pages/faq')->with('categories', $categories);
+    }
+
+    public function getContactInfo()
+    {
+        $categories = $this->categoryService->getAllCategories();
+        return view('info-pages/contact')->with('categories', $categories);
+    }
 }

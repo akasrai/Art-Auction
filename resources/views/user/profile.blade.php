@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<div class="container" style="min-height:75vh">
    <div class="col-md-12 dashboard-wrapper clearfix">
       <div class="col-md-3 menu-items-wrapper">
          @include('inc.dashboardSidebar')
@@ -18,6 +18,7 @@
                   <i class="fa fa-spinner fa-spin hide" id="sending-verification-email-icon"></i>
                </small>
                @endif
+               <button id="edit-profile" class="btn btn-edit-profile pull-right">Edit</button>
             </h3>
 
             <div class="col-md-12 no-padding">
@@ -69,19 +70,62 @@
                   <h2>
                      {{$user->fname}} {{$user->mname}} {{$user->lname}}
                   </h2>
+                  <p>E-mail: <b>{{$user->email}}</b>
+                     @if($user->status == 1)
+                     <i class="glyphicon glyphicon-ok-sign verified-account-icon" style="font-size:13px;"
+                        title="Verified Account"></i> <br />
+                     @endif
+                     Phone: <b>{{$user->phone_no}}</b></p>
+                  <div id="address-info">
+                     <p><b>Address</b><br />
+                        Address: Line <b>{{$user->address_line}}</b><br />
+                        City: <b>{{$user->city}}</b><br />
+                        State: <b>{{$user->state}}</b><br />
+                        Country: <b>{{$user->country}}</b><br />
+                        Zip Code: <b>{{$user->postal_code}}</b><br />
+                     </p>
+                  </div>
                </div>
 
-               <form method="POST" action="{{ route('login') }}">
+               <form method="POST" action="{{ route('profile.update') }}" id="edit-profile-form" class="hide">
 
                   <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
                   <input type="hidden" name="user-id" id="user-id" value="{{ $user->id }}" />
                   <div class="col-md-12 no-padding">
+                     <div class="col-md-4">
+                        <div class="form-group row">
+                           <label for="fname" class="col-sm-12 col-form-label no-padding">First Name</label>
+                           <input id="fname" type="text" class="form-control" name="fname" value="{{$user->fname}}"
+                              autofocus autocomplete="off" />
+
+                        </div>
+                     </div>
+
+                     <div class="col-md-4">
+                        <div class="form-group row">
+                           <label for="mname" class="col-sm-12 col-form-label no-padding">Middle Name</label>
+                           <input id="mname" type="text" class="form-control" name="mname" value="{{$user->mname}}"
+                              autofocus autocomplete="off" />
+
+                        </div>
+                     </div>
+
+                     <div class="col-md-4">
+                        <div class="form-group row">
+                           <label for="lname" class="col-sm-12 col-form-label no-padding">Last Name</label>
+                           <input id="lname" type="text" class="form-control" name="lname" value="{{$user->lname}}"
+                              autofocus autocomplete="off" />
+
+                        </div>
+                     </div>
+
                      <div class="col-md-6">
                         <div class="form-group row">
                            <label for="email" class="col-sm-12 col-form-label no-padding">E-Mail Address</label>
                            <input id="email" type="email"
                               class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email"
-                              value="{{$user->email}}" autofocus autocomplete="off" />
+                              value="{{$user->email}}" autofocus autocomplete="off" title="You cannot change email."
+                              disabled />
 
                            @if ($errors->has('email'))
                            <span class="invalid-feedback">
@@ -148,7 +192,7 @@
                            <label for="language" class="col-sm-12 col-form-label no-padding">Language</label>
                            <select id="language" class="form-control" name="language">
                               <option value="{{$user->language}}"> {{$user->language}} </option>
-                              <option value="">np</option>
+                              <option value="np">np</option>
                            </select>
                         </div>
                      </div>
@@ -278,5 +322,13 @@
    function getValueOf(id) {
       return $("#" + id).val();
    }
+
+
+   $("#edit-profile").click(function() {
+      $("#address-info").toggleClass("hide");
+      $("#edit-profile-form").toggleClass("hide");
+      let buttonText = $("#edit-profile").text() == "Edit" ? "Cancel" : "Edit"
+      $("#edit-profile").text(buttonText);
+   });
 </script>
 @endsection

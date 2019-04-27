@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Session;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\ProductService;
@@ -43,6 +44,15 @@ class UserController extends Controller
             return response()->json(['status' => 200, 'message' => 'Profile picture updated.']);
         } else {
             return response()->json(['status' => 500, 'message' => 'Something went wrong while updating your profile picture.']);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $user = $this->userService->update($request->all());
+        if ($user) {
+            Session::flash('success', 'Profile updated successfully.');
+            return redirect('profile');
         }
     }
 }

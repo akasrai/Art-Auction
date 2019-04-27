@@ -154,7 +154,7 @@ class ProductService
     {
         return Product::with('categories', 'images', 'options')->whereHas('options', function ($q) use ($productOption) {
             $q->where('is_on_auction', $productOption);
-        })->orderBy('created_at', 'desc')->paginate($limit);
+        })->where('status', '!=', 0)->orderBy('created_at', 'desc')->paginate($limit);
     }
 
     public function getAvailableProductsByProductOption($productOption, $limit)
@@ -166,10 +166,6 @@ class ProductService
 
     public function getBySlug($productSlug)
     {
-        // return Product::with(array('auctions' => function ($query) {
-        //     $query->orderBy('created_at', 'DESC')->paginate(1);
-        // }))->where('slug', '=', $productSlug)->firstOrFail();
-
         $product = Product::where('slug', '=', $productSlug)->firstOrFail();
         return $product->setRelation('auctions', $product->auctions()->orderBy('created_at', 'DESC')->paginate(10));
     }
@@ -183,15 +179,23 @@ class ProductService
             return Product::with('categories')
                 ->whereHas('categories', function ($q) use ($categoryId) {
                     $q->where('categories.id', $categoryId);
-                })->where('name', 'LIKE', '%'.$productName.'%')
+                })
+                ->where('name', 'LIKE', '%'.$productName.'%')
+                ->where('status', 1)
                 ->orderBy('created_at', 'desc')
                 ->paginate($limit);
         } else {
-            return Product::where('name', 'LIKE', '%'.$productName.'%')->orderBy('created_at', 'desc')->paginate($limit);
+            return Product::where('name', 'LIKE', '%'.$productName.'%')->where("status", 1)->orderBy('created_at', 'desc')->paginate($limit);
         }
     }
 
-    public function updateStatus($productSlug)
+    public function endAuction($productSlug)
+    {
+        return Product::where('slug', $productSlug)
+            ->update(['status' => 2, 'updated_at'=> date("Y-m-d H:i:s")]);
+    }
+
+    public function delete($productSlug)
     {
         return Product::where('slug', $productSlug)
             ->update(['status' => 0, 'updated_at'=> date("Y-m-d H:i:s")]);

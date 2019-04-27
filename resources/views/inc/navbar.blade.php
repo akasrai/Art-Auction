@@ -98,12 +98,16 @@
                          </ul>
                      </div>
                  </div>
-                 <!-- <div class="col-md-7">
+                 <div class="col-md-7 no-padding">
                      <ul class="navbar-menu-items">
-                         <li><a href="javascript:void(0)">About Us</a></li>
-                         <li><a href="javascript:void(0)">Contact</a></li>
+                         <a href="/contact">
+                             <li>Contact</li>
+                         </a>
+                         <a href="/faq">
+                             <li>FAQ</li>
+                         </a>
                      </ul>
-                 </div> -->
+                 </div>
              </div>
          </div>
      </div>

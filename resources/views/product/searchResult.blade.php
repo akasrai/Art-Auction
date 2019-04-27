@@ -44,9 +44,9 @@
                <h3>Price: $
                   <span id="{{$searchResult->id}}"></span>
                   <script>
-                     let originalPrice = parseInt("{{$searchResult->options->price}}");
-                     let discountPercentage = parseInt("{{$searchResult->options->discount}}");
-                     let priceAfterDiscount = originalPrice - ((discountPercentage / 100) * originalPrice);
+                     originalPrice = parseInt("{{$searchResult->options->price}}");
+                     discountPercentage = parseInt("{{$searchResult->options->discount}}");
+                     priceAfterDiscount = originalPrice - ((discountPercentage / 100) * originalPrice);
                      document.getElementById("{{$searchResult->id}}").innerHTML = priceAfterDiscount;
                   </script>
                </h3>

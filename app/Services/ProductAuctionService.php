@@ -46,7 +46,10 @@ class ProductAuctionService
 
     public function getAllByUserId($userId)
     {
-        return ProductAuction::where('user_id', $userId)->distinct()->get(['product_id']);
+        $status = 1;
+        return ProductAuction::with('product')->whereHas('product', function ($q) use ($status) {
+            $q->where('status', $status);
+        })->where('user_id', $userId)->distinct()->get(['product_id']);
     }
 
     public function getAllByUserIdAndProductId($userId, $productId)
@@ -57,10 +60,5 @@ class ProductAuctionService
     public function getCurrentHighestBidByProductId($productId)
     {
         return ProductAuction::where('product_id', $productId)->max('bid_price');
-    }
-
-    public function test()
-    {
-        dump("Hello");
     }
 }

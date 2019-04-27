@@ -88,6 +88,7 @@ body {
 
 .product-title {
    padding: 0 6px;
+   height: 100px;
 }
 
 .product-title h2 {
@@ -516,14 +517,30 @@ input.search-input:focus {
    border-color: #d3e0e9;
 }
 
-.navbar-menu-items li a {
+.navbar-menu-items {
+   padding-inline-start: 0px;
+}
+
+.navbar-menu-items a {
    color: white !important;
+   text-decoration: none;
+}
+
+.navbar-menu-items li {
+   list-style-type: none;
+   float: left;
+   padding: 8px 20px;
+}
+
+.navbar-menu-items li:hover {
+   background-color: #3993c7;
+   cursor: pointer;
 }
 
 /* main menu as category*/
 @media screen and (min-width: 991px) {
    .shop-by-category-wrapper {
-      padding: 0 60px;
+      padding: 0 0px 0px 60px;
    }
 }
 
@@ -1075,4 +1092,16 @@ h2 {
 .verified-account-icon {
    color: #41a124;
    font-size: 16px;
+}
+
+.btn-edit-profile {
+   padding: 0px 10px;
+   background: #2579a9;
+   color: white;
+}
+
+.btn-edit-profile:hover {
+   padding: 0px 10px;
+   background: #43ace9;
+   color: white;
 }

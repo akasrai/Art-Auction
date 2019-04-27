@@ -3,6 +3,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+Route::get('/faq', 'HomeController@getFAQ');
+Route::get('/contact', 'HomeController@getContactInfo');
 
 Route::get('/search', 'SearchProductController@search')->name('product.search');
 
@@ -13,6 +15,7 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::get('/biddings', 'DashboardController@getMyBiddings');
 
 Route::get('/profile', 'UserController@index');
+Route::post('/profile/update', 'UserController@update')->name('profile.update');
 Route::post('/upload-profile-image', 'UserController@uploadProfileImage');
 Route::get('/resend-email-verification-link', 'UserController@resendEmailVerificationLink');
 
@@ -45,12 +48,14 @@ Route::prefix('admin')->group(function () {
     Route::GET('/dashboard', 'Myadmin\DashboardController@index');
 
     Route::GET('/category/create', 'Myadmin\CategoryController@index');
+    Route::GET('/category/delete/{id}', 'Myadmin\CategoryController@delete');
     Route::POST('/category/create', 'Myadmin\CategoryController@create')->name('admin.category.submit');
 
     Route::GET('/product/create', 'Myadmin\ProductController@index');
     Route::POST('/product/create', 'Myadmin\ProductController@create')->name('admin.product.submit');
     Route::GET('/product/edit/{slug}', 'Myadmin\ProductController@edit');
     Route::POST('/product/update', 'Myadmin\ProductController@update')->name('admin.product.update');
+    Route::GET('/product/delete/{slug}', 'Myadmin\ProductController@delete');
 
     Route::GET('/auctions', 'Myadmin\ProductAuctionController@auctionList');
     Route::GET('/auctions/{slug}', 'Myadmin\ProductAuctionController@getProductBySlug');

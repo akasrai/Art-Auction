@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\CartService;
 use App\Services\ProductService;
 use App\Services\CategoryService;
 use App\Services\ProductOptionService;
 
 class HomeController extends Controller
 {
-    public function __construct(CategoryService $categoryService, ProductOptionService $productOptionService, ProductService $productService)
-    {
+    public function __construct(
+        CartService $cartService,
+        ProductService $productService,
+        CategoryService $categoryService,
+        ProductOptionService $productOptionService
+          ) {
+        $this->cartService = $cartService;
         $this->productService = $productService;
         $this->categoryService = $categoryService;
         $this->productOptionService = $productOptionService;
@@ -18,6 +24,8 @@ class HomeController extends Controller
 
     public function index()
     {
+        $this->cartService->getCartProduct();
+
         $categories = $this->categoryService->getAllCategories();
         $productsOnSell = $this->productService->getAllByProductOption(0, 12);
         $productsOnAuction = $this->productService->getAvailableProductsByProductOption(1, 12);

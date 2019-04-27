@@ -73,12 +73,13 @@
                   <p>E-mail: <b>{{$user->email}}</b>
                      @if($user->status == 1)
                      <i class="glyphicon glyphicon-ok-sign verified-account-icon" style="font-size:13px;"
-                        title="Verified Account"></i> <br />
+                        title="Verified Account"></i>
                      @endif
+                     <br />
                      Phone: <b>{{$user->phone_no}}</b></p>
                   <div id="address-info">
                      <p><b>Address</b><br />
-                        Address: Line <b>{{$user->address_line}}</b><br />
+                        Address Line: <b>{{$user->address_line}}</b><br />
                         City: <b>{{$user->city}}</b><br />
                         State: <b>{{$user->state}}</b><br />
                         Country: <b>{{$user->country}}</b><br />

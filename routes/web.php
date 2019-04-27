@@ -10,6 +10,9 @@ Route::get('/search', 'SearchProductController@search')->name('product.search');
 
 Route::get('/product/{productSlug}', 'ProductController@getBySlug');
 Route::get('/category/{category}', 'ProductController@getByCategory');
+Route::get('/add-to-product/{slug}', 'ProductController@addToCart');
+Route::get('/remove-from-cart/{id}', 'ProductController@removeFromCart');
+Route::get('/my-cart-items', 'ProductController@getCartItems');
 
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/biddings', 'DashboardController@getMyBiddings');

@@ -57,17 +57,68 @@
                      </div>
                  </li>
                  @endguest
+
+                 <?php $count = 0; $sellingPrice=0; $total=0;?>
+                 @if(session('cart'))
+                 @foreach(session('cart') as $id => $details)
+                 <?php
+                    $count++;
+                    $sellingPrice = $details['price'] - (($details['discount'] / 100) * $details['price']);
+                    $total += $sellingPrice * $details['quantity']
+                 ?>
+                 @endforeach
+                 @endif
                  <a href=" javascript:void(0)" id="cart">
                      <li>
                          <i class="fa fa-shopping-cart" style="margin-top:9px"></i>
-                         <span class="badge">38</span>
+                         <span class="badge">{{$count}}</span>
                      </li>
                      <li>
                          <span class="total-cart-amount-title">Cart</span>
-                         <span class="total-cart-amount"> $50000</span>
+                         <span class="total-cart-amount"> ${{$total}}</span>
                      </li>
                  </a>
-                 @include('inc.items-in-cart')
+
+                 <div class="shopping-cart hide">
+                     <div class="shopping-cart-header">
+                         <i class="fa fa-shopping-cart cart-icon"></i>
+                         <span class="badge" style="margin:0;">{{$count}}</span>
+                         <div class="shopping-cart-total">
+                             <span class="lighter-text">Total:</span>
+                             <span class="danger-color"><b>${{$total}}</b></span>
+                         </div>
+                     </div>
+
+                     <!--end shopping-cart-header -->
+                     <ul class="shopping-cart-items">
+
+                         @if(session('cart'))
+                         @foreach(session('cart') as $id => $details)
+                         <li class="clearfix">
+                             <div class="add-to-cart-image pull-left">
+                                 <img src="<?php echo url('storage/'.$details['image'])?>"
+                                     alt="product image">
+                             </div>
+                             <span class="item-name">{{$details['name']}}</span>
+                             <span class="item-price" id="{{$details['name']}}">
+                                 Price: $<?php
+                                $originalPrice = $details['price'];
+                                $discountPercentage = $details['discount'];
+                                $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
+                                echo $priceAfterDiscount;
+                                ?>
+                             </span>
+                             <span class="item-quantity">Quantity: {{$details['quantity']}}</span><br>
+                             <a class="item-remove" href="/remove-from-cart/{{$id}}">Remove</a>
+                         </li>
+                         @endforeach
+                         @endif
+                         <li>
+                             <a href="/my-cart-items" class="btn btn-default checkout-btn">Checkout</a>
+                         </li>
+                     </ul>
+                 </div>
+
              </ul>
          </div>
      </div>

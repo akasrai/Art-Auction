@@ -159,7 +159,8 @@
                     </p>
                 </div>
                 <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
+                    <a class="btn btn-info"
+                        href="/add-to-product/{{$productOnSell->slug}}">@lang('messages.addToCart')</a>
                 </div>
             </div>
         </div>

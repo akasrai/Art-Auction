@@ -6,8 +6,8 @@
          @include('inc.dashboardSidebar')
       </div>
 
-      <div class="col-md-9 ">
-         <div class="dashboard-content">
+      <div class="col-md-9 no-mobile-padding">
+         <div class="col-md-12 dashboard-content">
             <h3>Dashboard</h3>
          </div>
       </div>

@@ -1,16 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-   <div class="col-md-12 product-header no-padding">
+<div class="container" style="min-height:80vh">
+   <div class="col-md-12 product-header clearfix">
       <h1>Your Shopping Cart <small>Your shopping cart items with details.</small></h1>
       <div class="col-md-8 no-padding">
-         <div class="col-md-12 no-padding your-cart-items ">
+         <div class="col-md-12 your-cart-items">
             <table class="col-md-12 your-cart-items-table">
                <tr>
                   <th>Products</th>
                   <th>Price</th>
                </tr>
-
 
                @if(session('cart'))
                @foreach(session('cart') as $id => $details)
@@ -30,10 +29,10 @@
                   </td>
                   <td>
                      <div class="clearfix">
-                        <span>Original Price: ${{$details['price']}}</span>
-                        <span>(Save {{$details['discount']}}%)</span><br>
+                        <span>Original Price: <b>${{$details['price']}}</b></span>
+                        <span class="danger-color">({{$details['discount']}}% off)</span><br>
 
-                        <span class="danger-color">
+                        <span class="final-price danger-color">
                            Final Price: $<?php
                                 $originalPrice = $details['price'];
                                 $discountPercentage = $details['discount'];
@@ -41,6 +40,9 @@
                                 echo $priceAfterDiscount;
                                 ?>
                         </span>
+                        <span>/item</span>
+                        <br />
+                        <a href="/remove-from-cart/{{$id}}">Remove</a>
                      </div>
                   </td>
                </tr>
@@ -50,8 +52,74 @@
          </div>
       </div>
 
-      <div class="col-md-4 no-padding">
-         here
+      <div class="col-md-4 no-mobile-padding">
+         <div class="col-md-12 cart-items-calculator">
+            <h2>Order Summary</h2>
+            <table class="order-summary-table">
+               <tr>
+                  <th>Items</th>
+                  <th>QTY</th>
+                  <th>Price</th>
+                  <th>Total</th>
+               </tr>
+               <?php $grandTotal = 0;?>
+               @if(session('cart'))
+               @foreach(session('cart') as $id => $details)
+               <?php
+                  $OP = $details['price'];
+                  $DP = $details['discount'];
+                  $PAD = $OP - (($DP / 100) * $OP);
+                  $finalPrice=  $PAD * $details['quantity'];
+                  $grandTotal += $finalPrice;
+                  ?>
+               <tr>
+                  <td>
+                     {{$details['name']}}
+                  </td>
+                  <td>
+                     {{$details['quantity']}}
+                  </td>
+                  <td>
+                     ${{$PAD}}
+                  </td>
+                  <td>
+                     <span class="order-summery-price">
+                        ${{$finalPrice}}
+                     </span>
+                  </td>
+               </tr>
+               @endforeach
+               @endif
+               <tr>
+                  <td colspan="4">
+                     <hr>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="3">Gift Coupon</td>
+                  <td><span class="order-summery-price">$0.00</span></td>
+               </tr>
+               <tr>
+                  <td colspan="3">Special Discount</td>
+                  <td>
+                     <span class="order-summery-price">$0.00</span>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="4">
+                     <hr>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="3"><span class="order-summery-price">GRAND TOTAL</span></td>
+                  <td><span class="order-summery-price">${{$grandTotal}}</span></td>
+               </tr>
+            </table>
+            <div class="order-summery-btn">
+               <a href="/my-cart-items" class="btn btn-default">CHECKOUT</a>
+               <a href="/my-cart-items" class="btn btn-default">Continue Shopping</a>
+            </div>
+         </div>
       </div>
    </div>
 </div>

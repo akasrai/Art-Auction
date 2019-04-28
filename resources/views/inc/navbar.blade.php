@@ -114,7 +114,8 @@
                          @endforeach
                          @endif
                          <li>
-                             <a href="/my-cart-items" class="btn btn-default checkout-btn">Checkout</a>
+                             <a href="/my-cart-items" class="btn btn-default cart-btn">My Cart</a>
+                             <a href="/my-cart-items" class="btn btn-default cart-btn">Checkout</a>
                          </li>
                      </ul>
                  </div>
@@ -151,6 +152,12 @@
                  </div>
                  <div class="col-md-7 no-padding">
                      <ul class="navbar-menu-items">
+                         <a href="/contact">
+                             <li>Shop</li>
+                         </a>
+                         <a href="/contact">
+                             <li>Auction</li>
+                         </a>
                          <a href="/contact">
                              <li>Contact</li>
                          </a>

@@ -6,8 +6,8 @@
          @include('inc.dashboardSidebar')
       </div>
 
-      <div class="col-md-9 ">
-         <div class="dashboard-content clearfix">
+      <div class="col-md-9 no-mobile-padding">
+         <div class="col-md-12 dashboard-content clearfix">
             <h3>
                My Profile
                @if($user->status == 1)
@@ -218,7 +218,6 @@
             </div>
             </form>
          </div>
-
       </div>
    </div>
 

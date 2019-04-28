@@ -42,20 +42,19 @@
             <div class="product-title">
                <h2>{{ $searchResult->name}}</h2>
                <h3>Price: $
-                  <span id="{{$searchResult->id}}"></span>
-                  <script>
-                     originalPrice = parseInt("{{$searchResult->options->price}}");
-                     discountPercentage = parseInt("{{$searchResult->options->discount}}");
-                     priceAfterDiscount = originalPrice - ((discountPercentage / 100) * originalPrice);
-                     document.getElementById("{{$searchResult->id}}").innerHTML = priceAfterDiscount;
-                  </script>
+                  <?php
+                     $originalPrice = $searchResult->options->price;
+                     $discountPercentage = $searchResult->options->discount;
+                     $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
+                     echo $priceAfterDiscount;
+                  ?>
                </h3>
                <p> <s> ${{$searchResult->options->price}} </s>&nbsp;<span class="discount-percentage">
                      -{{$searchResult->options->discount}}%</span>
                </p>
             </div>
             <div class="col-md-12 bid-product-button">
-               <a class="btn btn-info" href="javascript:void(0)">@lang('messages.addToCart')</a>
+               <a class="btn btn-info" href="/add-to-product/{{$searchResult->slug}}">@lang('messages.addToCart')</a>
             </div>
             <div class="option-watermark">
                ON SELL

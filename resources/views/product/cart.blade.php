@@ -47,6 +47,10 @@
                   </td>
                </tr>
                @endforeach
+               @else
+               <tr>
+                  <td colspan="2">You haven't added any items to your cart yet.</td>
+               </tr>
                @endif
             </table>
          </div>

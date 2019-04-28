@@ -13,6 +13,8 @@ Route::get('/category/{category}', 'ProductController@getByCategory');
 Route::get('/add-to-product/{slug}', 'ProductController@addToCart');
 Route::get('/remove-from-cart/{id}', 'ProductController@removeFromCart');
 Route::get('/my-cart-items', 'ProductController@getCartItems');
+Route::get('/auction', 'ProductController@getAuction');
+Route::get('/shop', 'ProductController@getShop');
 
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/biddings', 'DashboardController@getMyBiddings');

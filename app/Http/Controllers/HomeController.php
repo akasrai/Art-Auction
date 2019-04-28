@@ -24,8 +24,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        $this->cartService->getCartProduct();
-
         $categories = $this->categoryService->getAllCategories();
         $productsOnSell = $this->productService->getAllByProductOption(0, 12);
         $productsOnAuction = $this->productService->getAvailableProductsByProductOption(1, 12);

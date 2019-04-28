@@ -9,8 +9,11 @@
       @endif
       <div class="col-md-9 col-sm-12 col-xs-12">
          <div class="x_panel tile">
-            <div class="x_title">
-               <h2>@lang('titles.addProduct')</h2>
+            <div class="x_title clearfix">
+               <h2 class="pull-left">@lang('titles.productDetails')</h2>
+               @if($product->exists)
+               <a href="/admin/product/create" class="pull-right btn btn-primary btn-modified">Add New Product</a>
+               @endif
                <div class="clearfix"></div>
             </div>
             <div class="x_content">

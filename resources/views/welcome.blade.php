@@ -146,13 +146,12 @@
                 <div class="product-title">
                     <h2>{{ $productOnSell->name}}</h2>
                     <h3>Price: $
-                        <span id="{{$productOnSell->id}}"></span>
-                        <script>
-                            originalPrice = parseInt("{{$productOnSell->options->price}}");
-                            discountPercentage = parseInt("{{$productOnSell->options->discount}}");
-                            priceAfterDiscount = originalPrice - ((discountPercentage / 100) * originalPrice);
-                            document.getElementById("{{$productOnSell->id}}").innerHTML = priceAfterDiscount;
-                        </script>
+                        <?php
+                        $originalPrice = $productOnSell->options->price;
+                        $discountPercentage = $productOnSell->options->discount;
+                        $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
+                        echo $priceAfterDiscount;
+                    ?>
                     </h3>
                     <p> <s> ${{$productOnSell->options->price}} </s>&nbsp;<span class="discount-percentage">
                             -{{$productOnSell->options->discount}}%</span>

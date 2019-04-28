@@ -13,5 +13,5 @@ return [
     'auctionList' => 'Product List in Auction',
     'productDetails' => 'Product Details',
     'auctionDetails' => 'Auction Details',
-    'biddersList' => 'Auction Bidders List'
+    'biddersList' => 'Auction Bidders List',
 ];

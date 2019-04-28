@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
    <div class="col-md-12 product-header">
-      <h1>{{$category[0]->name}} <small>Buy your favorite arts at any time with reasonable price.</small></h1>
+      <h1>Products on auction <small>Bid your favorite art before the time ends.</small></h1>
    </div>
 
    @if(sizeof($products) > 0)
@@ -16,7 +16,6 @@
                   alt="product image">
             </div>
 
-            @if($product->options->is_on_auction)
             <div class="product-title">
                <h2>{{ $product->name}}</h2>
                <h3>Estimated cost: ${{$product->options->estimated_price}}</h3>
@@ -38,30 +37,7 @@
             <div class="option-watermark">
                ON AUCTION
             </div>
-            @else
-            <div class="product-title">
-               <h2>{{ $product->name}}</h2>
-               <h3>Price: $
-                  <?php
-                     $originalPrice = $product->options->price;
-                     $discountPercentage = $product->options->discount;
-                     $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
-                     echo $priceAfterDiscount;
-                  ?>
-               </h3>
-               <p> <s> ${{$product->options->price}} </s>&nbsp;<span class="discount-percentage">
-                     -{{$product->options->discount}}%</span>
-               </p>
-            </div>
-            <div class="col-md-12 bid-product-button">
-               <a class="btn btn-info" href="/add-to-product/{{$product->slug}}">@lang('messages.addToCart')</a>
-            </div>
-            <div class="option-watermark">
-               ON SELL
-            </div>
-            @endif
          </div>
-
       </div>
    </div>
    @endforeach
@@ -70,7 +46,7 @@
    </div>
    @else
    <div class="col-md-12">
-      <span>Theres no any product under this category.</span>
+      <span>Theres no any product yet.</span>
    </div>
    @endif
 </div>

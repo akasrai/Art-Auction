@@ -152,10 +152,10 @@
                  </div>
                  <div class="col-md-7 no-padding">
                      <ul class="navbar-menu-items">
-                         <a href="/contact">
+                         <a href="/shop">
                              <li>Shop</li>
                          </a>
-                         <a href="/contact">
+                         <a href="/auction">
                              <li>Auction</li>
                          </a>
                          <a href="/contact">

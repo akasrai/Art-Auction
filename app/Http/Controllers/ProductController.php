@@ -74,4 +74,24 @@ class ProductController extends Controller
         $categories = $this->categoryService->getAllCategories();
         return view('product.cart')->with('categories', $categories);
     }
+
+    public function getAuction()
+    {
+        $categories = $this->categoryService->getAllCategories();
+        $productsOnAuction = $this->productService->getAvailableProductsByProductOption(1, 30);
+       
+        return view('product.auctionPage')
+                ->with('categories', $categories)
+                ->with('products', $productsOnAuction);
+    }
+
+    public function getShop()
+    {
+        $categories = $this->categoryService->getAllCategories();
+        $productsOnSell = $this->productService->getAllByProductOption(0, 12);
+       
+        return view('product.shoppingPage')
+                ->with('categories', $categories)
+                ->with('products', $productsOnSell);
+    }
 }

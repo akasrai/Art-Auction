@@ -901,7 +901,7 @@ input.search-input:focus {
 }
 
 .product-option-bar {
-   background: lightgray;
+   background: rgb(233, 232, 232);
    flex: 1;
 }
 

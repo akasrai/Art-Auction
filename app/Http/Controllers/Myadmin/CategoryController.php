@@ -47,7 +47,7 @@ class CategoryController extends Controller
     {
         if ($id !=1) {
             $category = $this->categoryService->delete($id);
-            Session::flash('error', 'Category be deleted. All products of this category are now uncategorised.');
+            Session::flash('error', 'Category deleted. All products of this category are now uncategorised.');
             return redirect("admin/category/create");
         } else {
             Session::flash('error', 'Uncategorised category cannot be deleted.');

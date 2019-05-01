@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-12 bid-product-button">
                <a class="btn btn-info"
-                  href="<?php echo url('product/'.$product->slug)?>">@lang('messages.bid')</a>
+                  href="<?php echo url('auction/'.$product->slug)?>">@lang('messages.bid')</a>
 
             </div>
             <div class="option-watermark">

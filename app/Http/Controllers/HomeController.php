@@ -27,7 +27,7 @@ class HomeController extends Controller
         $categories = $this->categoryService->getAllCategories();
         $productsOnSell = $this->productService->getAllByProductOption(0, 12);
         $productsOnAuction = $this->productService->getAvailableProductsByProductOption(1, 12);
-        $featuredProducts = $this->productService->getAllByCategoryName('featured', 10);
+        $featuredProducts = $this->productService->getAllByCategoryNameAndOption('featured', 1, 10);
         return view('welcome')
                 ->with('categories', $categories)
                 ->with('productsOnSell', $productsOnSell)

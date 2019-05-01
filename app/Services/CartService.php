@@ -19,6 +19,7 @@ class CartService
             $cart = [
                $product->id => [
                   "name" => $product->name,
+                  "slug" => $product->slug,
                   "quantity" => 1,
                   "price" => $product->options->price,
                   "image" => $product->images[0]->image_url,
@@ -39,6 +40,7 @@ class CartService
  
         $cart[$product->id] = [
             "name" => $product->name,
+            "slug" => $product->slug,
             "quantity" => 1,
             "price" => $product->options->price,
             "image" => $product->images[0]->image_url,

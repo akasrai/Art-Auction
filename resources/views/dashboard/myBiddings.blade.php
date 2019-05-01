@@ -49,14 +49,14 @@
 
                   <div class="my-bid-product">
                      <a
-                        href="<?php echo url('product/'.$myBiddingProduct->product->slug);?>">
+                        href="<?php echo url('auction/'.$myBiddingProduct->product->slug);?>">
                         <h4>{{$myBiddingProduct->product->name}}</h4>
                      </a>
                      <p>Estimated price:
                         <span class="danger-color">${{$myBiddingProduct->product->options->estimated_price}}</span></p>
                      <p>Current price: <span class="danger-color">${{$myBiddingProduct->highestBid}}</span></p>
                      <a
-                        href="<?php echo url('product/'.$myBiddingProduct->product->slug);?>">
+                        href="<?php echo url('auction/'.$myBiddingProduct->product->slug);?>">
                         <img
                            src="<?php echo url('storage/'.$myBiddingProduct->product->images[0]->image_url)?>"
                            alt="product image">

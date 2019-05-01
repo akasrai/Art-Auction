@@ -150,6 +150,15 @@ class ProductService
         })->where('status', 1)->orderBy('created_at', 'desc')->paginate($limit);
     }
 
+    public function getAllByCategoryNameAndOption($category, $option, $limit)
+    {
+        return Product::with('categories', 'images', 'options')->whereHas('categories', function ($q) use ($category) {
+            $q->where('slug', $category);
+        })->whereHas('options', function ($q) use ($option) {
+            $q->where('is_on_auction', $option)->where('auction_final_date', '>=', date("Y-m-d H:i:s"));
+        })->where('status', 1)->orderBy('created_at', 'desc')->paginate($limit);
+    }
+
     public function getAllByProductOption($productOption, $limit)
     {
         return Product::with('categories', 'images', 'options')->whereHas('options', function ($q) use ($productOption) {
@@ -160,7 +169,7 @@ class ProductService
     public function getAvailableProductsByProductOption($productOption, $limit)
     {
         return Product::with('categories', 'images', 'options')->whereHas('options', function ($q) use ($productOption) {
-            $q->where('is_on_auction', $productOption);
+            $q->where('is_on_auction', $productOption)->where('auction_final_date', '>=', date("Y-m-d H:i:s"));
         })->where('status', 1)->where('created_at', '<=', date("Y-m-d H:i:s"))->orderBy('created_at', 'desc')->paginate($limit);
     }
 
@@ -176,16 +185,25 @@ class ProductService
         $productName = $params['product-name'];
 
         if ($categoryId) {
-            return Product::with('categories')
+            return Product::with('categories', 'options')
                 ->whereHas('categories', function ($q) use ($categoryId) {
                     $q->where('categories.id', $categoryId);
                 })
+                // ->whereHas('options', function ($q) {
+                //     $q->where('auction_final_date', '>=', date("Y-m-d H:i:s"));
+                // })
                 ->where('name', 'LIKE', '%'.$productName.'%')
                 ->where('status', 1)
                 ->orderBy('created_at', 'desc')
                 ->paginate($limit);
         } else {
-            return Product::where('name', 'LIKE', '%'.$productName.'%')->where("status", 1)->orderBy('created_at', 'desc')->paginate($limit);
+            return Product::with('categories', 'options')
+            // ->whereHas('options', function ($q) {
+            //     $q->where('auction_final_date', '>=', date("Y-m-d H:i:s"));
+            // })
+            ->where('name', 'LIKE', '%'.$productName.'%')
+            ->where("status", 1)->orderBy('created_at', 'desc')
+            ->paginate($limit);
         }
     }
 

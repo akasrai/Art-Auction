@@ -22,7 +22,10 @@
                               alt="product image">
                         </div>
                         <div class="your-cart-items-details pull-left">
-                           <h2 class="item-name">{{$details['name']}}</h2>
+                           <a
+                              href="<?php echo url('product/'.$details['slug']);?>">
+                              <h2 class="item-name">{{$details['name']}}</h2>
+                           </a>
                            <span class="item-quantity">Quantity: {{$details['quantity']}}</span>
                         </div>
                      </div>
@@ -121,7 +124,7 @@
             </table>
             <div class="order-summery-btn">
                <a href="/my-cart-items" class="btn btn-default">CHECKOUT</a>
-               <a href="/my-cart-items" class="btn btn-default">Continue Shopping</a>
+               <a href="/shop" class="btn btn-default">Continue Shopping</a>
             </div>
          </div>
       </div>

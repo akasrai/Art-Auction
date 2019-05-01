@@ -32,30 +32,35 @@
             </div>
             <div class="col-md-12 bid-product-button">
                <a class="btn btn-info"
-                  href="<?php echo url('product/'.$searchResult->slug)?>">@lang('messages.bid')</a>
+                  href="<?php echo url('auction/'.$searchResult->slug)?>">@lang('messages.bid')</a>
 
             </div>
             <div class="option-watermark">
                ON AUCTION
             </div>
             @else
-            <div class="product-title">
-               <h2>{{ $searchResult->name}}</h2>
-               <h3>Price: $
-                  <?php
+            <a
+               href="<?php echo url('product/'.$searchResult->slug);?>">
+               <div class="product-title">
+                  <h2>{{ $searchResult->name}}</h2>
+                  <h3>Price: $
+                     <?php
                      $originalPrice = $searchResult->options->price;
                      $discountPercentage = $searchResult->options->discount;
                      $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
                      echo $priceAfterDiscount;
                   ?>
-               </h3>
-               <p> <s> ${{$searchResult->options->price}} </s>&nbsp;<span class="discount-percentage">
-                     -{{$searchResult->options->discount}}%</span>
-               </p>
-            </div>
+                  </h3>
+                  <p> <s> ${{$searchResult->options->price}} </s>&nbsp;<span class="discount-percentage">
+                        -{{$searchResult->options->discount}}%</span>
+                  </p>
+               </div>
+            </a>
+
             <div class="col-md-12 bid-product-button">
                <a class="btn btn-info" href="/add-to-product/{{$searchResult->slug}}">@lang('messages.addToCart')</a>
             </div>
+
             <div class="option-watermark">
                ON SELL
             </div>

@@ -28,14 +28,24 @@ class ProductController extends Controller
     {
     }
 
-    public function getBySlug($productSlug)
+    public function getAuctionBySlug($productSlug)
     {
         $user = Auth::user();
         $categories = $this->categoryService->getAllCategories();
         $productDetails = $this->productService->getBySlug($productSlug);
 
-        return view('product.singleProduct')
+        return view('product.singleAuction')
                 ->with('user', $user)
+                ->with('categories', $categories)
+                ->with('productDetails', $productDetails);
+    }
+
+    public function getProductBySlug($productSlug)
+    {
+        $categories = $this->categoryService->getAllCategories();
+        $productDetails = $this->productService->getBySlug($productSlug);
+
+        return view('product.singleProduct')
                 ->with('categories', $categories)
                 ->with('productDetails', $productDetails);
     }

@@ -71,9 +71,9 @@
                     <div class="col-md-12 featured-product-button-wrapper">
                         <div class="featured-product-button">
                             <a class="btn btn-info"
-                                href="<?php echo url('product/'.$featuredProduct->slug);?>">@lang('messages.bid')</a>
+                                href="<?php echo url('auction/'.$featuredProduct->slug);?>">@lang('messages.bid')</a>
                             <a class="btn btn-danger"
-                                href="<?php echo url('product/'.$featuredProduct->slug);?>">@lang('messages.view')</a>
+                                href="<?php echo url('auction/'.$featuredProduct->slug);?>">@lang('messages.view')</a>
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="col-md-12 bid-product-button">
                         <a class="btn btn-info"
-                            href="<?php echo url('product/'.$productOnAuction->slug)?>">@lang('messages.bid')</a>
+                            href="<?php echo url('auction/'.$productOnAuction->slug)?>">@lang('messages.bid')</a>
                     </div>
                 </div>
             </div>
@@ -139,24 +139,28 @@
         @foreach($productsOnSell as $productOnSell)
         <div class="col-md-2 col-sm-12 ">
             <div class="col-md-12 product">
-                <div class="product-image">
-                    <img src="<?php echo url('storage/'.$productOnSell->images[0]->image_url)?>"
-                        alt="product image">
-                </div>
-                <div class="product-title">
-                    <h2>{{ $productOnSell->name}}</h2>
-                    <h3>Price: $
-                        <?php
+                <a
+                    href="<?php echo url('product/'.$productOnSell->slug);?>">
+                    <div class="product-image">
+                        <img src="<?php echo url('storage/'.$productOnSell->images[0]->image_url)?>"
+                            alt="product image">
+                    </div>
+                    <div class="product-title">
+                        <h2>{{ $productOnSell->name}}</h2>
+                        <h3>Price: $
+                            <?php
                         $originalPrice = $productOnSell->options->price;
                         $discountPercentage = $productOnSell->options->discount;
                         $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
                         echo $priceAfterDiscount;
-                    ?>
-                    </h3>
-                    <p> <s> ${{$productOnSell->options->price}} </s>&nbsp;<span class="discount-percentage">
-                            -{{$productOnSell->options->discount}}%</span>
-                    </p>
-                </div>
+                        ?>
+                        </h3>
+                        <p> <s> ${{$productOnSell->options->price}} </s>&nbsp;<span class="discount-percentage">
+                                -{{$productOnSell->options->discount}}%</span>
+                        </p>
+                    </div>
+                </a>
+
                 <div class="col-md-12 bid-product-button">
                     <a class="btn btn-info"
                         href="/add-to-product/{{$productOnSell->slug}}">@lang('messages.addToCart')</a>

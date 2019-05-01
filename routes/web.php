@@ -8,7 +8,8 @@ Route::get('/contact', 'HomeController@getContactInfo');
 
 Route::get('/search', 'SearchProductController@search')->name('product.search');
 
-Route::get('/product/{productSlug}', 'ProductController@getBySlug');
+Route::get('/auction/{productSlug}', 'ProductController@getAuctionBySlug');
+Route::get('/product/{productSlug}', 'ProductController@getProductBySlug');
 Route::get('/category/{category}', 'ProductController@getByCategory');
 Route::get('/add-to-product/{slug}', 'ProductController@addToCart');
 Route::get('/remove-from-cart/{id}', 'ProductController@removeFromCart');

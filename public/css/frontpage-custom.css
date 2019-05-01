@@ -46,6 +46,10 @@ h3,
    cursor: pointer;
 }
 
+.product a {
+   text-decoration: none;
+}
+
 .bid-product-button {
    padding: 6px;
    visibility: hidden;
@@ -89,6 +93,7 @@ h3,
    position: relative;
    height: 200px;
    overflow: hidden;
+   cursor: auto;
 }
 
 .product-image img {
@@ -98,6 +103,10 @@ h3,
 .product-title {
    padding: 0 6px;
    height: 100px;
+}
+
+.product-title:hover {
+   font-weight: bolder;
 }
 
 .product-title h2 {
@@ -162,7 +171,7 @@ h3,
 .featured-product-title h2 {
    font-family: "century-gothic";
    font-weight: bolder;
-   font-size: 40px;
+   font-size: 25px;
    margin: auto;
    padding-bottom: 10px;
 }
@@ -885,6 +894,15 @@ input.search-input:focus {
 
 .product-info {
    padding: 20px;
+}
+
+.product-option-section {
+   display: flex;
+}
+
+.product-option-bar {
+   background: lightgray;
+   flex: 1;
 }
 
 .danger-color {

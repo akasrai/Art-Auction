@@ -16,16 +16,13 @@ class SearchProductController extends Controller
 
     public function search(Request $request)
     {
-        $categories = $this->categoryService->getAllCategories();
-        $searchResults = $this->productService->filterByParams($request->all(), 30);
-        
-        if ($request->input('category')==null) {
+        if ($request->input('category')=='all') {
             $request->merge(['category'=>'']);
-        }
-
-        if ($request->input('product-name')==null) {
             $request->merge(['product-name'=>'']);
         }
+        
+        $categories = $this->categoryService->getAllCategories();
+        $searchResults = $this->productService->filterByParams($request->all(), 30);
 
         return view('product.searchResult')
                 ->with('categories', $categories)

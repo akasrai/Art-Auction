@@ -55,4 +55,21 @@ class UserController extends Controller
             return redirect('profile');
         }
     }
+
+    public function updateAddress(Request $request)
+    {
+        $user = $this->userService->updateAddress($request->all());
+        if ($user) {
+            return response()->json([
+                'status'=>200
+                ]);
+        }
+    }
+
+    public function getOrders()
+    {
+        $categories = $this->categoryService->getAllCategories();
+        return view('user.orders')
+                ->with('categories', $categories);
+    }
 }

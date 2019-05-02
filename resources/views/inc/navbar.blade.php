@@ -115,7 +115,7 @@
                          @endif
                          <li>
                              <a href="/my-cart-items" class="btn btn-default cart-btn">My Cart</a>
-                             <a href="/my-cart-items" class="btn btn-default cart-btn">Checkout</a>
+                             <a href="/checkout" class="btn btn-default cart-btn">Checkout</a>
                          </li>
                      </ul>
                  </div>

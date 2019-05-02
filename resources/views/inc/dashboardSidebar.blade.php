@@ -21,7 +21,7 @@
    </div>
    <ul class="menu-items">
       <li><a href="/my-cart-items">My Cart</a></li>
-      <li><a href="#">My Orders</a></li>
+      <li><a href="/my-orders">My Orders</a></li>
       <li><a href="#">My Cancellations</a></li>
    </ul>
 </div>

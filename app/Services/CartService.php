@@ -72,4 +72,14 @@ class CartService
 
         return $cart;
     }
+
+    public function emptyCart()
+    {
+        $cart = session()->get('cart');
+        if ($cart) {
+            session()->forget('cart');
+        }
+
+        return $cart;
+    }
 }

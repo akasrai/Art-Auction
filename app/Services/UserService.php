@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Auth;
 use Mail;
 use App\Models\User;
 use App\Mail\verifyEmail;
@@ -49,7 +50,7 @@ class UserService
     public function uploadProfileImage(array $data)
     {
         $filename = $data['image']->store('images/profile');
-        return User::where('id', $data['userId'])->update(['image' => $filename]);
+        return User::where('id', Auth::user()->id)->update(['image' => $filename]);
     }
 
     protected function profileImageVlidator(array $data)
@@ -61,7 +62,7 @@ class UserService
 
     public function update(array $data)
     {
-        return User::where('id', $data['user-id'])->update([
+        return User::where('id', Auth::user()->id)->update([
             'fname' => $data['fname'],
             'mname' => $data['mname'],
             'lname' => $data['lname'],
@@ -73,6 +74,17 @@ class UserService
             'postal_code' => $data['postal-code'],
             'language' => $data['language'],
             'currency' => $data['currency']
+        ]);
+    }
+
+    public function updateAddress(array $data)
+    {
+        return User::where('id', Auth::user()->id)->update([
+            'address_line' => $data['addressLine'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'country' => $data['country'],
+            'postal_code' => $data['zipCode']
         ]);
     }
 }

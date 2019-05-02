@@ -1277,3 +1277,47 @@ th {
    background: white;
    border: 2px solid #0c3f5d;
 }
+
+.auction-default-btn {
+   display: inline-block;
+   width: 100%;
+   margin: 5px 0;
+   border-radius: 0;
+   color: white;
+   font-weight: bolder;
+   background: #0c3f5d;
+   border: 2px solid #0c3f5d;
+}
+
+.auction-default-btn:hover {
+   color: #0c3f5d;
+   font-weight: bolder;
+   background: white;
+   border: 2px solid #0c3f5d;
+}
+
+.review-page {
+   padding: 20px;
+}
+
+.review-page span {
+   display: block;
+   font-size: 15px;
+}
+
+#review-page-name {
+   font-size: 20px;
+   font-weight: bolder;
+}
+
+.review-section h3 {
+   font-size: 15px;
+   font-weight: bolder;
+   border: none;
+   margin: 15px 0 0px 0;
+   color: #2579a9;
+}
+
+.review-section span {
+   margin-left: 15px;
+}

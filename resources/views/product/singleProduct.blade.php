@@ -73,7 +73,7 @@
                   <span class="danger-color">(Save {{$productDetails->options->discount}}%)</span><br>
                </div>
                <div class="order-summery-btn">
-                  <a href="/add-to-product/{{$productDetails->slug}}" class="btn btn-default">ADD TO CART</a>
+                  <a href="/add-to-cart/{{$productDetails->slug}}" class="btn btn-default">ADD TO CART</a>
                   <a href="/my-cart-items" class="btn btn-default">BUY NOW</a>
                </div>
             </div>

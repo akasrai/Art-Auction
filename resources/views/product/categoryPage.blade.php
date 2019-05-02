@@ -54,7 +54,7 @@
                </p>
             </div>
             <div class="col-md-12 bid-product-button">
-               <a class="btn btn-info" href="/add-to-product/{{$product->slug}}">@lang('messages.addToCart')</a>
+               <a class="btn btn-info" href="/add-to-cart/{{$product->slug}}">@lang('messages.addToCart')</a>
             </div>
             <div class="option-watermark">
                ON SELL

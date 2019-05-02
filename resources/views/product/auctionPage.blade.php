@@ -1,8 +1,22 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+
    <div class="col-md-12 product-header">
       <h1>Products on auction <small>Bid your favorite art before the time ends.</small></h1>
+      @if (session('status'))
+      <div class="alert alert-success">
+         <i class="glyphicon glyphicon-ok-sign"></i>
+         {{ session('status') }}
+      </div>
+      @endif
+
+      @if (session('error'))
+      <div class="alert alert-danger">
+         <i class="glyphicon glyphicon-remove-sign"></i>
+         {{ session('error') }}
+      </div>
+      @endif
    </div>
 
    @if(sizeof($products) > 0)

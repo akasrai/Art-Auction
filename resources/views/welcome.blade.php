@@ -10,6 +10,14 @@
         </div>
     </div>
     @endif
+    @if (session('error'))
+    <div class="col-md-12">
+        <div class="col-md-12 alert alert-danger">
+            <i class="glyphicon glyphicon-remove-sign"></i>
+            {{ session('error') }}
+        </div>
+    </div>
+    @endif
 
     <div class="col-md-12 product-wrapper clearfix">
         <span class="next-slider-button" onclick="nextProduct()">
@@ -162,8 +170,7 @@
                 </a>
 
                 <div class="col-md-12 bid-product-button">
-                    <a class="btn btn-info"
-                        href="/add-to-product/{{$productOnSell->slug}}">@lang('messages.addToCart')</a>
+                    <a class="btn btn-info" href="/add-to-cart/{{$productOnSell->slug}}">@lang('messages.addToCart')</a>
                 </div>
             </div>
         </div>

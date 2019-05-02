@@ -1,8 +1,22 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+
    <div class="col-md-12 product-header">
       <h1>Products on sell <small>Buy your favorite arts at any time with reasonable price.</small></h1>
+      @if (session('status'))
+      <div class="alert alert-success">
+         <i class="glyphicon glyphicon-ok-sign"></i>
+         {{ session('status') }}
+      </div>
+      @endif
+
+      @if (session('error'))
+      <div class="alert alert-danger">
+         <i class="glyphicon glyphicon-remove-sign"></i>
+         {{ session('error') }}
+      </div>
+      @endif
    </div>
 
    @if(sizeof($products) > 0)
@@ -32,7 +46,7 @@
                   </p>
                </div>
                <div class="col-md-12 bid-product-button">
-                  <a class="btn btn-info" href="/add-to-product/{{$product->slug}}">@lang('messages.addToCart')</a>
+                  <a class="btn btn-info" href="/add-to-cart/{{$product->slug}}">@lang('messages.addToCart')</a>
                </div>
             </a>
 

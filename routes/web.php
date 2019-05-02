@@ -11,17 +11,26 @@ Route::get('/search', 'SearchProductController@search')->name('product.search');
 Route::get('/auction/{productSlug}', 'ProductController@getAuctionBySlug');
 Route::get('/product/{productSlug}', 'ProductController@getProductBySlug');
 Route::get('/category/{category}', 'ProductController@getByCategory');
-Route::get('/add-to-product/{slug}', 'ProductController@addToCart');
+
+Route::get('/add-to-cart/{slug}', 'ProductController@addToCart');
 Route::get('/remove-from-cart/{id}', 'ProductController@removeFromCart');
 Route::get('/my-cart-items', 'ProductController@getCartItems');
+
 Route::get('/auction', 'ProductController@getAuction');
 Route::get('/shop', 'ProductController@getShop');
+
+Route::get('/checkout', 'ProductOrderController@getCheckoutForm');
+Route::get('/place-order', 'ProductOrderController@placeOrder');
 
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/biddings', 'DashboardController@getMyBiddings');
 
 Route::get('/profile', 'UserController@index');
+Route::get('/my-orders', 'UserController@getOrders');
+
 Route::post('/profile/update', 'UserController@update')->name('profile.update');
+Route::post('/address/update', 'UserController@updateAddress');
+
 Route::post('/upload-profile-image', 'UserController@uploadProfileImage');
 Route::get('/resend-email-verification-link', 'UserController@resendEmailVerificationLink');
 

@@ -3,6 +3,20 @@
 <div class="container" style="min-height:80vh">
    <div class="col-md-12 product-header clearfix">
       <h1>Your Shopping Cart <small>Your shopping cart items with details.</small></h1>
+      @if (session('status'))
+      <div class="alert alert-success">
+         <i class="glyphicon glyphicon-ok-sign"></i>
+         {{ session('status') }}
+      </div>
+      @endif
+
+      @if (session('error'))
+      <div class="alert alert-danger">
+         <i class="glyphicon glyphicon-remove-sign"></i>
+         {{ session('error') }}
+      </div>
+      @endif
+
       <div class="col-md-8 no-padding">
          <div class="col-md-12 your-cart-items">
             <table class="col-md-12 your-cart-items-table">
@@ -123,7 +137,7 @@
                </tr>
             </table>
             <div class="order-summery-btn">
-               <a href="/my-cart-items" class="btn btn-default">CHECKOUT</a>
+               <a href="/checkout" class="btn btn-default">CHECKOUT</a>
                <a href="/shop" class="btn btn-default">Continue Shopping</a>
             </div>
          </div>

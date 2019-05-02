@@ -211,7 +211,7 @@
                   <div class="col-md-12 no-padding">
                      <div class="col-md-12">
                         <div class="form-group row">
-                           <button class="btn btn-primary col-md-12">UPDATE</button>
+                           <button class="btn btn-primary auction-default-btn col-md-12">UPDATE</button>
                         </div>
                      </div>
                   </div>

@@ -3,7 +3,7 @@
        <div class="col-md-12 col-sm-12 col-xs-12 no-padding input-group">
           <div class="col-md-4 col-sm-12 col-xs-12 no-padding custom-select">
              <select name="category" id="category" class="form-control custom-form-element">
-                <option value="all">ALL</option>
+                <option value="">ALL</option>
                 <option value="all">ALL</option>
                 @if(count($categories)>0)
                 @foreach($categories as $category)

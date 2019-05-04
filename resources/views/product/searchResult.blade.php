@@ -2,7 +2,13 @@
 @section('content')
 <div class="container">
    <div class="col-md-12 product-header">
-      <h1>Search Result <small>Buy your favorite arts at any time with reasonable price.</small></h1>
+      <h1>Search Result
+
+         @if($searchKeyWord)
+         for {{$searchKeyWord}}
+         @endif
+         <small>Buy your favorite arts at any time with reasonable price.</small>
+      </h1>
       @if (session('status'))
       <div class="alert alert-success">
          <i class="glyphicon glyphicon-ok-sign"></i>

@@ -16,8 +16,10 @@ class SearchProductController extends Controller
 
     public function search(Request $request)
     {
-        if ($request->input('category')=='all') {
+        if ($request->input('category')=='') {
             $request->merge(['category'=>'']);
+        }
+        if ($request->input('product-name')=='') {
             $request->merge(['product-name'=>'']);
         }
         
@@ -26,6 +28,7 @@ class SearchProductController extends Controller
 
         return view('product.searchResult')
                 ->with('categories', $categories)
+                ->with('searchKeyWord', $request->input('product-name'))
                 ->with('searchResults', $searchResults->appends(request()->query()));
     }
 }

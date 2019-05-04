@@ -39,8 +39,7 @@ class ProductOrderController extends Controller
         if ($cart) {
             $order = $this->productOrderService->placeOrder($cart);
         }
-        $categories = $this->categoryService->getAllCategories();
-
+       
         if ($order) {
             Session::flash('status', 'Your order is placed. Check your email for further information');
             return redirect('my-orders');

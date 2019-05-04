@@ -175,8 +175,11 @@
 <script>
    $(document).ready(function() {
       let html = "";
+      let focus = false;
 
       $("#save-details").click(function() {
+         focus = false;
+
          const address = {
             userId: $("#user-id").val(),
             _token: $("#_token").val(),
@@ -187,8 +190,43 @@
             zipCode: $("#postal-code").val(),
          }
 
-         saveDetails(address);
+         const validation = validateForm();
+         if (validation) {
+            saveDetails(address);
+         }
       });
+
+      $("input").change(function() {
+         $('#' + this.id + '+ span').remove();
+      })
+
+      $("select").change(function() {
+         $('#' + this.id + '+ span').remove();
+      })
+
+      function validateForm() {
+
+         let validation = true;
+         const formData = $("#delivery-details-form").serializeArray();
+
+         for (let i = 0; i < formData.length; i++) {
+            if (formData[i].value === "") {
+               $("#" + formData[i].name).after(onError(formData[i].name));
+               validation = false;
+            }
+         }
+
+         return validation;
+      }
+
+      function onError(id) {
+         $('#' + id + '+ span').remove();
+         if (!focus) {
+            $('#' + id).focus();
+            focus = true;
+         }
+         return '<span class="danger-color">This field cannot be empty.</span>'
+      }
 
       function saveDetails(payload) {
          $.ajax({

@@ -8,18 +8,21 @@ use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\ProductService;
 use App\Services\CategoryService;
+use App\Services\ProductOrderService;
 
 class UserController extends Controller
 {
     public function __construct(
+        UserService $userService,
         ProductService $productService,
         CategoryService $categoryService,
-        UserService $userService
+        ProductOrderService $productOrderService
     ) {
         $this->middleware('auth');
+        $this->userService = $userService;
         $this->productService = $productService;
         $this->categoryService = $categoryService;
-        $this->userService = $userService;
+        $this->productOrderService = $productOrderService;
     }
 
     public function index()
@@ -69,7 +72,14 @@ class UserController extends Controller
     public function getOrders()
     {
         $categories = $this->categoryService->getAllCategories();
-        return view('user.orders')
-                ->with('categories', $categories);
+
+        $orders = $this->productOrderService->getAllByUser(Auth::user()->id);
+    
+        if (sizeof($orders) > 0) {
+            return view('user.orders')
+            ->with('orders', $orders[0])
+            ->with('paginate', $orders[1])
+            ->with('categories', $categories);
+        }
     }
 }

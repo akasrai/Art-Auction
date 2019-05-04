@@ -11,7 +11,7 @@ class OrderList extends Model
         return $this->belongsTo('App\Models\Product');
     }
 
-    public function productOrder()
+    public function order()
     {
         return $this->belongsTo('App\Models\ProductOrder');
     }

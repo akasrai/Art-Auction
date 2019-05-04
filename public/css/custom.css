@@ -187,6 +187,7 @@ a.custom-btn:hover {
    padding-top: 5px;
    padding-bottom: 5px;
    font-size: 11px;
+   margin: 0;
 }
 
 .slug-btn {
@@ -417,4 +418,81 @@ a.custom-btn:hover {
 .pagination > .active > span:focus {
    background-color: #2a3f54;
    border-color: #2a3f54;
+}
+
+.success-color {
+   color: rgb(40, 153, 77);
+}
+
+.info-color {
+   color: rgb(54, 120, 218);
+}
+
+.danger-color {
+   color: rgb(224, 47, 47);
+}
+
+.customer-details {
+   /* border: 1px solid #2263a3; */
+   /* padding: 15px; */
+}
+
+.customer-details p {
+   font-size: 14px;
+   margin: 0;
+   padding: 0;
+}
+
+.order-summary-table {
+   width: 100%;
+}
+
+.order-summary-table tr td,
+th {
+   padding: 0 3px;
+   font-size: 14px;
+}
+
+.order-summery-price {
+   font-weight: bold;
+}
+
+.order-details {
+   display: flex;
+}
+
+.order-details-column {
+   flex: 1;
+}
+
+.order-summery-btn {
+   padding: 15px 0;
+}
+
+.order-summery-btn a {
+   display: inline-block;
+   width: 100%;
+   margin: 5px 0;
+   border-radius: 0;
+   color: white;
+   font-weight: bolder;
+   background: #0c3f5d;
+   border: 2px solid #0c3f5d;
+}
+
+.order-summery-btn a:hover {
+   color: #0c3f5d;
+   font-weight: bolder;
+   background: white;
+   border: 2px solid #0c3f5d;
+}
+
+.order-action-bar {
+   padding: 10px;
+   margin-bottom: 10px;
+   background: rgb(230, 228, 228);
+}
+
+.order-status {
+   font-weight: bold;
 }

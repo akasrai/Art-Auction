@@ -909,6 +909,14 @@ input.search-input:focus {
    color: rgb(255, 119, 119);
 }
 
+.success-color {
+   color: rgb(40, 153, 77);
+}
+
+.info-color {
+   color: rgb(54, 120, 218);
+}
+
 .final-sale-price-section {
    margin-top: 30px;
    height: 50px;
@@ -1243,6 +1251,12 @@ h2 {
    }
 }
 
+.order-table-wrapper {
+   background: rgb(245, 245, 245);
+   margin-bottom: 15px;
+   padding: 15px;
+}
+
 .order-summary-table {
    width: 100%;
 }
@@ -1320,4 +1334,13 @@ th {
 
 .review-section span {
    margin-left: 15px;
+}
+
+.order-action-bar {
+   padding: 10px;
+   background: rgb(230, 228, 228);
+}
+
+.order-status {
+   font-weight: bold;
 }

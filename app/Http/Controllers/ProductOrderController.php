@@ -42,7 +42,7 @@ class ProductOrderController extends Controller
         $categories = $this->categoryService->getAllCategories();
 
         if ($order) {
-            Session::flash('status', 'Ypur order is placed. Check your email for further information');
+            Session::flash('status', 'Your order is placed. Check your email for further information');
             return redirect('my-orders');
         } else {
             return redirect()->back();

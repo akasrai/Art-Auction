@@ -77,6 +77,11 @@ Route::prefix('admin')->group(function () {
 
     Route::GET('/end-auctions/{slug}', 'Myadmin\ProductAuctionController@endAuction');
     Route::GET('/email-winner/{id}', 'Myadmin\ProductAuctionController@emailWinner');
+
+    Route::GET('/orders', 'Myadmin\ProductOrderController@getOrderList');
+    Route::GET('/order-details/{id}', 'Myadmin\ProductOrderController@getOrderDetails');
+    Route::GET('/process-order/{orderId}', 'Myadmin\ProductOrderController@processOrder');
+    Route::GET('/mark-delivered/{orderId}', 'Myadmin\ProductOrderController@markAsDelivered');
 });
 
  //Setting locale

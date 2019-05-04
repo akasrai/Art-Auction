@@ -34,6 +34,13 @@
                      <li><a href="/admin/auctions">@lang('navbar.viewAuctionList')</a></li>
                   </ul>
                </li>
+
+               <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> @lang('navbar.orders') <span
+                        class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                     <li><a href="/admin/orders">@lang('navbar.viewOrders')</a></li>
+                  </ul>
+               </li>
                <!-- 
                <li><a><i class="fa fa-edit"></i> @lang('navbar.blogs') <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">

@@ -14,4 +14,7 @@ return [
     'productDetails' => 'Product Details',
     'auctionDetails' => 'Auction Details',
     'biddersList' => 'Auction Bidders List',
+    'orderList' => 'Order List',
+    'orderDetails' => 'Order Details',
+    'orderItemList' => 'Ordered Items List'
 ];

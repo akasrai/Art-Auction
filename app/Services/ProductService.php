@@ -218,4 +218,9 @@ class ProductService
         return Product::where('slug', $productSlug)
             ->update(['status' => 0, 'updated_at'=> date("Y-m-d H:i:s")]);
     }
+
+    public function getNameById($id)
+    {
+        return Product::find($id)->name;
+    }
 }

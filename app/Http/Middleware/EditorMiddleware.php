@@ -17,10 +17,8 @@ class EditorMiddleware
     public function handle($request, Closure $next)
     {
         // checking users type here in loop
-        foreach(Auth::user()->role as $role){
-
-            if($role->name == 'Editor'){
-            
+        foreach (Auth::user()->role as $role) {
+            if ($role->name == 'Editor') {
                 return $next($request);
             }
         }

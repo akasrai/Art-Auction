@@ -12,36 +12,36 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         DB::table('admins')->insert([
-            'fname' => 'Akash',
-            'lname' => 'Rai',
-            'email' => 'akash1@gmail.com',
+            'fname' => 'Superadmin',
+            'lname' => '',
+            'email' => 'admin1@gmail.com',
             'password' => bcrypt('secret'),
             'api_token' => bcrypt('secret'),
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
         DB::table('admins')->insert([
-            'fname' => 'Akash2',
-            'lname' => 'Rai',
-            'email' => 'akash2@gmail.com',
+            'fname' => 'Admin',
+            'lname' => '',
+            'email' => 'admin2@gmail.com',
             'password' => bcrypt('secret'),
             'api_token' => bcrypt('secret'),
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
         DB::table('admins')->insert([
-            'fname' => 'Akash3',
-            'lname' => 'Rai',
-            'email' => 'akash3@gmail.com',
+            'fname' => 'Editor',
+            'lname' => '',
+            'email' => 'admin3@gmail.com',
             'password' => bcrypt('secret'),
             'api_token' => bcrypt('secret'),
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
         DB::table('admins')->insert([
-            'fname' => 'Akash4',
-            'lname' => 'Rai',
-            'email' => 'akash4@gmail.com',
+            'fname' => 'Moderator',
+            'lname' => '',
+            'email' => 'admin4@gmail.com',
             'password' => bcrypt('secret'),
             'api_token' => bcrypt('secret'),
             'created_at' => date("Y-m-d H:i:s")

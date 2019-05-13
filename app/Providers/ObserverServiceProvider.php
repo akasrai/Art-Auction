@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Admin;
+use App\Models\Admin;
 use App\Observers\AdminObserver;
 use Illuminate\Support\ServiceProvider;
 

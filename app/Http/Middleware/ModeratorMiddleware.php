@@ -17,10 +17,8 @@ class ModeratorMiddleware
     public function handle($request, Closure $next)
     {
         // checking users type here in loop
-        foreach(Auth::user()->role as $role){
-
-            if($role->name == 'Moderator'){
-            
+        foreach (Auth::user()->role as $role) {
+            if ($role->name == 'Moderator') {
                 return $next($request);
             }
         }

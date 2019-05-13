@@ -25,3 +25,7 @@ If error use Illuminate\Support\facades\schema; not found
 in AppServiceProvider.php do following
 // use Illuminate\Support\facades\schema;
 use Schema;
+
+// navbar, cart products prices info
+<span class=""> <s>${{$details['price']}}</s></span>
+                             <span class=""> -{{$details['discount']}}%, </span>

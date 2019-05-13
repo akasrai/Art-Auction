@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Myadmin;
 
-use App\Admin;
-use App\Role;
-use App\Role_admin;
+use App\Models\Role;
+use App\Models\Admin;
+use App\Models\RoleAdmin;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -24,7 +24,7 @@ class RegisterController extends Controller
     |
     */
 
-   use RegistersUsers;
+    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -42,7 +42,6 @@ class RegisterController extends Controller
     {
         $this->middleware('auth:admin');
         $this->middleware('superadmins'); //for role access
-
     }
 
     /**
@@ -53,8 +52,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        // dump($data);
-        // die();
         return Validator::make($data, [
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
@@ -63,12 +60,12 @@ class RegisterController extends Controller
         ]);
     }
 
-   /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
+    /**
+      * Create a new user instance after a valid registration.
+      *
+      * @param  array  $data
+      * @return \App\User
+      */
     protected function create(array $data)
     {
 
@@ -82,27 +79,24 @@ class RegisterController extends Controller
            
         ]);
 
-        // sending email link to verify a/c
         $thisAdmin = Admin::findOrFail($admin->id);
        
         // updating the role table
-        $role_admin = new Role_admin;
+        $role_admin = new RoleAdmin;
         $role_admin->role_id = $data['role'];
         $role_admin->admin_id = $thisAdmin['id'];
         $role_admin->save();
 
-        
         return $admin;
     }
 
     public function register(Request $request)
     {
-
         $this->validator($request->all())->validate();
-       // $user = $this->create($request->all());
+        // $user = $this->create($request->all());
         event(new Registered($user = $this->create($request->all())));
         
-        return redirect('/admin/register')->with('success','Admin created successfully.');
+        return redirect('/admin/register')->with('success', 'Admin created successfully.');
 
         // optional way
         //$this->guard()->login($user); //changed for email verification
@@ -143,9 +137,9 @@ class RegisterController extends Controller
       //   return redirect('/admin')->with('success','Admin created.');
     }
 
-    public function showRegistrationForm(){
-
+    public function showRegistrationForm()
+    {
         $roles = Role::all();
-        return view('myadmin.register')->with('roles',$roles);    
+        return view('myadmin.auth.register')->with('roles', $roles);
     }
 }

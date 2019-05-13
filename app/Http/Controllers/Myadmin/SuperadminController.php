@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Myadmin;
 
 use DB;
-use App\Admin;
-use App\Role;
-use App\Role_admin;
+use App\Models\Role;
+use App\Models\Admin;
+use App\Models\RoleAdmin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -19,11 +19,12 @@ class SuperadminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admin'); // for admin authentication
-        $this->middleware('superadmins'); //for role access
+        $this->middleware('auth:admin');
+        $this->middleware('superadmins');
     }
 
-    public function userlist(){
+    public function userlist()
+    {
 
        // $users = Admin::orderBy('created_at','desc')->paginate(10);
        
@@ -32,11 +33,11 @@ class SuperadminController extends Controller
                 ->join('roles', 'roles.id', '=', 'role_admins.role_id')
                 //->where('follows.follower_id', '=', 3)
                 ->select('admins.*', 'roles.name')
-                ->orderBy('admins.created_at','desc')->paginate(10);
-                //->get();
+                ->orderBy('admins.created_at', 'desc')->paginate(10);
+        //->get();
         
         
-        return view('myadmin/userlist')->with('users',$users);
+        return view('myadmin/user/userlist')->with('users', $users);
     }
 
    
@@ -47,84 +48,6 @@ class SuperadminController extends Controller
      */
     public function index()
     {
-        return view('myadmin/superadmin_dashboard');
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function singleArticle($id)
-    {
-        return view('myadmin/single-article')->with('id',$id);
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('myadmin/dashboard/superadmin_dashboard');
     }
 }

@@ -1,24 +1,26 @@
-@if(count($errors) > 0)
-
+<div class="custom-alert-wrapper">
+	@if(count($errors) > 0)
 	@foreach($errors->all() as $error)
-
-		<div class="alert alert-danger">
-			{{$error}}
-		</div>
+	<div class="alert alert-danger custom-alert-box">
+		{{$error}}
+	</div>
 	@endforeach
+	@endif
 
-@endif
-
-@if(session('success'))
-	<div class="alert alert-success">
-		
+	@if(session('success'))
+	<div class="alert alert-success custom-alert-box" id="success">
 		{{session('success')}}
 	</div>
-@endif
+	@endif
 
-@if(session('error'))
-	<div class="alert alert-danger">
-		
+	@if(session('error'))
+	<div class="alert alert-danger custom-alert-box" id="error">
 		{{session('error')}}
 	</div>
-@endif
+	@endif
+</div>
+<script language="JavaScript" type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+<script>
+	$(".alert").delay(5000).fadeOut();
+	$("#success").delay(5000).fadeOut();
+</script>

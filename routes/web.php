@@ -1,73 +1,90 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
+Route::get('/faq', 'HomeController@getFAQ');
+Route::get('/contact', 'HomeController@getContactInfo');
 
-// for admin routes
-// Route::prefix('admin')->group(function(){
+Route::get('/search', 'SearchProductController@search')->name('product.search');
 
-// 	// login logout register and dashboard routes
-// 	Route::get('/home','AdminController@index');
+Route::get('/auction/{productSlug}', 'ProductController@getAuctionBySlug');
+Route::get('/product/{productSlug}', 'ProductController@getProductBySlug');
+Route::get('/category/{category}', 'ProductController@getByCategory');
 
-// 	Route::get('/login', 'Myadmin\LoginController@showLoginForm')->name('admin.login');
-// 	Route::post('/login', 'Myadmin\LoginController@login')->name('admin.login.submit');
-// });
+Route::get('/add-to-cart/{slug}', 'ProductController@addToCart');
+Route::get('/remove-from-cart/{id}', 'ProductController@removeFromCart');
+Route::get('/my-cart-items', 'ProductController@getCartItems');
 
-Route::post('users/logout','Auth\LoginController@userLogout')->name('user.logout');
-Route::get('admin/logout','Myadmin\LoginController@logout')->name('admin.logout');
+Route::get('/auction', 'ProductController@getAuction');
+Route::get('/shop', 'ProductController@getShop');
 
+Route::get('/checkout', 'ProductOrderController@getCheckoutForm');
+Route::get('/place-order', 'ProductOrderController@placeOrder');
 
-Route::GET('admin','Myadmin\LoginController@showLoginForm')->name('admin.login');
-Route::POST('admin','Myadmin\LoginController@login');
+Route::get('/dashboard', 'DashboardController@index');
+Route::get('/biddings', 'DashboardController@getMyBiddings');
 
-Route::POST('admin/password/email','Myadmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+Route::get('/profile', 'UserController@index');
+Route::get('/my-orders', 'UserController@getOrders');
 
-Route::GET('admin/password/reset','Myadmin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+Route::post('/profile/update', 'UserController@update')->name('profile.update');
+Route::post('/address/update', 'UserController@updateAddress');
 
-Route::POST('admin/password/reset','Myadmin\ResetPasswordController@reset');
+Route::post('/upload-profile-image', 'UserController@uploadProfileImage');
+Route::get('/resend-email-verification-link', 'UserController@resendEmailVerificationLink');
 
-Route::GET('admin/password/reset/{token}','Myadmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
-
-Route::GET('admin/register','Myadmin\RegisterController@showRegistrationForm')->name('admin.register');
-Route::POST('admin/register','Myadmin\RegisterController@register')->name('admin.register.submit');
-
-Route::GET('admin/userlist','Myadmin\SuperadminController@userlist')->name('admin.userlist');
-Route::GET('admin/userlist/json','Myadmin\SuperadminController@userlistJson');
-
+Route::post('/bid/product', 'ProductAuctionController@bidProduct');
 
 
-//superadmin admin editor moderator routes
-Route::GET('admin/superadmin-dashboard','Myadmin\SuperadminController@index');
-Route::GET('admin/admin-dashboard','Myadmin\AdminController@index');
-Route::GET('admin/editor-dashboard','Myadmin\EditorController@index');
-Route::GET('admin/moderator-dashboard','Myadmin\ModeratorController@index');
+Route::post('users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
-Route::GET('admin/test','Myadmin\ModeratorController@test');
+Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@verifyEmail')->name('verifyEmail');
 
-//user verification
-Route::get('verify-email-first','Auth\RegisterController@veryEmailFirst')->name('verifyEmailFirst');
+Route::prefix('admin')->group(function () {
+    Route::get('/logout', 'Myadmin\LoginController@logout')->name('admin.logout');
 
-Route::get('verify/{email}/{verifyToken}','Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
+    Route::GET('/', 'Myadmin\LoginController@showLoginForm')->name('admin.login');
+    Route::POST('/', 'Myadmin\LoginController@login');
 
-//for article
-Route::get('admin/article/{id}','Myadmin\SuperadminController@singleArticle');
+    Route::GET('/password/reset', 'Myadmin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::POST('/password/email', 'Myadmin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 
-//blog controller
+    Route::GET('/password/reset/{token}', 'Myadmin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+    Route::POST('/password/reset', 'Myadmin\ResetPasswordController@reset');
 
-Route::resource('/admin/blog','Myadmin\BlogController');
+    Route::GET('/register', 'Myadmin\RegisterController@showRegistrationForm')->name('admin.register');
+    Route::POST('/register', 'Myadmin\RegisterController@register')->name('admin.register.submit');
+
+    Route::GET('/userlist', 'Myadmin\SuperadminController@userlist')->name('admin.userlist');
+    Route::GET('/userlist/json', 'Myadmin\SuperadminController@userlistJson');
+
+    Route::get('/article/{id}', 'Myadmin\SuperadminController@singleArticle');
+    Route::GET('/dashboard', 'Myadmin\DashboardController@index');
+
+    Route::GET('/category/create', 'Myadmin\CategoryController@index');
+    Route::GET('/category/delete/{id}', 'Myadmin\CategoryController@delete');
+    Route::POST('/category/create', 'Myadmin\CategoryController@create')->name('admin.category.submit');
+
+    Route::GET('/product/create', 'Myadmin\ProductController@index');
+    Route::POST('/product/create', 'Myadmin\ProductController@create')->name('admin.product.submit');
+    Route::GET('/product/edit/{slug}', 'Myadmin\ProductController@edit');
+    Route::POST('/product/update', 'Myadmin\ProductController@update')->name('admin.product.update');
+    Route::GET('/product/delete/{slug}', 'Myadmin\ProductController@delete');
+
+    Route::GET('/auctions', 'Myadmin\ProductAuctionController@auctionList');
+    Route::GET('/auctions/{slug}', 'Myadmin\ProductAuctionController@getProductBySlug');
+
+    Route::GET('/end-auctions/{slug}', 'Myadmin\ProductAuctionController@endAuction');
+    Route::GET('/email-winner/{id}', 'Myadmin\ProductAuctionController@emailWinner');
+
+    Route::GET('/orders', 'Myadmin\ProductOrderController@getOrderList');
+    Route::GET('/order-details/{id}', 'Myadmin\ProductOrderController@getOrderDetails');
+    Route::GET('/process-order/{orderId}', 'Myadmin\ProductOrderController@processOrder');
+    Route::GET('/mark-delivered/{orderId}', 'Myadmin\ProductOrderController@markAsDelivered');
+});
+
+ //Setting locale
+ Route::get('welcome/{locale}', function ($locale) {
+     App::setLocale($locale);
+ });

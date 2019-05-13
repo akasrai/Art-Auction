@@ -2,49 +2,29 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
-
+use App\Services\CategoryService;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $redirectTo = '/';
+    
+    public function __construct(CategoryService $categoryService)
     {
         $this->middleware('guest')->except('userLogout');
+        $this->categoryService = $categoryService;
     }
 
-    // function copied from Illuminate\Foundation\Auth\AuthenticatesUsers to logout user guard
+    /**
+     * function copied from Illuminate\Foundation\Auth\AuthenticatesUsers to logout user guard
+     */
     public function userLogout()
     {
-        //dump("we wre here");die();
         Auth::guard('web')->logout();
         return redirect('/');
     }
@@ -57,7 +37,12 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        //return $request->only($this->username(), 'password');
-        return ['email' =>$request->{$this->username()},'password' => $request->password, 'status'=>'1']; // checkig active or blocked users
+        return $request->only($this->username(), 'password');
+    }
+
+    public function showLoginForm()
+    {
+        $categories = $this->categoryService->getAllCategories();
+        return view('auth.login')->with('categories', $categories);
     }
 }

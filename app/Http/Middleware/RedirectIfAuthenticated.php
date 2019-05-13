@@ -20,38 +20,30 @@ class RedirectIfAuthenticated
         switch ($guard) {
             case 'admin':
                 if (Auth::guard($guard)->check()) {
-
                     $status="";
+                    $redirectUrl = "/admin/dashboard";
                     // checking users type here in loop
-                    foreach(Auth::guard('admin')->user()->role as $roles){
-
-                        if($roles->name == 'Superadmin'){
-
-                            if(session('status')){
+                    foreach (Auth::guard('admin')->user()->role as $roles) {
+                        if ($roles->name == 'Superadmin') {
+                            if (session('status')) {
                                 $status = session('status');
                             }
-                            return redirect('/admin/superadmin-dashboard')->with('status',$status);
-
-                        }else if($roles->name == 'Admin'){
-
-                            if(session('status')){
+                            return redirect($redirectUrl)->with('status', $status);
+                        } elseif ($roles->name == 'Admin') {
+                            if (session('status')) {
                                 $status = session('status');
                             }
-                            return redirect('/admin/admin-dashboard')->with('status',$status);
-
-                        }else if($roles->name == 'Editor'){
-
-                            if(session('status')){
+                            return redirect($redirectUrl)->with('status', $status);
+                        } elseif ($roles->name == 'Editor') {
+                            if (session('status')) {
                                 $status = session('status');
                             }
-                            return redirect('/admin/editor-dashboard')->with('status',$status);
-
-                        }else if($roles->name == 'Moderator'){
-
-                            if(session('status')){
+                            return redirect($redirectUrl)->with('status', $status);
+                        } elseif ($roles->name == 'Moderator') {
+                            if (session('status')) {
                                 $status = session('status');
                             }
-                            return redirect('/admin/moderator-dashboard')->with('status',$status);
+                            return redirect($redirectUrl)->with('status', $status);
                         }
                     }
                     //return redirect('admin/home');
@@ -63,9 +55,7 @@ class RedirectIfAuthenticated
                     return redirect('/home');
                 }
                 break;
-        }       
-        
-
+        }
         return $next($request);
     }
 }

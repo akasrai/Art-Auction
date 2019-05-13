@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Myadmin;
 
+use Auth;
+use Password;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-//manual import
-use Illuminate\Http\Request;
-use Password;
-use Auth;
 
 class ResetPasswordController extends Controller
 {
@@ -41,17 +40,16 @@ class ResetPasswordController extends Controller
         $this->middleware('guest:admin');
     }
 
-    protected function guard(){
-        
+    protected function guard()
+    {
         return Auth::guard('admin');
     }
 
-    protected function broker(){
-
+    protected function broker()
+    {
         return Password::broker('admins');
     }
 
-    // copied from vendor\laravel\framework\src\Illuminate\Foundation\Auth\ResetsPasswords to make admin password reset view
     public function showResetForm(Request $request, $token = null)
     {
         return view('myadmin.passwords.reset')->with(

@@ -25,6 +25,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('myadmin/admin_dashboard');
+        return view('myadmin/dashboard/admin_dashboard');
     }
 }

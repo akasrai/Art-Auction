@@ -13,6 +13,7 @@ class CreateBlogsTable extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('blogs')) return;
         Schema::create('blogs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('slug')->unique();

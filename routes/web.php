@@ -83,6 +83,48 @@ Route::prefix('admin')->group(function () {
     Route::GET('/process-order/{orderId}', 'Myadmin\ProductOrderController@processOrder');
     Route::GET('/mark-delivered/{orderId}', 'Myadmin\ProductOrderController@markAsDelivered');
 });
+Route::prefix('seller')->group(function () {
+    Route::get('/logout', 'Seller\LoginController@logout')->name('seller.logout');
+
+    Route::GET('/', 'Seller\LoginController@showLoginForm')->name('seller.login');
+    Route::POST('/', 'Seller\LoginController@login');
+
+    Route::GET('/password/reset', 'Seller\ForgotPasswordController@showLinkRequestForm')->name('seller.password.request');
+    Route::POST('/password/email', 'Seller\ForgotPasswordController@sendResetLinkEmail')->name('seller.password.email');
+
+    Route::GET('/password/reset/{token}', 'Seller\ResetPasswordController@showResetForm')->name('seller.password.reset');
+    Route::POST('/password/reset', 'Seller\ResetPasswordController@reset');
+
+    Route::GET('/register', 'Seller\RegisterController@showRegistrationForm')->name('seller.register');
+    Route::POST('/register', 'Seller\RegisterController@register')->name('seller.register.submit');
+
+    Route::GET('/userlist', 'Seller\SuperadminController@userlist')->name('seller.userlist');
+    Route::GET('/userlist/json', 'Seller\SuperadminController@userlistJson');
+
+    Route::get('/article/{id}', 'Seller\SuperadminController@singleArticle');
+    Route::GET('/dashboard', 'Seller\DashboardController@index');
+
+    Route::GET('/category/create', 'Seller\CategoryController@index');
+    Route::GET('/category/delete/{id}', 'Seller\CategoryController@delete');
+    Route::POST('/category/create', 'Seller\CategoryController@create')->name('seller.category.submit');
+
+    Route::GET('/product/create', 'Seller\ProductController@index');
+    Route::POST('/product/create', 'Seller\ProductController@create')->name('seller.product.submit');
+    Route::GET('/product/edit/{slug}', 'Seller\ProductController@edit');
+    Route::POST('/product/update', 'Seller\ProductController@update')->name('seller.product.update');
+    Route::GET('/product/delete/{slug}', 'Seller\ProductController@delete');
+
+    Route::GET('/auctions', 'Seller\ProductAuctionController@auctionList');
+    Route::GET('/auctions/{slug}', 'Seller\ProductAuctionController@getProductBySlug');
+
+    Route::GET('/end-auctions/{slug}', 'Seller\ProductAuctionController@endAuction');
+    Route::GET('/email-winner/{id}', 'Seller\ProductAuctionController@emailWinner');
+
+    Route::GET('/orders', 'Seller\ProductOrderController@getOrderList');
+    Route::GET('/order-details/{id}', 'Seller\ProductOrderController@getOrderDetails');
+    Route::GET('/process-order/{orderId}', 'Seller\ProductOrderController@processOrder');
+    Route::GET('/mark-delivered/{orderId}', 'Seller\ProductOrderController@markAsDelivered');
+});
 
  //Setting locale
  Route::get('welcome/{locale}', function ($locale) {

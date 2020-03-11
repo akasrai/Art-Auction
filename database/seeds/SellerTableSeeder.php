@@ -21,7 +21,7 @@ class SellerTableSeeder extends Seeder
         ]);
 
         DB::table('sellers')->insert([
-            'fname' => 'Admin',
+            'fname' => 'AreaManager',
             'lname' => '',
             'email' => 'admin@mail.com',
             'password' => bcrypt('secret'),

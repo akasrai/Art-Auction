@@ -36,28 +36,31 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('guest:admin')->except('logout');
-        $this->middleware('guest:admin', ['except' => ['logout']]);
+
+        $this->middleware('guest:seller', ['except' => ['logout']]);
     }
 
 
     protected function sendLoginResponse(Request $request)
     {
         $request->session()->regenerate();
-        $redirectUrl = "/admin/dashboard";
+        $redirectUrl = "/seller/dashboard";
+
+        dd($request);
+
 
         // checking users type here in loop
-        foreach (Auth::guard('admin')->user()->role as $roles) {
-            if ($roles->name == 'Superadmin') {
+        foreach (Auth::guard('seller')->user()->role as $roles) {
+            if ($roles->name == 'CEO') {
                 $this->redirectTo = $redirectUrl;
                 return redirect($redirectUrl);
-            } elseif ($roles->name == 'Admin') {
+            } elseif ($roles->name == 'AreaManager') {
                 $this->redirectTo = $redirectUrl;
                 return redirect($redirectUrl);
-            } elseif ($roles->name == 'Editor') {
+            } elseif ($roles->name == 'Manager') {
                 $this->redirectTo = $redirectUrl;
                 return redirect($redirectUrl);
-            } elseif ($roles->name == 'Moderator') {
+            } elseif ($roles->name == 'Clerk') {
                 $this->redirectTo = $redirectUrl;
                 return redirect($redirectUrl);
             }
@@ -71,7 +74,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('myadmin.auth.login');
+        return view('sellers.auth.login');
     }
 
     /**
@@ -81,13 +84,16 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('admin');
+        return Auth::guard('seller');
     }
 
-    // function copied from Illuminate\Foundation\Auth\AuthenticatesUsers to logout admin guard
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @copy from AuthenticateUser for logging out from seller route
+     */
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        return redirect('/admin');
+        Auth::guard('seller')->logout();
+        return redirect('/seller');
     }
 }

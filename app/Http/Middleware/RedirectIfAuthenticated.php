@@ -49,6 +49,39 @@ class RedirectIfAuthenticated
                     //return redirect('admin/home');
                 }
                 break;
+
+            case 'seller':
+                if (Auth::guard($guard)->check()) {
+                    $status="";
+                    $redirectUrl = "/admin/dashboard";
+
+                    foreach (Auth::guard('seller')->user()->role as $roles) {
+                        dump($roles->name);
+                        if ($roles->name == 'CEO') {
+                            if (session('status')) {
+                                $status = session('status');
+                            }
+                            return redirect($redirectUrl)->with('status', $status);
+                        } elseif ($roles->name == 'AreaManager') {
+                            if (session('status')) {
+                                $status = session('status');
+                            }
+                            return redirect($redirectUrl)->with('status', $status);
+                        } elseif ($roles->name == 'Manager') {
+                            if (session('status')) {
+                                $status = session('status');
+                            }
+                            return redirect($redirectUrl)->with('status', $status);
+                        } elseif ($roles->name == 'Clerk') {
+                            if (session('status')) {
+                                $status = session('status');
+                            }
+                            return redirect($redirectUrl)->with('status', $status);
+                        }
+                    }
+
+                }
+
                    
             default:
                 if (Auth::guard($guard)->check()) {

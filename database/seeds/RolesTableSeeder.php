@@ -26,8 +26,21 @@ class RolesTableSeeder extends Seeder
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
+        // FOR Seller
         DB::table('roles')->insert([
-            'name' => 'Moderator',
+            'name' => 'CEO',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'AreaManager',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'Manager',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'Clerk',
             'created_at' => date("Y-m-d H:i:s")
         ]);
     }

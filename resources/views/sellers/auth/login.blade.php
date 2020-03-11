@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Art Auction') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <form class="form-horizontal" method="POST" action="{{ route('admin.login') }}">
+                            <form class="form-horizontal" method="POST" action="{{ route('seller.login') }}">
                                 {{ csrf_field() }}
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -78,7 +78,7 @@
                                             Login
                                         </button>
 
-                                        <a class="btn btn-link" href="{{ route('admin.password.request') }}">
+                                        <a class="btn btn-link" href="{{ route('seller.password.request') }}">
                                             Forgot Your Password?
                                         </a>
                                     </div>

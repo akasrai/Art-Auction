@@ -41,7 +41,7 @@ class Seller extends Model
         $this->notify(new AdminResetPasswordNotification($token));
     }
 
-    public function isCeo()
+    public function isCEO()
     {
         return $this->role()->where('name', 'CEO')->exists();
     }

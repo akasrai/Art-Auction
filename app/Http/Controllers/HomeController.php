@@ -20,6 +20,7 @@ class HomeController extends Controller
         $this->productService = $productService;
         $this->categoryService = $categoryService;
         $this->productOptionService = $productOptionService;
+
     }
 
     public function index()

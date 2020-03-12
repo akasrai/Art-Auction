@@ -1,9 +1,9 @@
 version: "3.3"
 
 services:
-  thanka-db:
+  aa-db:
     image: mysql:5.7
-    container_name: "thanka-db"
+    container_name: "aa-db"
     restart: "no"
     ports:
       - "3306"

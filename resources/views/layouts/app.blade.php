@@ -11,7 +11,8 @@
     <script type="text/javascript">
         window.Laravel = {
             csrfToken: '{{ csrf_token()}}'
-        }
+        };
+        window.laravelEchoPort= '{{env('LARAVEL_ECHO_PORT')}}'
     </script>
 
     <title>{{ config('app.name', 'Thanka Auction') }}</title>
@@ -27,9 +28,11 @@
 <body>
     <div id="app">
         @include('inc.navbar')
-       
+
         @yield('content')
-        
+
+        <div id="notification">we will have notification here</div>
+
         <footer class="footer">
             <div class="container">
                 <div class="pull-left">
@@ -46,6 +49,20 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/custom-select.js') }}"></script>
+    <script src="//{{ Request::getHost() }}:{{env('LARAVEL_ECHO_PORT')}}/socket.io/socket.io.js"></script>
+    <script src="{{ url('/js/laravel-echo-setup.js') }}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        console.log(window.Echo.channel('live-bidding-channel'));
+        window.Echo.channel('live-bidding-channel')
+            .listen('.UserEvent', (data) => {
+                console.log('we ');
+                i++;
+                $("#notification").append('<div class="alert alert-success">'+data.title+'</div>');
+            });
+    </script>
+
+
     <script>
         $("#cart").on("click", function() {
             if ($(".shopping-cart").hasClass("hide"))

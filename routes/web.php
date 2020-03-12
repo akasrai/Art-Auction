@@ -88,3 +88,8 @@ Route::prefix('admin')->group(function () {
  Route::get('welcome/{locale}', function ($locale) {
      App::setLocale($locale);
  });
+
+Route::get('/t', function () {
+    event(new \App\Events\SendLiveBidding());
+    dd('Event Run Successfully.');
+});

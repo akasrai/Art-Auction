@@ -76,38 +76,10 @@ module.exports = __webpack_require__(47);
 /***/ 47:
 /***/ (function(module, exports) {
 
-var _this = this;
+Echo.channel('chat').listen('BidEvent', function (_ref) {
+       var message = _ref.message;
 
-Echo.join('chat').here(function (users) {
-    console.log('users', users);
-}).joining(function (user) {
-    _this.users.push(user);
-}).leaving(function (user) {
-    _this.users = _this.users.filter(function (u) {
-        return u.id !== user.id;
-    });
-}).listenForWhisper('typing', function (_ref) {
-    var id = _ref.id,
-        name = _ref.name;
-
-    _this.users.forEach(function (user, index) {
-        if (user.id === id) {
-            user.typing = true;
-            _this.$set(_this.users, index, user);
-        }
-    });
-}).listen('MessageSent', function (event) {
-    _this.messages.push({
-        message: event.message.message,
-        user: event.user
-    });
-
-    _this.users.forEach(function (user, index) {
-        if (user.id === event.user.id) {
-            user.typing = false;
-            _this.$set(_this.users, index, user);
-        }
-    });
+       console.log(message);
 });
 
 /***/ })

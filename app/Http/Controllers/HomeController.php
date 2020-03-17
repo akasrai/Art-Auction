@@ -31,9 +31,8 @@ class HomeController extends Controller
         $featuredProducts = $this->productService->getAllByCategoryNameAndOption('featured', 1, 10);
 
         // FIXME: test event
-        $message = 'New Client is Added';
+        $message = ['message'=>'New Client is Added'];
         broadcast(new BidEvent($message));
-
         return view('welcome')
                 ->with('categories', $categories)
                 ->with('productsOnSell', $productsOnSell)

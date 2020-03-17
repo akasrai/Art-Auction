@@ -1,0 +1,17 @@
+version: "3.3"
+
+services:
+  aa-db:
+    image: mysql:5.7
+    container_name: "aa-db"
+    restart: "no"
+    ports:
+      - "3306"
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/logs:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "apple"
+      MYSQL_DATABASE: "thanka-db"
+      MYSQL_USER: "thanka-db"
+      MYSQL_PASSWORD: "thanka-db"

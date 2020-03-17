@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegistrationEvent;
 use Auth;
 use Session;
 use App\Models\User;
@@ -43,6 +44,7 @@ class RegisterController extends Controller
         if ($user) {
             Session::flash('status', 'Registered Successfully! now verify your email with link sent to your email.');
         }
+        event(new UserRegistrationEvent($user));
         return $user;
     }
 

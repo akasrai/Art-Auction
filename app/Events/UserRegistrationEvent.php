@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -10,20 +11,20 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class SendLiveBidding implements ShouldBroadcast
+class UserRegistrationEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    private $user;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param User $user
      */
-
-    public $data = ['as'];
-    public function __construct()
+    public function __construct(User $user)
     {
-
+        $this->user =$user;
     }
 
     /**
@@ -33,8 +34,13 @@ class SendLiveBidding implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('live-bidding-channel');
+        return new PrivateChannel('everywhere');
     }
-
-
+    public function broadcastWith()
+    {
+        return [
+            'id' => $this->user->id,
+            'name' => $this->user->name,
+        ];
+    }
 }

@@ -22,12 +22,13 @@ class UserService
             'lname' => $data['lname'],
             'email' => $data['email'],
             'phone_no' => $data['phone'],
+            'status'=>1,
             'verify_token' => Str::random(40),
             'password' => bcrypt($data['password'])
         ]);
 
-        $thisUser = User::findOrFail($user->id);
-        $this->sendEmail($thisUser);
+        // $thisUser = User::findOrFail($user->id);
+        // $this->sendEmail($thisUser);
         return $user;
     }
 

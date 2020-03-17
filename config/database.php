@@ -106,6 +106,11 @@ return [
 
     'redis' => [
 
+        'driver' => 'redis',
+        'connection' => 'default',
+        'queue' => '{default}',
+        'retry_after' => 90,
+
         'client' => env('REDIS_CLIENT', 'predis'),
 
         'default' => [

@@ -84,7 +84,7 @@ Route::prefix('admin')->group(function () {
     Route::GET('/mark-delivered/{orderId}', 'Myadmin\ProductOrderController@markAsDelivered');
 });
 
- //Setting locale
+ // Setting locale
  Route::get('welcome/{locale}', function ($locale) {
      App::setLocale($locale);
  });
@@ -92,4 +92,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/t', function () {
     event(new \App\Events\SendLiveBidding());
     dd('Event Run Successfully.');
+});
+Route::get('/test', function () {
+    dispatch(new \App\Jobs\SendLiveBidding());
 });

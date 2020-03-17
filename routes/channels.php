@@ -11,6 +11,15 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
+Broadcast::channel('live-bidding-channel', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('everywhere', function ($user) {
+    return $user;
+});
+
+// FIXME: User Model
+Broadcast::channel('chat.{roomId}', function ($user, $roomId) {
+    return $user;
 });

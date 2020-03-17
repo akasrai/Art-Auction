@@ -13,6 +13,7 @@
             csrfToken: '{{ csrf_token()}}'
         };
         window.laravelEchoPort= '{{env('LARAVEL_ECHO_PORT')}}'
+        window.active_user = @json(\Illuminate\Support\Facades\Auth::user());
     </script>
 
     <title>{{ config('app.name', 'Thanka Auction') }}</title>
@@ -32,6 +33,7 @@
         @yield('content')
 
         <div id="notification">we will have notification here</div>
+        <div class="card-header">Dashboard <button id="sayHi" class="float-right btn btn-sm btn-warning">Say Hi!</button></div>
 
         <footer class="footer">
             <div class="container">
@@ -53,10 +55,9 @@
     <script src="{{ url('/js/laravel-echo-setup.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
-        console.log(window.Echo.channel('live-bidding-channel'));
         window.Echo.channel('live-bidding-channel')
-            .listen('.UserEvent', (data) => {
-                console.log('we ');
+            .listen('SendLiveBidding', (data) => {
+                console.log('listing data here ', data);
                 i++;
                 $("#notification").append('<div class="alert alert-success">'+data.title+'</div>');
             });

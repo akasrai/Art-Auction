@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/debugbar
+/storage/debugbar
 /storage/*.key
 /vendor
 /.idea

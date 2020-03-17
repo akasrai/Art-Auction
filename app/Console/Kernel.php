@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('autobid:product')->everyMinute();
+        $schedule->command('websockets:clean')->daily();
     }
 
     protected function commands()

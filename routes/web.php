@@ -84,7 +84,11 @@ Route::prefix('admin')->group(function () {
     Route::GET('/mark-delivered/{orderId}', 'Myadmin\ProductOrderController@markAsDelivered');
 });
 
- //Setting locale
+ // Setting locale
  Route::get('welcome/{locale}', function ($locale) {
      App::setLocale($locale);
  });
+
+//Route::get('/', 'ChatsController@index');
+//Route::get('messages', 'ChatsController@fetchMessages');
+//Route::post('messages', 'ChatsController@sendMessage');

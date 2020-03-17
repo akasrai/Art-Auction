@@ -12,6 +12,8 @@
    "devDependencies": {
       "axios": "^0.18",
       "bootstrap-sass": "^3.3.7",
+      "browser-sync": "^2.26.7",
+      "browser-sync-webpack-plugin": "^2.2.2",
       "cross-env": "^5.1",
       "jquery": "^3.2",
       "laravel-mix": "^1.0",
@@ -19,7 +21,9 @@
    },
    "dependencies": {
       "font-awesome": "^4.7.0",
+      "laravel-echo": "^1.6.1",
       "moment": "^2.24.0",
+      "pusher-js": "^5.1.1",
       "slug": "^0.9.1",
       "sweetalert": "^2.1.2"
    }

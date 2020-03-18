@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BidEvent;
 use Illuminate\Http\Request;
 use App\Services\CartService;
 use App\Services\ProductService;
@@ -28,6 +29,10 @@ class HomeController extends Controller
         $productsOnSell = $this->productService->getAllByProductOption(0, 12);
         $productsOnAuction = $this->productService->getAvailableProductsByProductOption(1, 12);
         $featuredProducts = $this->productService->getAllByCategoryNameAndOption('featured', 1, 10);
+
+        // FIXME: test event
+        $message = ['message'=>'New Client is Added'];
+        broadcast(new BidEvent($message));
         return view('welcome')
                 ->with('categories', $categories)
                 ->with('productsOnSell', $productsOnSell)

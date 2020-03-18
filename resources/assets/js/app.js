@@ -5,6 +5,7 @@
  */
 
 require("./bootstrap");
+require("./live-bidding");
 
 window.Slug = require("slug");
 Slug.defaults.mode = "rfc3986";

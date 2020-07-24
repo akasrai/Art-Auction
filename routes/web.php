@@ -9,6 +9,7 @@ Route::get('/contact', 'HomeController@getContactInfo');
 Route::get('/search', 'SearchProductController@search')->name('product.search');
 
 Route::get('/auction/{productSlug}', 'ProductController@getAuctionBySlug');
+Route::get('/auction/l/{productSlug}', 'ProductController@getLatestAuction');
 Route::get('/product/{productSlug}', 'ProductController@getProductBySlug');
 Route::get('/category/{category}', 'ProductController@getByCategory');
 

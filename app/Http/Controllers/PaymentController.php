@@ -20,15 +20,10 @@ class PaymentController extends Controller
         $order = null;
         $cart = session()->get('cart');
         if ($cart) {
-            $this->paymentService->payWithPaypal($cart);
+            return $this->paymentService->payWithPaypal($cart);
         }
 
-        if ($order) {
-            Session::flash('status', 'Your order is placed. Check your email for further information');
-            return redirect('my-orders');
-        } else {
-            return redirect()->back();
-        }
+        return redirect()->back();
     }
 
     public function getPaymentStatus()

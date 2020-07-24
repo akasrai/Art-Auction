@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Session;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\CartService;
 use App\Services\ProductService;
@@ -103,5 +104,37 @@ class ProductController extends Controller
         return view('product.shoppingPage')
             ->with('categories', $categories)
             ->with('products', $productsOnSell);
+    }
+
+    public function getLatestAuction($productSlug)
+    {
+        $response = new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($productSlug) {
+            while (true) {
+                $productDetails =   $this->productService->getBySlug($productSlug);
+                $auctions = $productDetails->auctions;
+                $data = [];
+                foreach ($auctions as $key => $auc) {
+                    $user = User::find($auc->user_id);
+                    $data[$key]['user']['name'] = $user->fname . " " . $user->lname;
+                    $data[$key]['user']['image'] = $user->image;
+                    $data[$key]['bidPrice'] = $auc->bid_price;
+                    $data[$key]['comment'] = $auc->comment;
+                    $data[$key]['createdAt'] = $auc->created_at;
+                    $data[$key]['auc'] = $auc;
+                }
+                if (isset($data)) {
+                    echo "data: " . json_encode($data) . "\n\n";
+                    ob_end_flush();
+                    flush();
+                }
+                sleep(4);
+            }
+        });
+
+        $response->headers->set("Content-Type", "text/event-stream");
+        $response->headers->set("X-Accel-Buffering", "no");
+        $response->headers->set("Cache-Control", "no-cache");
+
+        return $response;
     }
 }

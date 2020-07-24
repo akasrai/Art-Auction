@@ -3,8 +3,7 @@
      <div class="navbar-header">
 
        <!-- Collapsed Hamburger -->
-       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse"
-         aria-expanded="false">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
          <span class="sr-only">Toggle Navigation</span>
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
@@ -30,12 +29,10 @@
          @else
 
          <li class="dropdown" id="user-logout-option">
-           <div class="dropdown-toggle user-info-section" data-toggle="dropdown" role="button" aria-expanded="false"
-             aria-haspopup="true">
+           <div class="dropdown-toggle user-info-section" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
              <div class="navbar-user-image">
                @if(Auth::user()->image)
-               <img src="<?php echo url('storage/' . Auth::user()->image) ?>" id="profile-picture"
-                 alt="profile image" />
+               <img src="<?php echo url('storage/' . Auth::user()->image) ?>" id="profile-picture" alt="profile image" />
                @else
                <i class="glyphicon glyphicon-user"></i>
                @endif
@@ -45,8 +42,7 @@
              </div>
 
              <div class="user-drop-down-option hide">
-               <a href="{{ route('logout') }}"
-                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+               <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                  {{ csrf_field() }}
                </form>
@@ -58,15 +54,15 @@
          @endguest
 
          <?php $count = 0;
-                    $sellingPrice = 0;
-                    $total = 0; ?>
+          $sellingPrice = 0;
+          $total = 0; ?>
          @if(session('cart'))
          @foreach(session('cart') as $id => $details)
          <?php
-                    $count++;
-                    $sellingPrice = $details['price'] - (($details['discount'] / 100) * $details['price']);
-                    $total += $sellingPrice * $details['quantity']
-                    ?>
+          $count++;
+          $sellingPrice = $details['price'] - (($details['discount'] / 100) * $details['price']);
+          $total += $sellingPrice * $details['quantity']
+          ?>
          @endforeach
          @endif
          <a href=" javascript:void(0)" id="cart">
@@ -102,11 +98,11 @@
                <span class="item-name">{{$details['name']}}</span>
                <span class="item-price" id="{{$details['name']}}">
                  Price: $<?php
-                                            $originalPrice = $details['price'];
-                                            $discountPercentage = $details['discount'];
-                                            $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
-                                            echo $priceAfterDiscount;
-                                            ?>
+                          $originalPrice = $details['price'];
+                          $discountPercentage = $details['discount'];
+                          $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
+                          echo $priceAfterDiscount;
+                          ?>
                </span>
                <span class="item-quantity">Quantity: {{$details['quantity']}}</span><br>
                <a class="item-remove" href="/remove-from-cart/{{$id}}">Remove</a>
@@ -124,7 +120,6 @@
      </div>
    </div>
  </nav>
-
  <div class="col-md-12 nav-menu-bar">
    <div class="container padding-left-right">
      <div class="clearfix">
@@ -170,7 +165,7 @@
    </div>
  </div>
  <script>
-function redirectTo() {
-  window.location.href = "{{url('/dashboard')}}";
-}
+   function redirectTo() {
+     window.location.href = "{{url('/dashboard')}}";
+   }
  </script>

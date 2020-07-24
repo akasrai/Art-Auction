@@ -85,11 +85,11 @@ class PaymentService
       }
     }
 
-    // dd($redirectUrl);
     Session::put('paypal_payment_id', $payment->getId());
 
     if (isset($redirectUrl)) {
-      return Redirect::away($redirectUrl);
+      // dd($redirectUrl);
+      return redirect()->away($redirectUrl);
     }
 
     Session::flash('error', 'Unknown error occurred');

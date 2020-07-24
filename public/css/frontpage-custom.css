@@ -1344,3 +1344,7 @@ th {
 .order-status {
   font-weight: bold;
 }
+
+.auction-add-to-cart {
+  padding: 5px 10px;
+}

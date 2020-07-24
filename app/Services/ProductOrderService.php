@@ -18,11 +18,11 @@ class ProductOrderService
         $this->cartService = $cartService;
         $this->productService = $productService;
     }
-    
-    public function placeOrder($cart)
+
+    public function placeOrder($cart, $paymentMethod)
     {
         try {
-            $order = $this->saveOrder();
+            $order = $this->saveOrder($paymentMethod);
             if ($order) {
                 $this->saveProductList($cart, $order->id);
                 $this->cartService->emptyCart();
@@ -38,26 +38,24 @@ class ProductOrderService
     public function saveProductList($cart, $orderId)
     {
         foreach ($cart as $id => $details) {
-            $price = $details['price']-(($details['discount']/100)*$details['price']);
+            $price = $details['price'] - (($details['discount'] / 100) * $details['price']);
 
             OrderList::create([
-               "order_id" => $orderId,
-               "product_id" => $id,
-               "quantity" => $details['quantity'],
-               "price" => $price
+                "order_id" => $orderId,
+                "product_id" => $id,
+                "quantity" => $details['quantity'],
+                "price" => $price
             ]);
         }
     }
 
-    private function saveOrder()
+    private function saveOrder($paymentMethod)
     {
-        $paymentMethod = "CASH_ON_DELIVERY";
-
         return ProductOrder::create([
-         "order_reference" => uniqid(),
-         "user_id" => Auth::user()->id,
-         "payment_method" => $paymentMethod
-      ]);
+            "order_reference" => uniqid(),
+            "user_id" => Auth::user()->id,
+            "payment_method" => $paymentMethod
+        ]);
     }
 
     public function getOrderList()
@@ -78,7 +76,7 @@ class ProductOrderService
             $item->product_name = $this->productService->getNameById($item->product_id);
             array_push($orderItemsWithName, $item);
         }
-    
+
         return $orderItemsWithName;
     }
 
@@ -121,7 +119,7 @@ class ProductOrderService
 
     private function markAllItems($orderId, $status)
     {
-        return OrderList::where('order_id', $orderId)->update(['status'=>$status]);
+        return OrderList::where('order_id', $orderId)->update(['status' => $status]);
     }
 
     private function emailStatus($order)
@@ -141,14 +139,14 @@ class ProductOrderService
             $order->items = $this->getItemsByOrderId($order->id);
             $ordersWithItems->push($order);
         }
-        
+
         $ordersWithPagination = array();
         array_push($ordersWithPagination, $ordersWithItems);
         array_push($ordersWithPagination, $orders->links());
 
         return $ordersWithPagination;
     }
-    
+
     private function getItemsByOrderId($orderId)
     {
         return OrderList::where('order_id', $orderId)->get();

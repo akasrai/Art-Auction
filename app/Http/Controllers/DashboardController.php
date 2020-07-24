@@ -28,7 +28,7 @@ class DashboardController extends Controller
     {
         $categories = $this->categoryService->getAllCategories();
         return view('dashboard.dashboard')
-                ->with('categories', $categories);
+            ->with('categories', $categories);
     }
 
     public function getMyBiddings()
@@ -39,10 +39,14 @@ class DashboardController extends Controller
         foreach ($myBiddingProducts as $myBiddingProduct) {
             $myBiddingProduct->biddings = $this->productAuctionService->getAllByUserIdAndProductId($userId, $myBiddingProduct->product_id);
             $myBiddingProduct->highestBid = $this->productAuctionService->getCurrentHighestBidByProductId($myBiddingProduct->product_id);
+
+            if ($myBiddingProduct->product->status == 2) {
+                $myBiddingProduct->winner = $this->productAuctionService->getWinner($myBiddingProduct->product_id);
+            }
         }
 
         return view('dashboard.myBiddings')
-                ->with('myBiddingProducts', $myBiddingProducts)
-                ->with('categories', $categories);
+            ->with('myBiddingProducts', $myBiddingProducts)
+            ->with('categories', $categories);
     }
 }

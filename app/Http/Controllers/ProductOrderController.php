@@ -37,9 +37,9 @@ class ProductOrderController extends Controller
         $order = null;
         $cart = session()->get('cart');
         if ($cart) {
-            $order = $this->productOrderService->placeOrder($cart);
+            $order = $this->productOrderService->placeOrder($cart, "Cash on Delivery");
         }
-       
+
         if ($order) {
             Session::flash('status', 'Your order is placed. Check your email for further information');
             return redirect('my-orders');

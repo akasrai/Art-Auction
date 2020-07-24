@@ -41,6 +41,9 @@ Route::post('users/logout', 'Auth\LoginController@userLogout')->name('user.logou
 
 Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@verifyEmail')->name('verifyEmail');
 
+Route::post('/payment/paypal', 'PaymentController@payWithPaypal')->name('payment.payWithPaypal');
+Route::get('/payment/status', 'PaymentController@getPaymentStatus')->name('payment.getPaymentStatus');
+
 Route::prefix('admin')->group(function () {
     Route::get('/logout', 'Myadmin\LoginController@logout')->name('admin.logout');
 
@@ -84,10 +87,10 @@ Route::prefix('admin')->group(function () {
     Route::GET('/mark-delivered/{orderId}', 'Myadmin\ProductOrderController@markAsDelivered');
 });
 
- // Setting locale
- Route::get('welcome/{locale}', function ($locale) {
-     App::setLocale($locale);
- });
+// Setting locale
+Route::get('welcome/{locale}', function ($locale) {
+    App::setLocale($locale);
+});
 
 //Route::get('/', 'ChatsController@index');
 //Route::get('messages', 'ChatsController@fetchMessages');

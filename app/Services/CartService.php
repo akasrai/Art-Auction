@@ -3,9 +3,15 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Services\ProductAuctionService;
 
 class CartService
 {
+    public function __construct(ProductAuctionService $productAuctionService)
+    {
+        $this->productAuctionService = $productAuctionService;
+    }
+
     public function addToCart($slug)
     {
         $product = Product::whereSlug($slug)->first();
@@ -13,18 +19,26 @@ class CartService
         if (!$product) {
             abort(404);
         }
-        
+
         $cart = session()->get('cart');
+        $price = 0;
+
+        if ($product->options->is_on_auction == 1) {
+            $price = $this->productAuctionService->getCurrentHighestBidByProductId($product->id);
+        } else {
+            $price = $product->options->price;
+        }
+
         if (!$cart) {
             $cart = [
-               $product->id => [
-                  "name" => $product->name,
-                  "slug" => $product->slug,
-                  "quantity" => 1,
-                  "price" => $product->options->price,
-                  "image" => $product->images[0]->image_url,
-                  "discount" => $product->options->discount,
-               ]
+                $product->id => [
+                    "quantity" => 1,
+                    "price" => $price,
+                    "name" => $product->name,
+                    "slug" => $product->slug,
+                    "image" => $product->images[0]->image_url,
+                    "discount" => $product->options->discount,
+                ]
             ];
             session()->put('cart', $cart);
 
@@ -34,21 +48,21 @@ class CartService
         if (isset($cart[$product->id])) {
             $cart[$product->id]['quantity']++;
             session()->put('cart', $cart);
- 
+
             return $cart;
         }
- 
+
         $cart[$product->id] = [
+            "quantity" => 1,
+            "price" => $price,
             "name" => $product->name,
             "slug" => $product->slug,
-            "quantity" => 1,
-            "price" => $product->options->price,
             "image" => $product->images[0]->image_url,
             "discount" => $product->options->discount,
         ];
- 
+
         session()->put('cart', $cart);
- 
+
         return $cart;
     }
 

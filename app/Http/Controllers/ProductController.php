@@ -35,9 +35,9 @@ class ProductController extends Controller
         $productDetails = $this->productService->getBySlug($productSlug);
 
         return view('product.singleAuction')
-                ->with('user', $user)
-                ->with('categories', $categories)
-                ->with('productDetails', $productDetails);
+            ->with('user', $user)
+            ->with('categories', $categories)
+            ->with('productDetails', $productDetails);
     }
 
     public function getProductBySlug($productSlug)
@@ -46,8 +46,8 @@ class ProductController extends Controller
         $productDetails = $this->productService->getBySlug($productSlug);
 
         return view('product.singleProduct')
-                ->with('categories', $categories)
-                ->with('productDetails', $productDetails);
+            ->with('categories', $categories)
+            ->with('productDetails', $productDetails);
     }
 
     public function getByCategory($category)
@@ -57,9 +57,9 @@ class ProductController extends Controller
         $products = $this->productService->getAllByCategoryName($category, 30);
 
         return view('product.categoryPage')
-                ->with('category', $categoryName)
-                ->with('products', $products)
-                ->with('categories', $categories);
+            ->with('category', $categoryName)
+            ->with('products', $products)
+            ->with('categories', $categories);
     }
 
     public function addToCart($slug)
@@ -75,7 +75,7 @@ class ProductController extends Controller
     {
         $cart = $this->cartService->removeFromCart($id);
         Session::flash('success', 'Item removed!');
-        
+
         return redirect()->back();
     }
 
@@ -89,19 +89,19 @@ class ProductController extends Controller
     {
         $categories = $this->categoryService->getAllCategories();
         $productsOnAuction = $this->productService->getAvailableProductsByProductOption(1, 30);
-       
+
         return view('product.auctionPage')
-                ->with('categories', $categories)
-                ->with('products', $productsOnAuction);
+            ->with('categories', $categories)
+            ->with('products', $productsOnAuction);
     }
 
     public function getShop()
     {
         $categories = $this->categoryService->getAllCategories();
         $productsOnSell = $this->productService->getAllByProductOption(0, 12);
-       
+
         return view('product.shoppingPage')
-                ->with('categories', $categories)
-                ->with('products', $productsOnSell);
+            ->with('categories', $categories)
+            ->with('products', $productsOnSell);
     }
 }

@@ -26,7 +26,7 @@ class ProductAuctionService
             'user_id' => $biddingData['userId'],
             'bid_price' => $biddingData['biddingAmount'],
             'comment' => $biddingData['comment']
-         ]);
+        ]);
 
         return $productAuction;
     }
@@ -44,11 +44,16 @@ class ProductAuctionService
         return $winner->product->slug;
     }
 
+    public function getWinner($productId)
+    {
+        return ProductAuction::where('product_id', $productId)->orderBy('bid_price', 'desc')->first();
+    }
+
     public function getAllByUserId($userId)
     {
-        $status = 1;
+        $status = 0;
         return ProductAuction::with('product')->whereHas('product', function ($q) use ($status) {
-            $q->where('status', $status);
+            $q->where('status', '>', $status);
         })->where('user_id', $userId)->distinct()->get(['product_id']);
     }
 

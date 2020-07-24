@@ -26,19 +26,19 @@
 
 <body>
     <div id="app">
-    <header >
-        @include('inc.navbar')
-    </header>
-       
+        <header>
+            @include('inc.navbar')
+        </header>
+
         @yield('content')
-        
+
         <footer class="footer">
             <div class="container">
                 <div class="pull-left">
-                    &copy;Bid N Buy  Auction 2019
+                    &copy;Bid N Buy Auction 2019
                 </div>
                 <div class="pull-right">
-                    Site by <a href="#"Bid N Buy> BNB</a>
+                    Site by <a href="#" Bid N Buy> BNB</a>
                 </div>
                 <div class="clearfix"></div>
             </div>

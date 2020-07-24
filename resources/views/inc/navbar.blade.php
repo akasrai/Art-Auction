@@ -3,8 +3,7 @@
          <div class="navbar-header">
 
              <!-- Collapsed Hamburger -->
-             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                 data-target="#app-navbar-collapse" aria-expanded="false">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
                  <span class="sr-only">Toggle Navigation</span>
                  <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
@@ -30,12 +29,10 @@
                  @else
 
                  <li class="dropdown" id="user-logout-option">
-                     <div class="dropdown-toggle user-info-section" data-toggle="dropdown" role="button"
-                         aria-expanded="false" aria-haspopup="true">
+                     <div class="dropdown-toggle user-info-section" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                          <div class="navbar-user-image">
                              @if(Auth::user()->image)
-                             <img src="<?php echo url('storage/'.Auth::user()->image)?>"
-                                 id="profile-picture" alt="profile image" />
+                             <img src="<?php echo url('storage/' . Auth::user()->image) ?>" id="profile-picture" alt="profile image" />
                              @else
                              <i class="glyphicon glyphicon-user"></i>
                              @endif
@@ -45,10 +42,8 @@
                          </div>
 
                          <div class="user-drop-down-option hide">
-                             <a href="{{ route('logout') }}"
-                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                             <form id="logout-form" action="{{ route('user.logout') }}" method="POST"
-                                 style="display: none;">
+                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                             <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                  {{ csrf_field() }}
                              </form>
                              <br />
@@ -58,14 +53,16 @@
                  </li>
                  @endguest
 
-                 <?php $count = 0; $sellingPrice=0; $total=0;?>
+                 <?php $count = 0;
+                    $sellingPrice = 0;
+                    $total = 0; ?>
                  @if(session('cart'))
                  @foreach(session('cart') as $id => $details)
                  <?php
                     $count++;
                     $sellingPrice = $details['price'] - (($details['discount'] / 100) * $details['price']);
                     $total += $sellingPrice * $details['quantity']
-                 ?>
+                    ?>
                  @endforeach
                  @endif
                  <a href=" javascript:void(0)" id="cart">
@@ -96,17 +93,16 @@
                          @foreach(session('cart') as $id => $details)
                          <li class="clearfix">
                              <div class="add-to-cart-image pull-left">
-                                 <img src="<?php echo url('storage/'.$details['image'])?>"
-                                     alt="product image">
+                                 <img src="<?php echo url('storage/' . $details['image']) ?>" alt="product image">
                              </div>
                              <span class="item-name">{{$details['name']}}</span>
                              <span class="item-price" id="{{$details['name']}}">
                                  Price: $<?php
-                                $originalPrice = $details['price'];
-                                $discountPercentage = $details['discount'];
-                                $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
-                                echo $priceAfterDiscount;
-                                ?>
+                                            $originalPrice = $details['price'];
+                                            $discountPercentage = $details['discount'];
+                                            $priceAfterDiscount = $originalPrice - (($discountPercentage / 100) * $originalPrice);
+                                            echo $priceAfterDiscount;
+                                            ?>
                              </span>
                              <span class="item-quantity">Quantity: {{$details['quantity']}}</span><br>
                              <a class="item-remove" href="/remove-from-cart/{{$id}}">Remove</a>
@@ -124,11 +120,10 @@
          </div>
      </div>
  </nav>
-
  <div class="col-md-12 nav-menu-bar">
-     <div class="col-md-12 container padding-left-right">
+     <div class="container">
          <div class="col-md-12 clearfix">
-             <div class="col-md-12 no-padding shop-by-category-wrapper">
+             <div class="col-md-12 no-padding">
                  <div class="col-md-2 col-sm-12 col-xs-12 shop-by-category">
                      <i class="fa fa-chevron-down"></i>&nbsp;
                      SHOP BY CATEGORY
@@ -137,8 +132,7 @@
                              @if(count($categories)>0)
                              @foreach($categories as $category)
                              @if($category->name!='Uncategorized' && $category->name!='Featured')
-                             <a
-                                 href="<?php echo url('category/'.$category->slug);?>">
+                             <a href="<?php echo url('category/' . $category->slug); ?>">
                                  <li>
                                      {{$category->name}}
                                      <i class="fa fa-angle-right pull-right" aria-hidden="true"></i>

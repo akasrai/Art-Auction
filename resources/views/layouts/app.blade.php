@@ -26,7 +26,9 @@
 
 <body>
     <div id="app">
+    <header >
         @include('inc.navbar')
+    </header>
        
         @yield('content')
         

@@ -6,7 +6,7 @@ services:
     container_name: "aa-db"
     restart: "no"
     ports:
-      - "3306"
+      - "3306:3306"
     volumes:
       - ./db/data:/var/lib/mysql
       - ./db/logs:/var/log/mysql

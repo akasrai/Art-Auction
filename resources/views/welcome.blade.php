@@ -10,6 +10,7 @@
         </div>
     </div>
     @endif
+    
     @if (session('error'))
     <div class="col-md-12">
         <div class="col-md-12 alert alert-danger">

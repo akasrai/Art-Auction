@@ -272,7 +272,6 @@
 
       seeClient.addEventListener("message", function(e) {
          const res = JSON.parse(e.data);
-         console.log('data here ', res);
          if (res.length) {
             const [highestBidderData] = res;
             if (highestBidderData) {
@@ -289,7 +288,7 @@
 
       seeClient.addEventListener('error', event => {
          if (event.readyState == EventSource.CLOSED) {
-            console.log('Event was closed');
+            console.error('Event was closed');
             console.log(EventSource);
          }
       }, false);

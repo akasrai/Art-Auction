@@ -7,8 +7,8 @@
          <div class="panel-body">
             <div class="col-md-5">
                Phone: ********** <br />
-               Email: <a href="mailto:info@zorig.com">info@zorig.com</a><br />
-               Site: <a href="www.zorig.com">www.zorig.com</a>
+               Email: <a href="mailto:info@bnb.com">info@bnb.com</a><br />
+               Site: <a href="www.bnb.com">www.bnb.com</a>
             </div>
          </div>
       </div>

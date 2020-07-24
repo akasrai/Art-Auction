@@ -1,7 +1,7 @@
 <div>
    <h1>Congratulations {{$winner->user->fname}} {{$winner->user->mname}} {{$winner->user->lname}}</h1>
    <p>
-      You have won the auction hosted by <strong>Zorig Auction</strong>
+      You have won the auction hosted by <strong>Bid N Buy</strong>
    </p>
 
    <h4>Product Details</h4>

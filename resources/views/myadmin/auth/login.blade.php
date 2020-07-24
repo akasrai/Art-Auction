@@ -23,8 +23,8 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="panel panel-default" style="margin-top: 100px; background: lightgray;">
                         <div class="panel-heading">
-                            <h3 style="font-family:impact; color:black; padding:0; text-align:center;"><span style="color:darkred;">Zorig</span>
-                                Auction Login</h3>
+                            <h3 style="font-family:impact; color:black; padding:0; text-align:center;"><span style="color:darkred;">BidN</span>
+                                Buy Login</h3>
                         </div>
 
                         <div class="panel-body">

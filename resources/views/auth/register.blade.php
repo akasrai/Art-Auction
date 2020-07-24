@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="card-header">
                         <h3>
-                            Create your Zorig Auction Account
+                            Create your Bid N Buy Account
                         </h3>
                     </div>
                 </div>

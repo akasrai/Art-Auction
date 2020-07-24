@@ -2,7 +2,7 @@
    <div class="left_col scroll-view">
       <div class="navbar nav_title" style="border: 0;">
          <a href="/admin" class="site_title"><i class="fa fa-paw"></i> <span><span
-                  style="color:red;">Zorig</span>Auction</span></a>
+                  style="color:red;">BidN</span>Buy</span></a>
       </div>
 
       <div class="clearfix"></div>

@@ -41,7 +41,7 @@
                 <!-- footer content -->
                 <footer>
                     <div class="pull-right">
-                        Zorig Auction by <a href="#">Zorig Auction</a>
+                        Bid N Buy by <a href="#">Bid N Buy</a>
                     </div>
                     <div class="clearfix"></div>
                 </footer>

@@ -13,7 +13,7 @@
 
              <!-- Branding Image -->
              <a class="navbar-brand" href="{{ url('/') }}">
-                 {{ config('app.name', 'Zorig Auction') }}
+                 {{ config('app.name', 'Bid N Buy') }}
              </a>
          </div>
 

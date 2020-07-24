@@ -101,37 +101,41 @@
                   @endif
                </div>
 
-               <div class="col-md-12 highest-bidder">
-                  <div class="col-md-12 no-padding highest-bidder-label">
-                     <span>Current Highest Bidder</span>
-                  </div>
-                  @if(sizeof($productDetails->auctions)>0)
-                  <div class="no-padding col-md-2">
-                     <div class="highest-bidder-image">
-                        @if(!$productDetails->auctions[0]->user->image)
-                        <i class="glyphicon glyphicon-user"></i>
-                        @else
-                        <img src="<?php echo url('storage/' . $productDetails->auctions[0]->user->image); ?>" alt="bidder-image" />
-                        @endif
+               <div id='highestBidder'>
+                  <div class="col-md-12 highest-bidder">
+
+                     <div class="col-md-12 no-padding highest-bidder-label">
+                        <span>Current Highest Bidder</span>
                      </div>
+                     @if(sizeof($productDetails->auctions)>0)
+                     <div class="no-padding col-md-2">
+                        <div class="highest-bidder-image">
+                           @if(!$productDetails->auctions[0]->user->image)
+                           <i class="glyphicon glyphicon-user"></i>
+                           @else
+                           <img src="<?php echo url('storage/' . $productDetails->auctions[0]->user->image); ?>" alt="bidder-image" />
+                           @endif
+                        </div>
+                     </div>
+                     <div class="no-padding col-md-10 highest-bidder-name">
+                        <span class="current-highest-bidder">{{$productDetails->auctions[0]->user->fname}}
+                           {{$productDetails->auctions[0]->user->lname}}</span>
+                     </div>
+                     <div class="no-padding col-md-12">
+                        <span id="bidder-comment">
+                           {{$productDetails->auctions[0]->comment}}
+                        </span>
+                     </div>
+                     @else
+                     <div class="no-padding col-md-12">
+                        <span>
+                           No bid has been placed yet in this product.
+                        </span>
+                     </div>
+                     @endif
                   </div>
-                  <div class="no-padding col-md-10 highest-bidder-name">
-                     <span class="current-highest-bidder">{{$productDetails->auctions[0]->user->fname}}
-                        {{$productDetails->auctions[0]->user->lname}}</span>
-                  </div>
-                  <div class="no-padding col-md-12">
-                     <span id="bidder-comment">
-                        {{$productDetails->auctions[0]->comment}}
-                     </span>
-                  </div>
-                  @else
-                  <div class="no-padding col-md-12">
-                     <span>
-                        No bid has been placed yet in this product.
-                     </span>
-                  </div>
-                  @endif
                </div>
+
 
                <div class="col-md-12 no-padding latest-bidder">
                   @if(sizeof($productDetails->auctions)>0)
@@ -262,16 +266,34 @@
    }
 
    $(() => {
-      console.log('here on mount');
-      console.log('window', window.location)
       const slugArr = window.location.pathname.split('/');
       const slug = slugArr[2];
-      console.log('_____________slug__________', slug);
-      let seeClient = new EventSource(`/auction/${slug}`);
+      let seeClient = new EventSource(`/auction/l/${slug}`);
+
       seeClient.addEventListener("message", function(e) {
-         console.log(e);
+         const res = JSON.parse(e.data);
+         console.log('data here ', res);
+         if (res.length) {
+            const [highestBidderData] = res;
+            if (highestBidderData) {
+               const bidderName = highestBidderData.user.name;
+               const bidComment = highestBidderData.comment;
+               const imgContent = highestBidderData.user.image ? `<img src="/storage/${highestBidderData.user.image}" alt="bidder-image" />` : `<i class="glyphicon glyphicon-user"></i>`
+               $(".highest-bidder-image").html(imgContent);
+               $(".current-highest-bidder").html(bidderName);
+               $("#bidder-comment").html(bidComment);
+            }
+         }
+
       }, false);
-      console.log('_____________seeClient__________', seeClient);
+
+      seeClient.addEventListener('error', event => {
+         if (event.readyState == EventSource.CLOSED) {
+            console.log('Event was closed');
+            console.log(EventSource);
+         }
+      }, false);
+
 
    })
 </script>

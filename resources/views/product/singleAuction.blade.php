@@ -6,16 +6,12 @@
          @if($productDetails)
          <div class="col-md-4 colsm-12 col-xs-12 product-image-frame">
             <div class="image-large-view">
-               <img id="image-large-view"
-                  src="<?php echo url('storage/'.$productDetails->images[0]->image_url)?>"
-                  alt="image">
+               <img id="image-large-view" src="<?php echo url('storage/' . $productDetails->images[0]->image_url) ?>" alt="image">
             </div>
             <div class="image-thumbnail-wrapper">
                @foreach($productDetails->images as $image)
                <div class="col-md-3 col-sm-3 col-xs-3 no-padding image-thumbnail">
-                  <img onclick="changeImage(this.src)"
-                     src="<?php echo url('storage/'.$image->image_url)?>"
-                     alt="image">
+                  <img onclick="changeImage(this.src)" src="<?php echo url('storage/' . $image->image_url) ?>" alt="image">
                </div>
                @endforeach
             </div>
@@ -76,8 +72,7 @@
                   </a>
                   @else
                   @if($productDetails->status == 1)
-                  <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#bidding-details"
-                     href="javascript:void(0)">@lang('messages.bid')</a>
+                  <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#bidding-details" href="javascript:void(0)">@lang('messages.bid')</a>
                   @endif
                   @endguest
                </div>
@@ -100,11 +95,9 @@
                <div class="col-md-12 final-sale-price-section">
                   <span class="pull-left final-sale-label">Current sales price</span>
                   @if(sizeof($productDetails->auctions)>0)
-                  <span
-                     class="pull-right final-sale-price current-price">${{$productDetails->auctions[0]->bid_price}}</span>
+                  <span class="pull-right final-sale-price current-price">${{$productDetails->auctions[0]->bid_price}}</span>
                   @else
-                  <span
-                     class="pull-right final-sale-price current-price">${{$productDetails->options->estimated_price}}</span>
+                  <span class="pull-right final-sale-price current-price">${{$productDetails->options->estimated_price}}</span>
                   @endif
                </div>
 
@@ -118,9 +111,7 @@
                         @if(!$productDetails->auctions[0]->user->image)
                         <i class="glyphicon glyphicon-user"></i>
                         @else
-                        <img
-                           src="<?php echo url('storage/'.$productDetails->auctions[0]->user->image);?>"
-                           alt="bidder-image" />
+                        <img src="<?php echo url('storage/' . $productDetails->auctions[0]->user->image); ?>" alt="bidder-image" />
                         @endif
                      </div>
                   </div>
@@ -269,5 +260,19 @@
    function getValueOf(id) {
       return $("#" + id).val();
    }
+
+   $(() => {
+      console.log('here on mount');
+      console.log('window', window.location)
+      const slugArr = window.location.pathname.split('/');
+      const slug = slugArr[2];
+      console.log('_____________slug__________', slug);
+      let seeClient = new EventSource(`/auction/${slug}`);
+      seeClient.addEventListener("message", function(e) {
+         console.log(e);
+      }, false);
+      console.log('_____________seeClient__________', seeClient);
+
+   })
 </script>
 @endsection

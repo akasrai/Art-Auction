@@ -9,6 +9,7 @@ Route::get('/contact', 'HomeController@getContactInfo');
 Route::get('/search', 'SearchProductController@search')->name('product.search');
 
 Route::get('/auction/{productSlug}', 'ProductController@getAuctionBySlug');
+Route::get('/auction/l/{productSlug}', 'ProductController@getLatestAuction');
 Route::get('/product/{productSlug}', 'ProductController@getProductBySlug');
 Route::get('/category/{category}', 'ProductController@getByCategory');
 
@@ -84,10 +85,10 @@ Route::prefix('admin')->group(function () {
     Route::GET('/mark-delivered/{orderId}', 'Myadmin\ProductOrderController@markAsDelivered');
 });
 
- // Setting locale
- Route::get('welcome/{locale}', function ($locale) {
-     App::setLocale($locale);
- });
+// Setting locale
+Route::get('welcome/{locale}', function ($locale) {
+    App::setLocale($locale);
+});
 
 //Route::get('/', 'ChatsController@index');
 //Route::get('messages', 'ChatsController@fetchMessages');

@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'century-gothic';
-  src: url('../fonts/century-gothic/Century\ Gothic.ttf') format('truetype'); /* Safari, Android, iOS */
+  font-family: "century-gothic";
+  src: url("../fonts/century-gothic/Century\ Gothic.ttf") format("truetype"); /* Safari, Android, iOS */
 }
 
 body {
@@ -31,7 +31,7 @@ h3,
 }
 
 .product-header {
-  font-family: 'century-gothic';
+  font-family: "century-gothic";
 }
 
 .product-header h1 {
@@ -76,7 +76,7 @@ h3,
 
 /* Watermark for Product option */
 .option-watermark {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   width: 100%;
   position: absolute;
   top: 20%;
@@ -110,7 +110,7 @@ h3,
 }
 
 .product-title h2 {
-  font-family: 'century-gothic';
+  font-family: "century-gothic";
   font-size: 14px;
   font-weight: bold;
   margin: 0;
@@ -119,7 +119,7 @@ h3,
 }
 
 .product-title h3 {
-  font-family: 'century-gothic';
+  font-family: "century-gothic";
   font-size: 14px;
   font-weight: bold;
   color: red;
@@ -127,7 +127,7 @@ h3,
 }
 
 .product-title p {
-  font-family: 'century-gothic';
+  font-family: "century-gothic";
   font-size: 12px;
   font-weight: bold;
   margin: 0;
@@ -169,7 +169,7 @@ h3,
 }
 
 .featured-product-title h2 {
-  font-family: 'century-gothic';
+  font-family: "century-gothic";
   font-weight: bolder;
   font-size: 25px;
   margin: auto;
@@ -177,7 +177,7 @@ h3,
 }
 
 .featured-product-title p {
-  font-family: 'century-gothic';
+  font-family: "century-gothic";
   font-size: 16px;
   margin: auto;
 }
@@ -427,7 +427,7 @@ input.search-input:focus {
 /* Style the arrow inside the select element: */
 .select-selected:after {
   position: absolute;
-  content: '';
+  content: "";
   top: 14px;
   right: 10px;
   width: 0;
@@ -483,7 +483,7 @@ input.search-input:focus {
 }
 
 .navbar-brand {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 20px;
   font-weight: bold;
   color: white !important;
@@ -741,7 +741,7 @@ input.search-input:focus {
   bottom: 100%;
   left: 89%;
   border: solid transparent;
-  content: ' ';
+  content: " ";
   height: 0;
   width: 0;
   position: absolute;
@@ -847,7 +847,7 @@ input.search-input:focus {
   bottom: 100%;
   left: 89%;
   border: solid transparent;
-  content: ' ';
+  content: " ";
   height: 0;
   width: 0;
   position: absolute;

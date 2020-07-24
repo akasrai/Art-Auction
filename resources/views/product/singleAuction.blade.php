@@ -6,16 +6,12 @@
          @if($productDetails)
          <div class="col-md-4 colsm-12 col-xs-12 product-image-frame">
             <div class="image-large-view">
-               <img id="image-large-view"
-                  src="<?php echo url('storage/'.$productDetails->images[0]->image_url)?>"
-                  alt="image">
+               <img id="image-large-view" src="<?php echo url('storage/' . $productDetails->images[0]->image_url) ?>" alt="image">
             </div>
             <div class="image-thumbnail-wrapper">
                @foreach($productDetails->images as $image)
                <div class="col-md-3 col-sm-3 col-xs-3 no-padding image-thumbnail">
-                  <img onclick="changeImage(this.src)"
-                     src="<?php echo url('storage/'.$image->image_url)?>"
-                     alt="image">
+                  <img onclick="changeImage(this.src)" src="<?php echo url('storage/' . $image->image_url) ?>" alt="image">
                </div>
                @endforeach
             </div>
@@ -76,8 +72,7 @@
                   </a>
                   @else
                   @if($productDetails->status == 1)
-                  <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#bidding-details"
-                     href="javascript:void(0)">@lang('messages.bid')</a>
+                  <a class="btn btn-info col-md-12" data-toggle="modal" data-target="#bidding-details" href="javascript:void(0)">@lang('messages.bid')</a>
                   @endif
                   @endguest
                </div>
@@ -100,47 +95,47 @@
                <div class="col-md-12 final-sale-price-section">
                   <span class="pull-left final-sale-label">Current sales price</span>
                   @if(sizeof($productDetails->auctions)>0)
-                  <span
-                     class="pull-right final-sale-price current-price">${{$productDetails->auctions[0]->bid_price}}</span>
+                  <span class="pull-right final-sale-price current-price">${{$productDetails->auctions[0]->bid_price}}</span>
                   @else
-                  <span
-                     class="pull-right final-sale-price current-price">${{$productDetails->options->estimated_price}}</span>
+                  <span class="pull-right final-sale-price current-price">${{$productDetails->options->estimated_price}}</span>
                   @endif
                </div>
 
-               <div class="col-md-12 highest-bidder">
-                  <div class="col-md-12 no-padding highest-bidder-label">
-                     <span>Current Highest Bidder</span>
-                  </div>
-                  @if(sizeof($productDetails->auctions)>0)
-                  <div class="no-padding col-md-2">
-                     <div class="highest-bidder-image">
-                        @if(!$productDetails->auctions[0]->user->image)
-                        <i class="glyphicon glyphicon-user"></i>
-                        @else
-                        <img
-                           src="<?php echo url('storage/'.$productDetails->auctions[0]->user->image);?>"
-                           alt="bidder-image" />
-                        @endif
+               <div id='highestBidder'>
+                  <div class="col-md-12 highest-bidder">
+
+                     <div class="col-md-12 no-padding highest-bidder-label">
+                        <span>Current Highest Bidder</span>
                      </div>
+                     @if(sizeof($productDetails->auctions)>0)
+                     <div class="no-padding col-md-2">
+                        <div class="highest-bidder-image">
+                           @if(!$productDetails->auctions[0]->user->image)
+                           <i class="glyphicon glyphicon-user"></i>
+                           @else
+                           <img src="<?php echo url('storage/' . $productDetails->auctions[0]->user->image); ?>" alt="bidder-image" />
+                           @endif
+                        </div>
+                     </div>
+                     <div class="no-padding col-md-10 highest-bidder-name">
+                        <span class="current-highest-bidder">{{$productDetails->auctions[0]->user->fname}}
+                           {{$productDetails->auctions[0]->user->lname}}</span>
+                     </div>
+                     <div class="no-padding col-md-12">
+                        <span id="bidder-comment">
+                           {{$productDetails->auctions[0]->comment}}
+                        </span>
+                     </div>
+                     @else
+                     <div class="no-padding col-md-12">
+                        <span>
+                           No bid has been placed yet in this product.
+                        </span>
+                     </div>
+                     @endif
                   </div>
-                  <div class="no-padding col-md-10 highest-bidder-name">
-                     <span class="current-highest-bidder">{{$productDetails->auctions[0]->user->fname}}
-                        {{$productDetails->auctions[0]->user->lname}}</span>
-                  </div>
-                  <div class="no-padding col-md-12">
-                     <span id="bidder-comment">
-                        {{$productDetails->auctions[0]->comment}}
-                     </span>
-                  </div>
-                  @else
-                  <div class="no-padding col-md-12">
-                     <span>
-                        No bid has been placed yet in this product.
-                     </span>
-                  </div>
-                  @endif
                </div>
+
 
                <div class="col-md-12 no-padding latest-bidder">
                   @if(sizeof($productDetails->auctions)>0)
@@ -269,5 +264,36 @@
    function getValueOf(id) {
       return $("#" + id).val();
    }
+
+   $(() => {
+      const slugArr = window.location.pathname.split('/');
+      const slug = slugArr[2];
+      let seeClient = new EventSource(`/auction/l/${slug}`);
+
+      seeClient.addEventListener("message", function(e) {
+         const res = JSON.parse(e.data);
+         if (res.length) {
+            const [highestBidderData] = res;
+            if (highestBidderData) {
+               const bidderName = highestBidderData.user.name;
+               const bidComment = highestBidderData.comment;
+               const imgContent = highestBidderData.user.image ? `<img src="/storage/${highestBidderData.user.image}" alt="bidder-image" />` : `<i class="glyphicon glyphicon-user"></i>`
+               $(".highest-bidder-image").html(imgContent);
+               $(".current-highest-bidder").html(bidderName);
+               $("#bidder-comment").html(bidComment);
+            }
+         }
+
+      }, false);
+
+      seeClient.addEventListener('error', event => {
+         if (event.readyState == EventSource.CLOSED) {
+            console.error('Event was closed');
+            console.log(EventSource);
+         }
+      }, false);
+
+
+   })
 </script>
 @endsection

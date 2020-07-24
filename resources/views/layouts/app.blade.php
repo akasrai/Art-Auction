@@ -9,9 +9,9 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script type="text/javascript">
-  window.Laravel = {
-    csrfToken: '{{ csrf_token()}}'
-  }
+    window.Laravel = {
+      csrfToken: '{{ csrf_token()}}'
+    }
   </script>
 
   <title>{{ config('app.name', 'Thanka Auction') }}</title>
@@ -47,34 +47,34 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="{{ asset('js/custom-select.js') }}"></script>
   <script>
-  $("#cart").on("click", function() {
-    if ($(".shopping-cart").hasClass("hide"))
-      $(".shopping-cart").removeClass("hide");
-    else
-      $(".shopping-cart").fadeToggle("fast");
-  });
+    $("#cart").on("click", function() {
+      if ($(".shopping-cart").hasClass("hide"))
+        $(".shopping-cart").removeClass("hide");
+      else
+        $(".shopping-cart").fadeToggle("fast");
+    });
 
-  $("#user-logout-option").on("click", function() {
-    if ($(".user-drop-down-option").hasClass("hide"))
-      $(".user-drop-down-option").removeClass("hide");
-    else
-      $(".user-drop-down-option").fadeToggle("fast");
-  });
+    $("#user-logout-option").on("click", function() {
+      if ($(".user-drop-down-option").hasClass("hide"))
+        $(".user-drop-down-option").removeClass("hide");
+      else
+        $(".user-drop-down-option").fadeToggle("fast");
+    });
 
-  $(window).click(function(e) {
-    if ($(e.target).closest('.user-drop-down-option').length == 0 && $(e.target).closest(
-        '#user-logout-option').length == 0) {
-      $(".user-drop-down-option").hide();
-    }
-  });
+    $(window).click(function(e) {
+      if ($(e.target).closest('.user-drop-down-option').length == 0 && $(e.target).closest(
+          '#user-logout-option').length == 0) {
+        $(".user-drop-down-option").hide();
+      }
+    });
 
-  $(window).click(function(e) {
-    if ($(e.target).closest('.shopping-cart').length == 0 && $(e.target).closest('#cart').length == 0) {
-      $(".shopping-cart").hide();
-    }
-  });
+    $(window).click(function(e) {
+      if ($(e.target).closest('.shopping-cart').length == 0 && $(e.target).closest('#cart').length == 0) {
+        $(".shopping-cart").hide();
+      }
+    });
 
-  let originalPrice, discountPercentage, priceAfterDiscount;
+    let originalPrice, discountPercentage, priceAfterDiscount;
   </script>
   @yield('scripts')
 </body>

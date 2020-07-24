@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Session;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\CartService;
 use App\Services\ProductService;
@@ -35,9 +36,9 @@ class ProductController extends Controller
         $productDetails = $this->productService->getBySlug($productSlug);
 
         return view('product.singleAuction')
-                ->with('user', $user)
-                ->with('categories', $categories)
-                ->with('productDetails', $productDetails);
+            ->with('user', $user)
+            ->with('categories', $categories)
+            ->with('productDetails', $productDetails);
     }
 
     public function getProductBySlug($productSlug)
@@ -46,8 +47,8 @@ class ProductController extends Controller
         $productDetails = $this->productService->getBySlug($productSlug);
 
         return view('product.singleProduct')
-                ->with('categories', $categories)
-                ->with('productDetails', $productDetails);
+            ->with('categories', $categories)
+            ->with('productDetails', $productDetails);
     }
 
     public function getByCategory($category)
@@ -57,9 +58,9 @@ class ProductController extends Controller
         $products = $this->productService->getAllByCategoryName($category, 30);
 
         return view('product.categoryPage')
-                ->with('category', $categoryName)
-                ->with('products', $products)
-                ->with('categories', $categories);
+            ->with('category', $categoryName)
+            ->with('products', $products)
+            ->with('categories', $categories);
     }
 
     public function addToCart($slug)
@@ -75,7 +76,7 @@ class ProductController extends Controller
     {
         $cart = $this->cartService->removeFromCart($id);
         Session::flash('success', 'Item removed!');
-        
+
         return redirect()->back();
     }
 
@@ -89,19 +90,50 @@ class ProductController extends Controller
     {
         $categories = $this->categoryService->getAllCategories();
         $productsOnAuction = $this->productService->getAvailableProductsByProductOption(1, 30);
-       
+
         return view('product.auctionPage')
-                ->with('categories', $categories)
-                ->with('products', $productsOnAuction);
+            ->with('categories', $categories)
+            ->with('products', $productsOnAuction);
     }
 
     public function getShop()
     {
         $categories = $this->categoryService->getAllCategories();
         $productsOnSell = $this->productService->getAllByProductOption(0, 12);
-       
+
         return view('product.shoppingPage')
-                ->with('categories', $categories)
-                ->with('products', $productsOnSell);
+            ->with('categories', $categories)
+            ->with('products', $productsOnSell);
+    }
+
+    public function getLatestAuction($productSlug)
+    {
+        $response = new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($productSlug) {
+            while (true) {
+                $productDetails =   $this->productService->getBySlug($productSlug);
+                $auctions = $productDetails->auctions;
+                $data = [];
+                foreach ($auctions as $key => $auc) {
+                    $user = User::find($auc->user_id);
+                    $data[$key]['user']['name'] = $user->fname . " " . $user->lname;
+                    $data[$key]['user']['image'] = $user->image;
+                    $data[$key]['bidPrice'] = $auc->bid_price;
+                    $data[$key]['comment'] = $auc->comment;
+                    $data[$key]['createdAt'] = $auc->created_at;
+                    $data[$key]['auc'] = $auc;
+                }
+                if (isset($data)) {
+                    echo "data: " . json_encode($data) . "\n\n";
+                    ob_end_flush();
+                    flush();
+                }
+                sleep(4);
+            }
+        });
+
+        $response->headers->set("Content-Type", "text/event-stream");
+        $response->headers->set("X-Accel-Buffering", "no");
+        $response->headers->set("Cache-Control", "no-cache");
+        return $response;
     }
 }

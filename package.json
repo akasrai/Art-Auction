@@ -17,7 +17,7 @@
     "cross-env": "^5.1",
     "jquery": "^3.5",
     "laravel-mix": "^5.0.4",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "resolve-url-loader": "^3.1.0",
     "sass": "^1.26.3",
     "vue-template-compiler": "^2.6.11"
